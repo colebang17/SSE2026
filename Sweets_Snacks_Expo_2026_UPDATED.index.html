@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sweets & Snacks Expo 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --candy-pink: #FF3E6C;
+    --candy-yellow: #FFD600;
+    --candy-teal: #00C9A7;
+    --bg: #0F0F12;
+    --surface: #1A1A20;
+    --surface2: #22222A;
+    --border: #2E2E38;
+    --text: #F2F2F5;
+    --muted: #888899;
+    --star: #FFD600;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #1A1A20 0%, #0F0F12 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 16px 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .candy-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    flex: 1;
+  }
+
+  header .expo-date {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 10px;
+  }
+
+  /* SEARCH / FILTER */
+  .controls {
+    display: flex;
+    gap: 8px;
+  }
+
+  .search-wrap {
+    flex: 1;
+    position: relative;
+  }
+
+  .search-wrap svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  input[type="search"] {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    padding: 8px 8px 8px 34px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input[type="search"]:focus { border-color: var(--candy-pink); }
+  input[type="search"]::placeholder { color: var(--muted); }
+
+  .filter-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.78rem;
+    padding: 6px 10px;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+
+  .filter-btn.active {
+    background: var(--candy-pink);
+    border-color: var(--candy-pink);
+    color: #fff;
+  }
+
+  /* TABS */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+
+  .tab {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 12px 18px;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .tab.active { color: var(--candy-pink); }
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--candy-pink);
+    border-radius: 2px 2px 0 0;
+  }
+
+  /* PANELS */
+  .panel { display: none; padding: 12px 12px 0; }
+  .panel.active { display: block; }
+
+  /* PRIORITY MEETINGS */
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+
+  /* MEETING CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .card-header {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    padding: 14px;
+    user-select: none;
+  }
+
+  .booth-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--candy-yellow);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    min-width: 52px;
+    padding: 4px 8px;
+    text-align: center;
+  }
+
+  .card-info { flex: 1; min-width: 0; }
+
+  .card-brand {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .card-meta {
+    color: var(--muted);
+    font-size: 0.76rem;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .card-right {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+  }
+
+  .owner-chip {
+    background: var(--surface2);
+    border-radius: 6px;
+    color: var(--candy-teal);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 7px;
+  }
+
+  .star-btn {
+    background: none;
+    border: none;
+    color: var(--border);
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 2px;
+    transition: color 0.15s, transform 0.15s;
+  }
+  .star-btn.starred { color: var(--star); }
+  .star-btn:active { transform: scale(1.3); }
+
+  .chevron {
+    color: var(--muted);
+    font-size: 0.75rem;
+    transition: transform 0.2s;
+  }
+  .card.open .chevron { transform: rotate(180deg); }
+
+  /* EXPANDED BODY */
+  .card-body {
+    border-top: 1px solid var(--border);
+    display: none;
+    padding: 14px;
+  }
+  .card.open .card-body { display: block; }
+
+  /* CONTACTS TABLE */
+  .contacts-section { margin-bottom: 14px; }
+  .contacts-label {
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .contact-row {
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    padding: 8px 0;
+  }
+  .contact-row:last-child { border-bottom: none; }
+
+  .contact-avatar {
+    align-items: center;
+    background: var(--surface2);
+    border-radius: 50%;
+    color: var(--muted);
+    display: flex;
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    height: 30px;
+    justify-content: center;
+    width: 30px;
+  }
+
+  .contact-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .contact-title {
+    color: var(--muted);
+    font-size: 0.74rem;
+    margin-top: 1px;
+  }
+
+  .engagement-pip {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+    gap: 2px;
+    margin-left: auto;
+  }
+  .pip {
+    background: var(--border);
+    border-radius: 2px;
+    height: 10px;
+    width: 4px;
+  }
+  .pip.lit { background: var(--candy-teal); }
+  .pip.lit.hot { background: var(--candy-pink); }
+
+  .key-contact { position: relative; }
+  .key-contact .contact-name::after {
+    content: ' ★';
+    color: var(--candy-yellow);
+    font-size: 0.7rem;
+  }
+
+  /* NOTES AREA */
+  .notes-label {
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    min-height: 80px;
+    outline: none;
+    padding: 10px;
+    resize: vertical;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  textarea:focus { border-color: var(--candy-teal); }
+  textarea::placeholder { color: var(--muted); opacity: 0.7; }
+
+  .save-note-btn {
+    background: var(--candy-teal);
+    border: none;
+    border-radius: 8px;
+    color: #0F0F12;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 6px;
+    padding: 8px 14px;
+    transition: opacity 0.15s;
+  }
+  .save-note-btn:active { opacity: 0.8; }
+  .saved-flash {
+    color: var(--candy-teal);
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-left: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .saved-flash.show { opacity: 1; }
+
+  /* STATUS PILL */
+  .status-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .status-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    transition: all 0.15s;
+  }
+  .status-pill.selected {
+    color: #0F0F12;
+    font-weight: 600;
+  }
+  .status-pill[data-s="visited"].selected { background: var(--candy-teal); border-color: var(--candy-teal); }
+  .status-pill[data-s="followup"].selected { background: var(--candy-pink); border-color: var(--candy-pink); }
+  .status-pill[data-s="skip"].selected { background: #555; border-color: #555; }
+
+  /* AE row */
+  .ae-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .ae-input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    padding: 7px 10px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .ae-input:focus { border-color: var(--candy-yellow); }
+  .ae-input::placeholder { color: var(--muted); opacity: 0.7; }
+  .ae-input::before { content: 'AE: '; }
+
+  /* EMPTY STATE */
+  .empty {
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  /* SUMMARY CARD */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .stat-num.pink { color: var(--candy-pink); }
+  .stat-num.yellow { color: var(--candy-yellow); }
+  .stat-num.teal { color: var(--candy-teal); }
+  .stat-label { color: var(--muted); font-size: 0.72rem; margin-top: 4px; }
+
+  .notes-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .notes-summary-header {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 10px 14px;
+    text-transform: uppercase;
+  }
+  .note-summary-row {
+    border-bottom: 1px solid var(--border);
+    padding: 10px 14px;
+  }
+  .note-summary-row:last-child { border-bottom: none; }
+  .note-summary-brand { font-size: 0.85rem; font-weight: 600; }
+  .note-summary-text { color: var(--muted); font-size: 0.78rem; margin-top: 3px; }
+  .no-notes { color: var(--muted); font-size: 0.82rem; padding: 16px 14px; }
+
+  .export-badge {
+    background: #1a3a2a;
+    border: 1px solid #2d6b4a;
+    border-radius: 5px;
+    color: #4ade80;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .card-desc {
+    color: var(--muted);
+    font-size: 0.74rem;
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="candy-dot" style="background:var(--candy-pink)"></div>
+    <div class="candy-dot" style="background:var(--candy-yellow)"></div>
+    <div class="candy-dot" style="background:var(--candy-teal)"></div>
+    <h1>Sweets &amp; Snacks Expo</h1>
+    <span class="expo-date">May 2026</span>
+  </div>
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" id="searchInput" placeholder="Search brands or contacts…">
+    </div>
+    <button class="filter-btn" id="starFilter" onclick="toggleStarFilter()">⭐ Starred</button>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="tab active" onclick="switchTab('priority', this)">Priority</button>
+  <button class="tab" onclick="switchTab('all', this)">Outreach Accounts</button>
+  <button class="tab" onclick="switchTab('exhibitors', this)">All Exhibitors</button>
+  <button class="tab" onclick="switchTab('summary', this)">Summary</button>
+</div>
+
+<div id="tab-priority" class="panel active"></div>
+<div id="tab-all" class="panel"></div>
+<div id="tab-exhibitors" class="panel"></div>
+<div id="tab-summary" class="panel">
+  <div class="summary-grid">
+    <div class="stat-card">
+      <div class="stat-num pink" id="stat-total">0</div>
+      <div class="stat-label">Total Brands</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num yellow" id="stat-visited">0</div>
+      <div class="stat-label">Visited</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num teal" id="stat-followup">0</div>
+      <div class="stat-label">Follow-up</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-notes" style="color:var(--muted)">0</div>
+      <div class="stat-label">With Notes</div>
+    </div>
+  </div>
+  <div class="notes-summary">
+    <div class="notes-summary-header">📝 Notes Summary</div>
+    <div id="notes-summary-list"></div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const priorityMeetings = [
+  { booth: '4437', brand: 'Carl Buddig',            owner: 'Cole',     contacts: [{name:'Thomas Clark', title:'Director of Sales'}] },
+  { booth: '3105', brand: 'Jel Sert',               owner: 'Cole',     contacts: [{name:'Kate Howard', title:'VP of Mass, Club & International'},{name:'Patrick Koralewski',title:'VP of Sales, Grocery & Alternative',key:true},{name:'Megan Gaustad',title:'Director, Customer Marketing',key:true},{name:'Andrew Mueller',title:'Ecommerce Sales Manager'},{name:'Jeff Delaere',title:'Director, Ecommerce'}] },
+  { booth: '4733', brand: 'Barebells (Vitamin Well)', owner: 'Mikayel', contacts: [{name:'David Luks', title:'EVP'}] },
+  { booth: '2001', brand: 'Legendary Foods',         owner: 'Evan',    contacts: [] },
+  { booth: '4457', brand: 'Olyra',                   owner: 'Grant',   contacts: [{name:'Jared Adelstein', title:'Director of Sales'}] },
+  { booth: '4079', brand: 'Elavi',                   owner: '',        contacts: [{name:'Michelle Razavi', title:'CEO'}] },
+  { booth: '4046', brand: 'Joyride',                 owner: '',        contacts: [] },
+];
+
+const allBooths = [
+  { booth:'4317', brand:'1440 Foods',        contacts:[{name:'Michael Burkett',title:'Chief Sales Officer',key:true,eng:6},{name:'Lawrence Nastelon',title:'Sr. Director of Strategy and Performance',key:true,eng:3},{name:'Amie Testerman',title:'VP, Marketing & Innovation',eng:7}] },
+  { booth:'3170', brand:'1st Phorm',         contacts:[{name:'John Wiltgen',title:'Ecommerce, Director',eng:2},{name:'Brian Huberfield',title:'Shopper Marketing Manager',key:true,eng:14},{name:'Mike Zirngibl',title:'Marketing, Director',eng:6}] },
+  { booth:'1446', brand:'Albanese Confectionery Group', contacts:[{name:'Leslie Simonovski',title:'Marketing Manager',key:true,eng:4},{name:'Adam Dill',title:'VP, Confectionery Sales',eng:2},{name:'Jocelyn Rahn',title:'VP, Sales Nutrition',eng:2}] },
+  { booth:'2955', brand:'Amos Sweets Inc.',  contacts:[{name:'Matt Herrmann',title:'USA General Manager'},{name:'Kevin Singh',title:'Senior Category Manager'},{name:'Stoyanka Dimitrova',title:'Director, Commercial Marketing'}] },
+  { booth:'4147', brand:'Archer',            contacts:[{name:'Andrew Thomas',title:'VP, Marketing',key:true,eng:5},{name:'Brett Burbach',title:'Digital Marketing Manager',key:true},{name:'Brad Einck',title:'SVP, Large Format Retail Sales',eng:2},{name:'Travis Pasternak',title:'Director, Large Format Sales',eng:5},{name:'Josh Steinthal',title:'VP of Sales - Grocery',eng:2}] },
+  { booth:'3431', brand:'Bazooka Brands',    contacts:[{name:'Christopher Lomino',title:'SVP, Sales & Customer Marketing',key:true,eng:4},{name:'Francisco Lyons',title:'Director of Ecommerce Media',key:true,eng:4}] },
+  { booth:'3321', brand:'Candy Dynamics',    contacts:[{name:'Laura King',title:'President',eng:3},{name:'Haley Peyron',title:'Marketing Manager',key:true,eng:6}] },
+  { booth:'3665', brand:"Dippin' Dots",      contacts:[{name:'Dana Knudsen',title:'Senior Director of Marketing',eng:2},{name:'Elizabeth Keyes',title:'Digital Marketing Manager',key:true,eng:3}] },
+  { booth:'4047', brand:'Drizzilicious Snacks', contacts:[{name:'Michael Cytryn',title:'Digital Marketing Specialist',key:true,eng:1},{name:'Allen Benz',title:'Chief Snackologist',eng:3},{name:'Jack Benz',title:'VP of Sales',key:true,eng:7},{name:'Nathan Benz',title:'Director of Private Label Sales',eng:4}] },
+  { booth:'1363', brand:'Feastables',        contacts:[{name:'Bryan Waddell',title:'CMO',eng:1},{name:'Danny Bowers',title:'Director, Insights',eng:4},{name:'Anna Pan',title:'Director, Omnichannel & Shopper Marketing',key:true,eng:6},{name:'Philip Chan',title:'Manager, Trade',eng:2},{name:'Josh Wooley',title:'SVP, Global Head of Sales',eng:3}] },
+  { booth:'3971', brand:'GoMacro',           contacts:[{name:'Megan Meek',title:'Sales Director, Mass & Club',key:true,eng:1},{name:'Parker Gruening',title:'Manager, Marketing'},{name:'Dan Hickle',title:'SVP, Head of Marketing'},{name:'Jim Grace',title:'Director of Sales',eng:1}] },
+  { booth:'3105', brand:'Jel Sert Company',  contacts:[{name:'Andrew Mueller',title:'Ecommerce Sales Manager',eng:4},{name:'Patrick Koralewski',title:'VP of Sales, Grocery & Alternative',key:true,eng:8},{name:'Jeff Delaere',title:'Director, Ecommerce',eng:1},{name:'Megan Gaustad',title:'Director, Customer Marketing',key:true,eng:10}] },
+  { booth:'1578', brand:'Just Ingredients',  contacts:[{name:'Jordan Salisbury',title:'Paid Media Manager',eng:2}] },
+  { booth:'2472', brand:'LesserEvil',        contacts:[{name:'Josh Reed',title:'VP, Sales',eng:3},{name:'Caitlin Mack',title:'Director, Brand Marketing',eng:3},{name:'Corey Baker',title:'Director, Sales National Accounts',eng:2}] },
+  { booth:'2963', brand:'McKee Foods',       contacts:[{name:'Deris Bagli',title:'Director of Sales',eng:1},{name:'Jeff Badger',title:'VP, Marketing',eng:1},{name:'Jennifer Cummins-Askew',title:'Marketing Ops & Advertising',eng:1}] },
+  { booth:'5005', brand:'Morinaga America (HI-CHEW)', contacts:[{name:'Takuma Oka',title:'Chief Sales Officer',eng:6},{name:'Crissy Gooding',title:'Ecommerce Specialist (HI-CHEW)',eng:10}] },
+  { booth:'4371', brand:'MTN OPS',           contacts:[{name:'Lola Born',title:'Digital Marketing Manager'}] },
+  { booth:'4672', brand:'Muddy Bites',       contacts:[{name:'Jared Steffes',title:'Co-Founder'},{name:'Stephanie Para',title:'CEO'},{name:'Leonardo Ruiz-Sanchez',title:'COO'}] },
+  { booth:'4837', brand:'Oberto Snacks',     contacts:[{name:'Andrea Cornejo',title:'Marketing Director',eng:5},{name:'Charles Newby',title:'Sr. Ecommerce Manager',eng:4},{name:'Laura Konegni',title:'Director, Category Strategy & Insights',eng:2},{name:'Jeromy Jones',title:'GM & VP of Sales',eng:1},{name:'Mary Weyenberg',title:'Sr. Marketing Director',eng:2}] },
+  { booth:'4452', brand:"Oh Snap! Pickling Co.", contacts:[{name:'Nic Olbrantz',title:'VP, Sales & Marketing'}] },
+  { booth:'3547', brand:'PEZ Candy, Inc.',   contacts:[{name:'Jeff Goodyear',title:'Marketing Manager',eng:2}] },
+  { booth:'1861', brand:'pladis North America', contacts:[{name:'Mike Dillon',title:'Head of Brand & Shopper Engagement'}] },
+  { booth:'2631', brand:'Smarties Candy Co.',contacts:[{name:'Kerri Goral',title:'Director, Client Relations & Ecommerce',eng:2},{name:'Robert Babich',title:'National Sales Manager',eng:4},{name:'Kirsi Leminen',title:'Director, Digital & Social Strategy',eng:3}] },
+  { booth:'1835', brand:'Spangler Candy Co.',contacts:[{name:'Evan Brock',title:'Director, Marketing',eng:3},{name:'Glenn Hudspeath',title:'Walmart & Sam\'s Club',eng:2},{name:'Hal Kenety',title:'Director, Digital Commerce',eng:2}] },
+  { booth:'2068', brand:'The PUR Company',   contacts:[{name:'Jay Klein',title:'Founder & CEO',eng:4},{name:'Julia (Socha) Pitcher',title:'Director, Ecommerce',eng:2},{name:'Gloria Lopez-Gil',title:'Ecommerce Manager',eng:2}] },
+  { booth:'1523', brand:'Tillamook Country Smoker', contacts:[{name:'Curtis Springfield',title:'SVP, Sales & Category Management',eng:5},{name:'Pippa Mansdorf',title:'Interim CMO',eng:3},{name:'Steve Jennings',title:'VP, Sales Grocery, Mass & Club',eng:3},{name:'David Mysel',title:'VP, Sales Convenience',eng:6}] },
+  { booth:'2535', brand:'Tootsie Roll Industries', contacts:[{name:'Al Bleekly',title:'Digital Commerce Manager',eng:1}] },
+  { booth:'3864', brand:'Siete Foods',       contacts:[{name:'Eric Le',title:'Sr. Director, Growth Marketing',eng:1},{name:'Matt Gonzales',title:'Digital Marketing Manager',eng:1}] },
+  { booth:'2647', brand:'Just Born',         contacts:[{name:'Matt Butkus',title:'Head of Sales'},{name:'Cindy Ray',title:'Director of Sales, Walmart, Club & Ecommerce'},{name:'Elizabeth Hritz',title:'Regional Sales Manager, Grocery'},{name:'Keith Domalewski',title:'Director, Marketing & Consumer Engagement'}] },
+  { booth:'4274', brand:'The New Primal',    contacts:[{name:'Jason Burke',title:'Founder'},{name:'Krista Arnold',title:'VP, Marketing'},{name:'Jessica Green',title:'Senior Director, eCommerce'}] },
+  { booth:'1815', brand:'Vidal Candies, USA',contacts:[{name:'Paco Vidal',title:'CEO, President'},{name:'Matt Hanna',title:'Sales Director (Walmart)'},{name:'Bill Fenner',title:'Country Manager / Commercial Sales Director'}] },
+  { booth:'4613', brand:'Calbee North America', contacts:[] },
+  { booth:'4253', brand:'Rotten',            contacts:[] },
+  { booth:'4159', brand:'Solely',            contacts:[] },
+  { booth:'4646', brand:'Hickory Harvest',   contacts:[] },
+  { booth:'4470', brand:'Suntropics',        contacts:[] },
+  { booth:'4777', brand:'Final Boss Sour',   contacts:[] },
+  { booth:'4278', brand:'Snackish',          contacts:[] },
+  { booth:'4071', brand:'Froot Thief',       contacts:[] },
+  { booth:'3957', brand:'Chomps',            contacts:[] },
+  { booth:'4252', brand:'MadeGood',          contacts:[] },
+  { booth:'4053', brand:"Bobo's",            contacts:[] },
+];
+
+const allExhibitors = [
+  {brand:'1 in 6 Snacks',desc:'1 in 6 Snacks is a snack food company. Our brands include Carolina Kettle Potato Chips and Memaws Country Kitchen cookie',booth:'2601',exports:true,contacts:[]},
+  {brand:'1440 Foods',desc:'1440 Foods offers the best in high quality nutrition',booth:'4317',exports:false,contacts:[]},
+  {brand:'1st Phorm',desc:'',booth:'3170',exports:false,contacts:[]},
+  {brand:'1UP Candy',desc:'1UP Candy is a bold, flavor-forward candy brand',booth:'1779',exports:false,contacts:[]},
+  {brand:'3 Seasons Fruit Industry Co., Ltd.',desc:'We are a leading manufacturer of high-quality tropical fruit',booth:'1351',exports:false,contacts:[]},
+  {brand:'4 Aces - SmackEEZ',desc:'4 Aces Import is a trusted distributor',booth:'3517',exports:false,contacts:[]},
+  {brand:'71lbs',desc:'71lbs helps businesses reclaim shipping refunds',booth:'7211',exports:false,contacts:[]},
+  {brand:'72 Chocolate Collection',desc:'',booth:'2508',exports:true,contacts:[]},
+  {brand:'A&B Packing Equipment Inc.',desc:'A&B Packing Equipment offers innovative equipment',booth:'6505',exports:false,contacts:[]},
+  {brand:'A&J Novelty Company',desc:'Unique, candy items',booth:'5552',exports:false,contacts:[]},
+  {brand:'Aaron Thomas Company',desc:'',booth:'6104',exports:false,contacts:[]},
+  {brand:'Abdallah Candies Inc.',desc:'Abdallah Candies is a fifth-generation family owned candy manufacturer',booth:'3947',exports:false,contacts:[]},
+  {brand:'Abicab',desc:'The Brazilian Chocolate, Peanut and Candy Industry Association',booth:'4313',exports:false,contacts:[]},
+  {brand:'AbiMar Foods',desc:'',booth:'1501',exports:true,contacts:[]},
+  {brand:'Accredo Packaging',desc:'Accredo Packaging provides flexible packaging solutions',booth:'7019',exports:false,contacts:[]},
+  {brand:'Ace Packaging, Inc.',desc:'',booth:'7125',exports:false,contacts:[]},
+  {brand:'Actus Nutrition',desc:'Actus Nutrition is a leader in science-backed nutritional ingredients',booth:'6220',exports:false,contacts:[]},
+  {brand:'Adams & Brooks, Inc.',desc:'',booth:'2847',exports:true,contacts:[]},
+  {brand:'Aero-Cos International',desc:'Aerocos International Ltd. is a New Jersey-based international food company',booth:'1429',exports:true,contacts:[]},
+  {brand:'Alamo Protein',desc:'Alamo Protein is a Texas-based premium meat snack brand',booth:'5064',exports:true,contacts:[]},
+  {brand:'Albanese Confectionery Group, Inc.',desc:'Albanese Confectionery is the leading manufacturer of the World\'s Best Gummies',booth:'1446',exports:true,contacts:[]},
+  {brand:'Albany Foods Group',desc:'INSTANT RAMEN NOODLE MANUFACTURER',booth:'3511',exports:false,contacts:[]},
+  {brand:'Albero D\'Oro Premium Marasca Cherries',desc:'',booth:'4579',exports:false,contacts:[]},
+  {brand:'ALERT POP™',desc:'Alert Pop™ is a caffeine lollipop',booth:'5562',exports:true,contacts:[]},
+  {brand:'All That Sweet, Inc. - SNAX',desc:'We are proud to bring you a delightful range of candies',booth:'4905',exports:true,contacts:[]},
+  {brand:'Allied International Corp.',desc:'Founded in 1981, Allied International Corp.',booth:'2173',exports:true,contacts:[]},
+  {brand:'Allison\'s Fine Foods Ltd.',desc:'',booth:'1379',exports:false,contacts:[]},
+  {brand:'ALLMAX Nutrition',desc:'Founded in 1998, ALLMAX Nutrition is a legacy nutrition brand',booth:'1348',exports:false,contacts:[]},
+  {brand:'Alter Eco Foods',desc:'We make the best tasting, cleanest, greenest snacks on earth',booth:'1550',exports:false,contacts:[]},
+  {brand:'Alternative Air LLC',desc:'',booth:'3773',exports:false,contacts:[]},
+  {brand:'Alvoar Lacteos S/A / Embare',desc:'',booth:'4408',exports:false,contacts:[]},
+  {brand:'Amelio C. Enterprises, Inc.',desc:'Amelio C Enterprises, Inc. is a family-owned food manufacturing company',booth:'2478',exports:false,contacts:[]},
+  {brand:'American Continental',desc:'We are a small candy company offering value to the candy space',booth:'5058',exports:false,contacts:[]},
+  {brand:'American Licorice Company',desc:'The American Licorice Company, family-owned since 1914',booth:'1805',exports:true,contacts:[]},
+  {brand:'American Natural Processors',desc:'American Natural Processors is a 2nd generation manufacturer',booth:'7225',exports:false,contacts:[]},
+  {brand:'American Nuts',desc:'American Nuts brings a hands-on approach to the snack category',booth:'1373',exports:false,contacts:[]},
+  {brand:'American Scale',desc:'American Scale Company, established in 1946',booth:'6315',exports:false,contacts:[]},
+  {brand:'Amoretti',desc:'',booth:'7318',exports:false,contacts:[]},
+  {brand:'Amos Sweets Inc.',desc:'',booth:'2955',exports:false,contacts:[]},
+  {brand:'Ampersand Brands',desc:'',booth:'4411',exports:true,contacts:[]},
+  {brand:'Anahuac Candy Inc.',desc:'',booth:'2322',exports:false,contacts:[]},
+  {brand:'Ancient Grain Snack Bites by Good Source Foods',desc:'Come by booth 4576 to try our new Dubai Crunch',booth:'4576',exports:false,contacts:[]},
+  {brand:'Andersen\'s Crazy Candy',desc:'',booth:'1369',exports:false,contacts:[]},
+  {brand:'Anderson Advanced Ingredients',desc:'Since our first novel sweetener patent in 1989',booth:'6404',exports:false,contacts:[]},
+  {brand:'Angel Yeast Co., Ltd',desc:'Angel Yeast is one of the leading yeast manufacturers in the world',booth:'7307',exports:false,contacts:[]},
+  {brand:'ANHUI CLEVER MAMA FOOD SCIENCE AND TECHNOLOGY CO',desc:'Pioneer and largest ambient pudding manufacturers in China',booth:'5128',exports:false,contacts:[]},
+  {brand:'Anthem Snacks',desc:'',booth:'5012',exports:false,contacts:[]},
+  {brand:'Anthony-Thomas Candy Co.',desc:'For more than 74 years, Anthony-Thomas Candy Company has been a family-owned confectionery',booth:'3363',exports:false,contacts:[]},
+  {brand:'Antithesis Foods',desc:'',booth:'3870',exports:false,contacts:[]},
+  {brand:'Apple & Eve Fruit Snacks',desc:'',booth:'5328',exports:false,contacts:[]},
+  {brand:'Aptean',desc:'Aptean is a global provider of AI-powered industry-specific software',booth:'6502',exports:false,contacts:[]},
+  {brand:'Archer',desc:'Premium brand in jerky without compromising quality',booth:'4147',exports:false,contacts:[]},
+  {brand:'Ardent Mills',desc:'Ardent Mills is committed to transforming how the world is nourished',booth:'6613',exports:false,contacts:[]},
+  {brand:'Argires Snacks',desc:'Argires Snacks is an award-winning Midwest-based snack company',booth:'3370',exports:false,contacts:[]},
+  {brand:'Art of Sucre',desc:'Art of Sucre is a luxury cotton candy brand',booth:'5162',exports:false,contacts:[]},
+  {brand:'Arway - Long Grove Confections',desc:'Arway–Long Grove Confections is a family-owned Chicagoland manufacturer',booth:'3313',exports:false,contacts:[]},
+  {brand:'Asher\'s Chocolates',desc:'Asher\'s Chocolate Co. offers an award-winning selection of chocolates',booth:'5158',exports:true,contacts:[]},
+  {brand:'Astor Chocolate Corp.',desc:'',booth:'4359',exports:true,contacts:[]},
+  {brand:'Astra Sweets N.V.',desc:'Astra Sweets adds flavour to the confectionery sector',booth:'4662',exports:false,contacts:[]},
+  {brand:'Atkinson Candy Company',desc:'',booth:'2047',exports:true,contacts:[]},
+  {brand:'AWAKE Chocolate',desc:'AWAKE Chocolate is a functional confectionery brand',booth:'4568',exports:false,contacts:[]},
+  {brand:'AYC Naturals',desc:'AYC Naturals is a family-owned importer and distributor',booth:'1610',exports:true,contacts:[]},
+  {brand:'Bakewell Biscuits Pvt Ltd',desc:'',booth:'4400',exports:false,contacts:[]},
+  {brand:'Balchem',desc:'Balchem delivers science-driven ingredient solutions',booth:'7209',exports:false,contacts:[]},
+  {brand:'Bamboo House Food Co., Ltd.',desc:'',booth:'5212',exports:false,contacts:[]},
+  {brand:'BANGKOK COOKIES',desc:'Premium Whole Grain Snack producer from Thailand',booth:'2179',exports:false,contacts:[]},
+  {brand:'Bangkok Tasty Fruit Bar',desc:'',booth:'4475',exports:false,contacts:[]},
+  {brand:'Baobab Superfruit Bites',desc:'Everything begins with the baobab tree',booth:'4352',exports:false,contacts:[]},
+  {brand:'Barebells',desc:'Barebells was launched in 2016 to shake things up in the protein bar category',booth:'4733',exports:false,contacts:[]},
+  {brand:'Bariatrix Nutrition',desc:'Since 1978, Bariatrix has been a family business',booth:'4929',exports:false,contacts:[]},
+  {brand:'Barrington Packaging Systems Group',desc:'',booth:'6308',exports:false,contacts:[]},
+  {brand:'Barry Callebaut USA LLC',desc:'',booth:'2135',exports:false,contacts:[]},
+  {brand:'Basic Promotions II, Inc',desc:'Your partner in fun and flavor: Gel brands Kool-Aid, Jell-o, Calypso',booth:'3679',exports:false,contacts:[]},
+  {brand:'Basse Nuts',desc:'Bassé Nuts is a proud Canadian company with over 30 years of experience',booth:'4230',exports:false,contacts:[]},
+  {brand:'Batook Chewing Gum industries',desc:'A leading gum manufacturer of Saudi Arabia',booth:'2778',exports:false,contacts:[]},
+  {brand:'Bauducco Foods, Inc.',desc:'Bauducco is the world\'s largest producer of panettone',booth:'3717',exports:true,contacts:[]},
+  {brand:'Bazooka Brands',desc:'',booth:'3431',exports:false,contacts:[]},
+  {brand:'Bazzini',desc:'Manufacturer of fine confectionery products',booth:'2155',exports:true,contacts:[]},
+  {brand:'BCI Buckeye Corrugated, Inc.',desc:'',booth:'7411',exports:false,contacts:[]},
+  {brand:'Beanhut Corp.',desc:'Beanhut Corporation is a premier manufacturer of high-quality beverage and snack products',booth:'3671',exports:false,contacts:[]},
+  {brand:'Bedford Industries, Inc',desc:'Since 1965, Bedford has been a reliable supplier of twist ties',booth:'6206',exports:false,contacts:[]},
+  {brand:'Beefcake Jerky Co',desc:'Built from the ground up, with no shortcuts',booth:'4813',exports:false,contacts:[]},
+  {brand:'Beemax USA LLC',desc:'',booth:'3858',exports:true,contacts:[]},
+  {brand:'Bees go NutZ....Get the Buzz',desc:'Family owned and Operated, Bees Go Nutz',booth:'5540',exports:false,contacts:[]},
+  {brand:'BEHAVE Candy',desc:'',booth:'3876',exports:false,contacts:[]},
+  {brand:'Belco Packaging Systems Inc',desc:'In 1959, Belco Packaging Systems, Inc. was founded',booth:'7112',exports:false,contacts:[]},
+  {brand:'Belgian Chocolatier Ickx / Pralibel',desc:'',booth:'4779',exports:false,contacts:[]},
+  {brand:'Bell Flavors & Fragrances',desc:'Bell Flavors & Fragrances, Inc. is a leading supplier of flavors',booth:'6203',exports:false,contacts:[]},
+  {brand:'Belle\'s Gourmet Popcorn',desc:'Belle\'s Popcorn is a family-owned, award-winning snack company',booth:'5047',exports:false,contacts:[]},
+  {brand:'Bellis Food Solutions',desc:'Expert candy knowledge and mentorship',booth:'6303',exports:false,contacts:[]},
+  {brand:'Bequet Caramel',desc:'Béquet Caramel is the nation\'s premier gourmet caramel company',booth:'1669',exports:true,contacts:[]},
+  {brand:'Berbau',desc:'BERBAU - A world of colors and flavors',booth:'4305',exports:false,contacts:[]},
+  {brand:'Bespoke Foods USA',desc:'Bespoke Foods USA is the U.S. arm of Bespoke SGA',booth:'1469',exports:false,contacts:[]},
+  {brand:'Better Bovine',desc:'Better Bovine is a beef jerky brand focused on simplicity and quality',booth:'1580',exports:false,contacts:[]},
+  {brand:'Better Life Foods Inc',desc:'',booth:'1457',exports:false,contacts:[]},
+  {brand:'Better Made Snack Foods',desc:'Founded in 1930, Better Made Snack Foods offers a full line of salty snacks',booth:'4533',exports:true,contacts:[]},
+  {brand:'Better Sour',desc:'CANDY FOR FLAVOR SEEKERS',booth:'4379',exports:false,contacts:[]},
+  {brand:'Beyoglu Chocolate',desc:'As Beyoğlu Çikolata, a pioneer in the chocolate industry',booth:'5213',exports:false,contacts:[]},
+  {brand:'Bifa Biskuvi Ve Gida San. A.S.',desc:'',booth:'4755',exports:false,contacts:[]},
+  {brand:'Big Dipper Food Company',desc:'',booth:'3458',exports:false,contacts:[]},
+  {brand:'Big Ideas Marketing',desc:'',booth:'5053',exports:false,contacts:[]},
+  {brand:'Big One Group',desc:'Founded in 1989, Big One Group today is a leading confectionery company',booth:'3274',exports:false,contacts:[]},
+  {brand:'Big Sky Brands Inc.',desc:'',booth:'2304',exports:false,contacts:[]},
+  {brand:'Big Timmy\'s',desc:'Trail mix brand with unapologetic fun ingredients',booth:'5544',exports:false,contacts:[]},
+  {brand:'Bikaji Foods International Limited',desc:'Authentic Indian sweets and exciting new snacks',booth:'2973',exports:false,contacts:[]},
+  {brand:'Billie-Ann Plastics Packaging Corp.',desc:'',booth:'6015',exports:false,contacts:[]},
+  {brand:'BIMBO/BARCEL USA',desc:'Grupo Bimbo is the world\'s largest baking company',booth:'3565',exports:false,contacts:[]},
+  {brand:'Bind Chocolate',desc:'',booth:'3813',exports:false,contacts:[]},
+  {brand:'BIOFLEX',desc:'Bioflex is a Mexican company specialized in flexible and rigid packaging',booth:'6017',exports:false,contacts:[]},
+  {brand:'Biscomerica Corp.',desc:'',booth:'2229',exports:false,contacts:[]},
+  {brand:'Biscottificio Verona s.r.l. - Marini',desc:'Biscottificio Verona was founded in 1984',booth:'3673',exports:false,contacts:[]},
+  {brand:'Biscuit International',desc:'We are the leading private label biscuit manufacturer in Europe',booth:'5231',exports:false,contacts:[]},
+  {brand:'Bisko California Inc',desc:'',booth:'2178',exports:false,contacts:[]},
+  {brand:'Bitchin\' Sauce LLC',desc:'Born from a mom\'s heart and perfected at San Diego farmers markets',booth:'2274',exports:false,contacts:[]},
+  {brand:'Bite Brands',desc:'Bite Brands manufacturers Salty Snacks for Branded and Private Label',booth:'4227',exports:true,contacts:[]},
+  {brand:'Bites By Sweden – Swedish Candy',desc:'Bites By Sweden brings the best of Sweden\'s iconic candy culture',booth:'4179',exports:false,contacts:[]},
+  {brand:'Bixby Chocolate',desc:'Bixby Chocolate is an award-winning craft confectionery',booth:'4050',exports:true,contacts:[]},
+  {brand:'Black Pearl Raisins',desc:'We are a raisin packing company committed to delivering the highest standards',booth:'7120',exports:false,contacts:[]},
+  {brand:'Blindtiger Design',desc:'Blingtiger Design is a strategic branding and design agency',booth:'7121',exports:false,contacts:[]},
+  {brand:'Bliss Life Candy',desc:'Bliss Life Candy is a family-owned confectionery leader',booth:'5166',exports:false,contacts:[]},
+  {brand:'Blobs',desc:'',booth:'3974',exports:false,contacts:[]},
+  {brand:'Blommer Chocolate Company',desc:'',booth:'4239',exports:false,contacts:[]},
+  {brand:'Blue Education Stage',desc:'',booth:'5776',exports:false,contacts:[]},
+  {brand:'Blue Stripes',desc:'Blue Stripes upcycles the whole cacao',booth:'3873',exports:false,contacts:[]},
+  {brand:'Blue Unicorn',desc:'Blue Unicorn brings joy to healthy eating',booth:'5566',exports:false,contacts:[]},
+  {brand:'Bobo\'s',desc:'Bobo\'s crafts wholesome, delicious snacks made with high-quality ingredients',booth:'4053',exports:false,contacts:[]},
+  {brand:'Bokksu Originals x Sugoi Mart Wholesale',desc:'Your gateway to authentic Japanese snacks at wholesale prices',booth:'4708',exports:false,contacts:[]},
+  {brand:'BOLCI',desc:'BOLCI is one of the leading manufacturers of premium chocolate in Turkey',booth:'5015',exports:false,contacts:[]},
+  {brand:'Bold Maker™',desc:'',booth:'7409',exports:false,contacts:[]},
+  {brand:'Bon Appetit',desc:'',booth:'5137',exports:true,contacts:[]},
+  {brand:'Bonart',desc:'',booth:'2327',exports:false,contacts:[]},
+  {brand:'BonBon - A Swedish Candy Co.',desc:'The magical world of BonBon was founded in 2017',booth:'4701',exports:false,contacts:[]},
+  {brand:'Bonbons Richard',desc:'',booth:'4131',exports:false,contacts:[]},
+  {brand:'Bondy Fiesta',desc:'',booth:'4867',exports:false,contacts:[]},
+  {brand:'Bontoux, Inc.',desc:'',booth:'7018',exports:false,contacts:[]},
+  {brand:'Boo Boo\'s Candies',desc:'We are over a 100 years old! Tradition plays a daily role',booth:'1455',exports:false,contacts:[]},
+  {brand:'Boomin Brands',desc:'Coolioh Candy is a bold, fun candy brand',booth:'1254',exports:false,contacts:[]},
+  {brand:'Boston America Corp.',desc:'Boston America creates, designs, and distributes novelty candies',booth:'2313',exports:false,contacts:[]},
+  {brand:'Botanas Rancho Los Coyotes',desc:'',booth:'4863',exports:false,contacts:[]},
+  {brand:'Botanikind',desc:'BOTANIKind is a Swiss-global botanical ingredients company',booth:'7118',exports:false,contacts:[]},
+  {brand:'Bouchard Chocolate',desc:'Founded in 1931 in Ghent, Belgium, Bouchard Chocolate crafts premium Belgian chocolate',booth:'3176',exports:false,contacts:[]},
+  {brand:'Bourbon Foods USA',desc:'Headquartered in Niigata, Japan, Bourbon Corporation',booth:'3271',exports:false,contacts:[]},
+  {brand:'Boyer Candy Company, Inc.',desc:'',booth:'2328',exports:true,contacts:[]},
+  {brand:'Boylan Bottling & Cheerwine',desc:'Boylan Bottling is a heritage craft soda company',booth:'2374',exports:false,contacts:[]},
+  {brand:'BPM Inc. A Specialty Paper Mill',desc:'Original Facility built in 1919',booth:'6202',exports:false,contacts:[]},
+  {brand:'BranchOut Food',desc:'',booth:'3852',exports:true,contacts:[]},
+  {brand:'BrandFirst Creative Agency',desc:'',booth:'6515',exports:false,contacts:[]},
+  {brand:'Braven Bar',desc:'Braven® Bar is a delicious, nutritious energy boost',booth:'4372',exports:false,contacts:[]},
+  {brand:'breathROX',desc:'breathROX are sugar-free popping candy breath with zinc',booth:'1512',exports:false,contacts:[]},
+  {brand:'Brenntag Food & Nutrition',desc:'Brenntag Food & Nutrition is your global choice for beverage solutions',booth:'7107',exports:false,contacts:[]},
+  {brand:'Bridgford Foods',desc:'',booth:'4747',exports:true,contacts:[]},
+  {brand:'Brimhall Foods Company, Inc.',desc:'',booth:'2220',exports:false,contacts:[]},
+  {brand:'Britannia Industries LTD.',desc:'',booth:'3702',exports:false,contacts:[]},
+  {brand:'Brittle-Brittle, Inc.',desc:'At the core of Brittle-Brittle, Inc. beats a heart that echoes with a timeless tale',booth:'3077',exports:false,contacts:[]},
+  {brand:'Brooklyn Biltong',desc:'Tender slices of air-dried steak made with 3 base ingredients',booth:'3977',exports:false,contacts:[]},
+  {brand:'Brown & Haley',desc:'',booth:'2337',exports:true,contacts:[]},
+  {brand:'Bubblegum Kids',desc:'',booth:'3659',exports:false,contacts:[]},
+  {brand:'Built Brands',desc:'',booth:'3371',exports:true,contacts:[]},
+  {brand:'Bunge',desc:'Bunge, a global leader in fats and oils',booth:'7410',exports:false,contacts:[]},
+  {brand:'Buono (Thailand) Public Company Limited',desc:'Founded in 2000 in Nakhon Pathom, Buono Thailand',booth:'3879',exports:false,contacts:[]},
+  {brand:'Burke Candy & Ingredients Inc',desc:'Nearly a century-long tradition of fine gourmet ingredients',booth:'7406',exports:false,contacts:[]},
+  {brand:'Burlington Grain & Produce Company',desc:'Burlington Grain and Produce began in 2014',booth:'4625',exports:true,contacts:[]},
+  {brand:'Buttermints',desc:'In the sweet beginning of Buttermints back in 2013',booth:'4911',exports:false,contacts:[]},
+  {brand:'Buzz Bomb Caffeine Company',desc:'Buzz Bomb is a fast growing caffeine brand',booth:'1261',exports:false,contacts:[]},
+  {brand:'BWI, Inc.',desc:'BWI has been importing the best of British brands into the US for nearly 40 years',booth:'3826',exports:false,contacts:[]},
+  {brand:'C. Howard Company, Inc.',desc:'Since 1934 we have been producing the Choward\'s Violet mint',booth:'3747',exports:true,contacts:[]},
+  {brand:'CacaoConnect',desc:'',booth:'7220',exports:false,contacts:[]},
+  {brand:'CAL Marketing',desc:'C.A.L Marketing is a family-owned Australian business',booth:'4423',exports:false,contacts:[]},
+  {brand:'Calbee America Inc.',desc:'Welcome to Calbee America! Founded in Japan in 1949',booth:'4613',exports:false,contacts:[]},
+  {brand:'Calico Cottage, Inc.',desc:'',booth:'1347',exports:false,contacts:[]},
+  {brand:'California Natural Color',desc:'We are a supplier of fruit and vegetable concentrates',booth:'6306',exports:false,contacts:[]},
+  {brand:'California Nuggets Inc.',desc:'Family-owned and celebrating 30 years strong, California Nuggets',booth:'2709',exports:true,contacts:[]},
+  {brand:'CAM Packaging Systems',desc:'We supply flexible packaging machinery and materials',booth:'6512',exports:false,contacts:[]},
+  {brand:'Camlin Fine Sciences',desc:'Camlin Fine Sciences has been providing high-quality solutions for food safety',booth:'7208',exports:false,contacts:[]},
+  {brand:'Candy Break American Foods',desc:'American Foods LLC was founded in 1950 as a small family business',booth:'2570',exports:true,contacts:[]},
+  {brand:'Candy Buyers\' Directory',desc:'',booth:'3112',exports:false,contacts:[]},
+  {brand:'CANDY COUNTER USA LLC',desc:'',booth:'2979',exports:false,contacts:[]},
+  {brand:'Candy Cow Jerky',desc:'Candy Cow started as a small-batch obsession',booth:'1416',exports:false,contacts:[]},
+  {brand:'Candy Dynamics',desc:'Candy Dynamics Inc, founded the Toxic Waste® brand in 2001',booth:'3321',exports:false,contacts:[]},
+  {brand:'Candy Envy',desc:'You\'re one-stop shop for your candy-by-color needs',booth:'1678',exports:false,contacts:[]},
+  {brand:'Candy Era',desc:'',booth:'2878',exports:false,contacts:[]},
+  {brand:'Candy Fun Street',desc:'Candy Fun Street is a culture forward candy brand',booth:'1381',exports:false,contacts:[]},
+  {brand:'CANDY POINT CONFECTIONERY',desc:'Our company started its production adventure in 1987',booth:'4902',exports:false,contacts:[]},
+  {brand:'Candy Treasure LLC',desc:'Candy Treasure offer a line of fun surprise/novelty items for kids',booth:'2308',exports:false,contacts:[]},
+  {brand:'CandyCo LLC',desc:'Candy Confections, Private Label and Co-Manufacturing',booth:'1778',exports:true,contacts:[]},
+  {brand:'CandyRific',desc:'CandyRific sells exciting novelty confectionery',booth:'3557',exports:false,contacts:[]},
+  {brand:'Canel\'s',desc:'Mexican, family-owned confectioner with 100 years of expertise',booth:'2011',exports:false,contacts:[]},
+  {brand:'Capol LLC',desc:'',booth:'6003',exports:false,contacts:[]},
+  {brand:'CARDIN FOODS INC',desc:'Cardin foods produce potato chips in different cuts and flavors',booth:'1357',exports:false,contacts:[]},
+  {brand:'Carian\'s Bistro Chocolates',desc:'At Carian\'s Bistro, we believe chocolate is more than just a treat',booth:'1672',exports:false,contacts:[]},
+  {brand:'Carl Brandt, Inc.',desc:'Carl Brandt, Inc. is a premier specialty food importer',booth:'4118',exports:false,contacts:[]},
+  {brand:'Carolina Honest',desc:'',booth:'2326',exports:true,contacts:[]},
+  {brand:'Carousel Candies',desc:'Maker of fine confections since 1917',booth:'2105',exports:true,contacts:[]},
+  {brand:'Casa del Dolce Spa',desc:'Casa del Dolce, a historic player in the confectionery sector',booth:'1673',exports:false,contacts:[]},
+  {brand:'CASA MILO',desc:'Casa Milo is an Italian food manufacturer based in Puglia',booth:'5030',exports:false,contacts:[]},
+  {brand:'Cavanna Packaging USA',desc:'Cavanna Packaging is a turnkey supplier of packaging lines',booth:'7020',exports:false,contacts:[]},
+  {brand:'CBI International',desc:'WE BRING LATIN FLAVOR TO THE WORLD',booth:'1377',exports:false,contacts:[]},
+  {brand:'Century Snacks – Snak Club',desc:'Founded in California in 1984, Snak Club',booth:'2353',exports:true,contacts:[]},
+  {brand:'Ceremony Gida San Tic A.Ş',desc:'',booth:'3469',exports:false,contacts:[]},
+  {brand:'Certs',desc:'',booth:'4257',exports:false,contacts:[]},
+  {brand:'Charms Company',desc:'',booth:'2435',exports:false,contacts:[]},
+  {brand:'Cheesewich',desc:'Cheesewich is a family-owned company dedicated to creating convenient snacks',booth:'4612',exports:false,contacts:[]},
+  {brand:'Chef Bobo Brand Inc.',desc:'We create lasting brands that people trust',booth:'3765',exports:false,contacts:[]},
+  {brand:'Chengdu LST Science And Technology Co.,Ltd',desc:'Chocolate And Gummy Machines',booth:'7219',exports:false,contacts:[]},
+  {brand:'Cherry Central',desc:'Cherry Central is a farmer-owned cooperative',booth:'1478',exports:false,contacts:[]},
+  {brand:'Chesapeake Spice Company',desc:'',booth:'7206',exports:false,contacts:[]},
+  {brand:'Chicago Importing Company',desc:'Chicago Importing Company is a wholesale distributor of specialty foods from Scandinavia',booth:'3104',exports:false,contacts:[]},
+  {brand:'Chifles Chips',desc:'Chifles is the #1 plantain chip in America',booth:'4070',exports:false,contacts:[]},
+  {brand:'Chocbox',desc:'Chocbox is the Los Angeles chocolate and dessert brand',booth:'1777',exports:false,contacts:[]},
+  {brand:'ChocoLake',desc:'Established in 2016 in Amman, Jordan',booth:'5405',exports:false,contacts:[]},
+  {brand:'Chocolat Lamontagne Inc.',desc:'Our family-owned and operated company manufactures innovative chocolate products',booth:'4222',exports:false,contacts:[]},
+  {brand:'Chocolate Lugano',desc:'',booth:'3381',exports:false,contacts:[]},
+  {brand:'Chocolate Works, Moon Struck, Thompson Chocolate',desc:'One Partner, Endless Possibilities for private label',booth:'2367',exports:false,contacts:[]},
+  {brand:'Chocolaterie Guylian NV',desc:'All Guylian chocolate is produced in Sint-Niklaas',booth:'4351',exports:false,contacts:[]},
+  {brand:'Chocolates Garoto',desc:'',booth:'4402',exports:false,contacts:[]},
+  {brand:'Chocolats Favoris',desc:'chocolate',booth:'4226',exports:false,contacts:[]},
+  {brand:'Chocolove',desc:'Chocolove was founded in 1995 in Boulder, Colorado',booth:'2255',exports:true,contacts:[]},
+  {brand:'CHOCOMAR CHOCOLATE',desc:'We are a family-driven business with roots dating back to 1990',booth:'5153',exports:false,contacts:[]},
+  {brand:'CHOCOVIA',desc:'CHOCOVIA is one of Turkey\'s leading chocolate manufacturers',booth:'4312',exports:false,contacts:[]},
+  {brand:'ChocXO Chocolatier',desc:'',booth:'4153',exports:false,contacts:[]},
+  {brand:'Chomis Gomis',desc:'Chomis Gomis is a premium confectionery brand specializing in chamoy-coated candy',booth:'1676',exports:false,contacts:[]},
+  {brand:'Chomps',desc:'Chomps is setting a new standard in snacking',booth:'3957',exports:false,contacts:[]},
+  {brand:'Chubby Checker Snacks',desc:'Chubby Checker Snacks is a Pennsylvania based company',booth:'3276',exports:false,contacts:[]},
+  {brand:'Chunk Nibbles',desc:'Chunk Nibbles is a crave-worthy, award-winning snack cluster brand',booth:'2379',exports:true,contacts:[]},
+  {brand:'CHUZA',desc:'',booth:'4354',exports:false,contacts:[]},
+  {brand:'Cibo Vita-Natures Garden',desc:'Nature\'s Garden by Cibo Vita is a functional snacking brand',booth:'4221',exports:true,contacts:[]},
+  {brand:'CII Foods',desc:'',booth:'7007',exports:false,contacts:[]},
+  {brand:'Cima Confections Corporation',desc:'In 2001, Cima saw an opportunity in the deposited gourmet lollipop category',booth:'1529',exports:false,contacts:[]},
+  {brand:'CINCO DE MAYO CANDY',desc:'',booth:'1514',exports:false,contacts:[]},
+  {brand:'Circ',desc:'Circ reinvented the bar as five poppable bites in a resealable pack',booth:'3278',exports:false,contacts:[]},
+  {brand:'Claeys Candy, Inc.',desc:'',booth:'2109',exports:true,contacts:[]},
+  {brand:'Clasen Quality Chocolate',desc:'Clasen Quality Chocolate is a family-owned U.S. ingredient manufacturer',booth:'2512',exports:true,contacts:[]},
+  {brand:'ClearBags',desc:'',booth:'2413',exports:false,contacts:[]},
+  {brand:'Cleartec Packaging',desc:'Cleartec Packaging offers a full line of transparent plastic tubes',booth:'6412',exports:false,contacts:[]},
+  {brand:'Cloetta North America Inc.',desc:'Cloetta has been crafting sweet moments for more than 160 years',booth:'1869',exports:false,contacts:[]},
+  {brand:'CNCH Compania Nacional de Chocolates',desc:'Nutresa\'s Chocolate Business manufacturer',booth:'2863',exports:false,contacts:[]},
+  {brand:'Coblentz Family Brands',desc:'',booth:'4276',exports:false,contacts:[]},
+  {brand:'Cocada dos Sonhos',desc:'',booth:'4307',exports:false,contacts:[]},
+  {brand:'Cog-Veyor Systems Inc',desc:'',booth:'6430',exports:false,contacts:[]},
+  {brand:'Colombina Candy',desc:'Colombina is a global food company with endless lollipops, candies, cookies',booth:'3021',exports:false,contacts:[]},
+  {brand:'Colorado Jack Popcorn',desc:'',booth:'3730',exports:false,contacts:[]},
+  {brand:'Colorcon, Inc.',desc:'',booth:'7314',exports:false,contacts:[]},
+  {brand:'Columbus Vegetable Oils',desc:'Columbus Vegetable Oils is a supplier of nearly 300 edible oils',booth:'6013',exports:false,contacts:[]},
+  {brand:'CommerceIQ',desc:'The CommerceIQ AI platform powers profitable digital commerce growth',booth:'6006',exports:false,contacts:[]},
+  {brand:'Conagra Brands',desc:'Conagra Brands, Inc. is one of North America\'s leading branded food companies',booth:'3205',exports:false,contacts:[]},
+  {brand:'CONFITECA C.A.',desc:'63 Years of Sweetness & Trust',booth:'3629',exports:false,contacts:[]},
+  {brand:'Continental Confectionery Company US',desc:'Continental Confectionery Co. US is part of Pladis Global',booth:'2267',exports:false,contacts:[]},
+  {brand:'CookieMan',desc:'Cookie Man is an all Australian owned business',booth:'4605',exports:false,contacts:[]},
+  {brand:'Cookies United',desc:'Cookies United is a trusted leader in the baked goods industry',booth:'2212',exports:true,contacts:[]},
+  {brand:'Cooper Street Snacks',desc:'Established in 2011 in Birmingham, Michigan',booth:'4553',exports:false,contacts:[]},
+  {brand:'Coppenrath Feingeback GmbH',desc:'',booth:'4017',exports:false,contacts:[]},
+  {brand:'Cordialsa',desc:'',booth:'4861',exports:false,contacts:[]},
+  {brand:'Corso\'s Cookies',desc:'Corso\'s Cookies is a licensed cookie manufacturer',booth:'1358',exports:true,contacts:[]},
+  {brand:'Country Fresh Food & Confections, Inc.',desc:'Country Fresh is a leading supplier of fudge',booth:'2405',exports:true,contacts:[]},
+  {brand:'Covered Bridge Potato Chip Company',desc:'',booth:'3734',exports:false,contacts:[]},
+  {brand:'CPG Xperience',desc:'',booth:'1247',exports:false,contacts:[]},
+  {brand:'Crack Corn / Puffy Pop',desc:'Puffy Pop is ultra-premium puff corn with no kernels and no hulls',booth:'3633',exports:true,contacts:[]},
+  {brand:'Craveables',desc:'CRAVEABLES exists to make snacks you don\'t have to think twice about',booth:'4174',exports:false,contacts:[]},
+  {brand:'Crazy Monkey Baking',desc:'Crazy Monkey Gluten Free Granola Bites',booth:'3913',exports:true,contacts:[]},
+  {brand:'CRISP POWER',desc:'Guilt-free crunch in every bag! Up to 28G protein',booth:'5548',exports:false,contacts:[]},
+  {brand:'Crown Candy Corporation',desc:'',booth:'2127',exports:true,contacts:[]},
+  {brand:'Crown Chocolate',desc:'Crown Chocolate is a family-run company grounded in quality',booth:'2860',exports:true,contacts:[]},
+  {brand:'Crunchies Natural Foods',desc:'',booth:'1975',exports:false,contacts:[]},
+  {brand:'Crystal Filtration | Quartz Analytics | FILSORB',desc:'Quartz Analytics provides rapid quality control solutions',booth:'7004',exports:false,contacts:[]},
+  {brand:'Culinary Home LLC',desc:'',booth:'4901',exports:false,contacts:[]},
+  {brand:'Cup of Coa',desc:'Cup of Coa was born behind the café bar',booth:'4377',exports:false,contacts:[]},
+  {brand:'Custom Flavors',desc:'Custom Flavors is a family-owned flavor developer and manufacturer',booth:'6009',exports:false,contacts:[]},
+  {brand:'D Madison Solutions',desc:'',booth:'6215',exports:false,contacts:[]},
+  {brand:'Daabon Organic USA, Inc.',desc:'Daabon is your food solutions company for sustainable palm oil',booth:'6415',exports:false,contacts:[]},
+  {brand:'DaColônia Alimentos Naturais LTDA',desc:'Founded in the 1960s in Rio Grande do Sul, Brazil',booth:'4404',exports:false,contacts:[]},
+  {brand:'Daily Crunch',desc:'Daily Crunch is a fast-growing, women-founded snack brand',booth:'3976',exports:false,contacts:[]},
+  {brand:'DAISY GROUP',desc:'Your one-stop source for candy and confectionery',booth:'3177',exports:false,contacts:[]},
+  {brand:'Dan-D-Pak Foods',desc:'Dan-D-Pak USA is a leading nut processor and snack manufacturer',booth:'4705',exports:true,contacts:[]},
+  {brand:'Dandies Marshmallows',desc:'Dandies® Marshmallows are light, fluffy and perfect for roasting',booth:'3277',exports:true,contacts:[]},
+  {brand:'Daniel\'s, the Brotherly Love Chocolate',desc:'The story of Daniel\'s begins in the nineteenth century in Italy',booth:'1415',exports:false,contacts:[]},
+  {brand:'DANILLA FOODS USA CORP',desc:'',booth:'3179',exports:false,contacts:[]},
+  {brand:'Dar Baklava',desc:'',booth:'4515',exports:false,contacts:[]},
+  {brand:'Dare Foods Limited',desc:'Dare Foods has been a proudly Canadian, family-owned business since 1892',booth:'1537',exports:false,contacts:[]},
+  {brand:'Darrell Lea',desc:'Crafted in Australia, Darrell Lea has been making licorice for almost a century',booth:'2331',exports:false,contacts:[]},
+  {brand:'Das Gummy Gummi Bears',desc:'',booth:'4375',exports:false,contacts:[]},
+  {brand:'Datacor',desc:'Datacor is a leading provider of industry-specific solutions',booth:'6406',exports:false,contacts:[]},
+  {brand:'DAUMAR Flexible Packaging',desc:'DAUMAR is a vertically integrated manufacturer of Flexible Packaging',booth:'6020',exports:false,contacts:[]},
+  {brand:'David Protein',desc:'',booth:'4607',exports:false,contacts:[]},
+  {brand:'Davis Chocolate',desc:'Chocolate bars, protein bars, pb cups, truffles, sauces and chips',booth:'4726',exports:false,contacts:[]},
+  {brand:'Deeplocal',desc:'Deeplolocal is an award-winning experience design agency',booth:'6118',exports:false,contacts:[]},
+  {brand:'DELAVIUDA USA INC/ EL ALMENDRO',desc:'Our company produces since 1883 the finest almond and chocolate confectionery',booth:'1332',exports:false,contacts:[]},
+  {brand:'DeLine Box & Display',desc:'DeLine Box & Display is a family-owned Colorado-based corrugated packaging manufacturer',booth:'7015',exports:false,contacts:[]},
+  {brand:'DELLIA',desc:'Dellia is a publicly listed Nordic FMCG company',booth:'4417',exports:false,contacts:[]},
+  {brand:'Denali Ingredients',desc:'Denali Ingredients is a leading supplier of innovative sweet ingredient solutions',booth:'6511',exports:false,contacts:[]},
+  {brand:'DENFER IMP&EXP (JIANGXI)CO.,LTD.',desc:'Founded in 2006 and headquartered in Nanchang, Jiangxi',booth:'4928',exports:false,contacts:[]},
+  {brand:'Diablo Sugar Free',desc:'Diablo Sugar Free is a one-stop-shop for all your sugar free needs',booth:'1511',exports:false,contacts:[]},
+  {brand:'Dippin\' Dots, LLC',desc:'Dippin\' Dots ice cream is the iconic colorful dots that unleash instant joy',booth:'3665',exports:false,contacts:[]},
+  {brand:'DIPPO CHOCOLATE, LLC',desc:'',booth:'4304',exports:false,contacts:[]},
+  {brand:'DIRTY GUT',desc:'We make delicious, guilt-free chocolates with more fiber, less sugar',booth:'5346',exports:false,contacts:[]},
+  {brand:'Dishaka, LLC',desc:'Since 1952, Dishaka has been making snacks',booth:'4931',exports:true,contacts:[]},
+  {brand:'Distribuidora De La Rosa S.A. De C.V.',desc:'',booth:'2623',exports:false,contacts:[]},
+  {brand:'Divina/Popnuts',desc:'FOODMatch is your go-to partner to Make it Mediterranean',booth:'2074',exports:false,contacts:[]},
+  {brand:'DJ&A',desc:'DJ&A is a family-owned Sydney-based company specialising in fruit and vegetable-based snacks',booth:'4459',exports:false,contacts:[]},
+  {brand:'Do-It Corporation',desc:'Since 1973, Do-It Corporation has been making hang tabs',booth:'2772',exports:false,contacts:[]},
+  {brand:'Docile Alimentos Ltda',desc:'',booth:'3819',exports:false,contacts:[]},
+  {brand:'DON\'TWORRY SNACKS',desc:'Dontworry Snacks is redefining indulgence',booth:'4374',exports:false,contacts:[]},
+  {brand:'Dongguan City Tedpack Company Limited',desc:'TedPack delivers high-performance flexible packaging solutions',booth:'7221',exports:false,contacts:[]},
+  {brand:'DONGGUAN RENAULTIN METAL PRODUCTS CO., LTD.',desc:'Specialist in tin packaging manufacturer',booth:'4926',exports:false,contacts:[]},
+  {brand:'Dongguan Tinshine Tin Box Co.,Ltd',desc:'Tinshine is one of largest tin manufacturers in China',booth:'7407',exports:false,contacts:[]},
+  {brand:'Dorval Trading Co., Ltd.',desc:'Dorval Trading has been importing the world\'s most delicious candies since 1966',booth:'3337',exports:false,contacts:[]},
+  {brand:'Dos Amigos, Inc.',desc:'For over 30 years, Dos Amigos has built high-quality Mexican brands',booth:'1266',exports:false,contacts:[]},
+  {brand:'Doscher\'s Candies',desc:'Doscher\'s Candies is America\'s oldest operating candy cane manufacturer',booth:'3379',exports:false,contacts:[]},
+  {brand:'Doumak, Inc.',desc:'',booth:'3623',exports:true,contacts:[]},
+  {brand:'DPIPL India',desc:'Dhanalakshmi Packaging Industries Pvt. Ltd. is a comprehensive packaging solutions provider',booth:'7122',exports:false,contacts:[]},
+  {brand:'Dr. Seitan\'s™ Snack Experiments',desc:'Remember when snacking was all about fun?',booth:'5554',exports:false,contacts:[]},
+  {brand:'Dream of Sweden',desc:'',booth:'4900',exports:false,contacts:[]},
+  {brand:'Drizzilicious, Natural Endurance & Sunday Snacks',desc:'Snack Innovations is a New Jersey-based CPG company',booth:'4047',exports:true,contacts:[]},
+  {brand:'Dry Brew',desc:'Dry Brew is the World\'s Only Waterless Coffee',booth:'4054',exports:false,contacts:[]},
+  {brand:'DTG Ltd Finn',desc:'Finn Chocolate Belt Coaters and Chocolate Belt Polishers',booth:'6313',exports:false,contacts:[]},
+  {brand:'Dulces Aldama',desc:'Mexican Candy company with over 50 years of experience',booth:'5210',exports:false,contacts:[]},
+  {brand:'Dulces Kalu',desc:'',booth:'4853',exports:false,contacts:[]},
+  {brand:'Dulces Mara',desc:'',booth:'4869',exports:false,contacts:[]},
+  {brand:'DURUKAN CONFECTIONERY INC.',desc:'Founded in 1976, Durukan Confectionery',booth:'3869',exports:false,contacts:[]},
+  {brand:'E Formella & Sons Inc.',desc:'E. Formella & Sons, a proud fourth-generation family business since 1909',booth:'4610',exports:true,contacts:[]},
+  {brand:'Eagle Family Foods LLC',desc:'Eagle Foods commands the shelf with iconic brands',booth:'2268',exports:false,contacts:[]},
+  {brand:'Eagle Flexible Packaging',desc:'Eagle Flexible Packaging is a leading manufacturer of sustainable packaging',booth:'6014',exports:false,contacts:[]},
+  {brand:'ECC Control Systems',desc:'',booth:'6204',exports:false,contacts:[]},
+  {brand:'Egan Food Technologies',desc:'Egan Food Technologies supplies customized food process machinery',booth:'6004',exports:false,contacts:[]},
+  {brand:'Eillien\'s Candies Inc.',desc:'In our more than 65 years of business, our commitment to quality',booth:'1628',exports:false,contacts:[]},
+  {brand:'EIWA America Inc.',desc:'',booth:'4847',exports:false,contacts:[]},
+  {brand:'El Azteca',desc:'',booth:'4970',exports:false,contacts:[]},
+  {brand:'El Jefe Snacks',desc:'',booth:'4913',exports:false,contacts:[]},
+  {brand:'El Patio Foods',desc:'',booth:'2875',exports:false,contacts:[]},
+  {brand:'El Super Leon Ponchin Snacks Inc',desc:'Manufacturer of 100% Real Fruit Mexican Artisan Candy and Snacks',booth:'3675',exports:false,contacts:[]},
+  {brand:'ELAVI',desc:'',booth:'4079',exports:false,contacts:[]},
+  {brand:'Elias Wholesale Distributor LLC',desc:'',booth:'1522',exports:false,contacts:[]},
+  {brand:'ELIF CIKOLATA SAN.VE TIC.LTD.STI.',desc:'We produce and export many kinds of varieties like soft and hard candy',booth:'3771',exports:false,contacts:[]},
+  {brand:'Elmas Sweet Confectionery',desc:'A Sweet Journey from Türkiye to the World',booth:'1528',exports:false,contacts:[]},
+  {brand:'Elmer Chocolate',desc:'',booth:'2147',exports:true,contacts:[]},
+  {brand:'Elone Gida Ic ve Dis Tic. A.S.',desc:'Elone Foods is established with the purpose of satisfying worldwide demands',booth:'4308',exports:false,contacts:[]},
+  {brand:'Emsland America',desc:'Emsland Group is a manufacturer of plant-based ingredients',booth:'7114',exports:false,contacts:[]},
+  {brand:'Endangered Species Chocolate',desc:'',booth:'4152',exports:false,contacts:[]},
+  {brand:'Enstrom Candies, Inc.',desc:'',booth:'4639',exports:true,contacts:[]},
+  {brand:'Epstein',desc:'Epstein is a full-service architecture, engineering, construction firm',booth:'6019',exports:false,contacts:[]},
+  {brand:'Esko',desc:'Esko is a global provider of integrated software and hardware solutions',booth:'7310',exports:false,contacts:[]},
+  {brand:'Espeez Candy Co.',desc:'Espeez Candy, established in 1988 is your national leader in old-fashioned candies',booth:'1536',exports:true,contacts:[]},
+  {brand:'Euro-American Brands LLC',desc:'',booth:'3835',exports:false,contacts:[]},
+  {brand:'EUROK, INC.',desc:'EUROK, Inc imports and distributes unique and distinctive foods from the UK',booth:'4773',exports:false,contacts:[]},
+  {brand:'European Confections',desc:'',booth:'4872',exports:false,contacts:[]},
+  {brand:'EVERY',desc:'The EVERY Company engineers and manufactures animal-free protein ingredients',booth:'6317',exports:false,contacts:[]},
+  {brand:'Every Body Eat',desc:'Every Body Eat® makes clean, boldly flavored snacks',booth:'4509',exports:false,contacts:[]},
+  {brand:'Evie\'s Snacks',desc:'With 1/3 the sugar and all the crunch, Evie\'s is made from Texas pecans',booth:'3981',exports:false,contacts:[]},
+  {brand:'Eviza Confectionery',desc:'We are a confectionery manufacturer specializing in gummy candies',booth:'5023',exports:false,contacts:[]},
+  {brand:'Excel Engineering',desc:'Excel helps candy and snack manufacturers design smarter facilities',booth:'6106',exports:false,contacts:[]},
+  {brand:'Exclusive Brands',desc:'',booth:'4719',exports:false,contacts:[]},
+  {brand:'Export-Import Bank of the U.S.',desc:'EXIM is a federal government agency that helps U.S. businesses exporting',booth:'6008',exports:false,contacts:[]},
+  {brand:'Ezaki Glico USA Corporation',desc:'',booth:'4429',exports:false,contacts:[]},
+  {brand:'Fairy Tale Cotton Candy',desc:'Fairy Tale Cotton Candy has been reimagining cotton candy since 2013',booth:'2869',exports:true,contacts:[]},
+  {brand:'Family Foods International',desc:'',booth:'3653',exports:false,contacts:[]},
+  {brand:'Fantasy Farms',desc:'',booth:'2974',exports:false,contacts:[]},
+  {brand:'Farmer Jon\'s Popcorn',desc:'',booth:'3637',exports:true,contacts:[]},
+  {brand:'Farmer\'s Pantry',desc:'Farmer\'s Pantry Cornbread Crisps - always BAKED, never fried',booth:'3677',exports:true,contacts:[]},
+  {brand:'Fat and Weird Cookie',desc:'Fat & Weird Cookie Co. is a veteran owned dessert brand',booth:'2476',exports:false,contacts:[]},
+  {brand:'Fat of the Land | Seed Oil Free Foods',desc:'',booth:'4724',exports:false,contacts:[]},
+  {brand:'Feastables',desc:'Feastables is a mission-driven snack brand launched by MrBeast',booth:'1363',exports:false,contacts:[]},
+  {brand:'Ferrara',desc:'For more than 115 years, Ferrara has created sugar confections',booth:'1647',exports:true,contacts:[]},
+  {brand:'Ferrero North America',desc:'Ferrero began in the small town of Alba in Piedmont, Italy, in 1946',booth:'1633',exports:false,contacts:[]},
+  {brand:'FG Market / Flower Shop Network',desc:'',booth:'7012',exports:false,contacts:[]},
+  {brand:'Field Trip Snacks',desc:'',booth:'2870',exports:true,contacts:[]},
+  {brand:'Final Boss Sour',desc:'',booth:'4777',exports:false,contacts:[]},
+  {brand:'Fini Golosinas Espana, S.L.U.',desc:'The leading Spanish multinational in the confectionery sector',booth:'3419',exports:false,contacts:[]},
+  {brand:'Fire Brands',desc:'',booth:'2129',exports:true,contacts:[]},
+  {brand:'First Choice Candy',desc:'First Choice Candy is a California-based confectionery and snacking brand',booth:'4677',exports:true,contacts:[]},
+  {brand:'FITJOY, INC.',desc:'FitJoy is all sorts of goodness that\'s ready for you to enjoy',booth:'4231',exports:false,contacts:[]},
+  {brand:'Flathau\'s Fine Foods',desc:'Flathau\'s Fine Foods is a woman owned cookie manufacturer',booth:'5204',exports:true,contacts:[]},
+  {brand:'Flavor Dynamics, inc.',desc:'Located in South Plainfield, NJ, Flavor Dynamics is committed to food safety',booth:'6507',exports:false,contacts:[]},
+  {brand:'Flexible Pouches',desc:'',booth:'7322',exports:false,contacts:[]},
+  {brand:'Flix Candy',desc:'Imaginings 3, Inc. was founded in 1969',booth:'2053',exports:false,contacts:[]},
+  {brand:'Flock Foods',desc:'',booth:'3975',exports:false,contacts:[]},
+  {brand:'Florestal',desc:'Founded in 1936, Florestal began its journey to bring high-quality products',booth:'1453',exports:false,contacts:[]},
+  {brand:'Flowers Foods',desc:'',booth:'3921',exports:false,contacts:[]},
+  {brand:'FocusFuel',desc:'FocusFuel is redefining energy with a new category: caffeine gummies',booth:'4277',exports:false,contacts:[]},
+  {brand:'Food Excellence Specialist Sdn Bhd',desc:'Food Excellence Specialist is a Malaysian food manufacturing company',booth:'4658',exports:false,contacts:[]},
+  {brand:'Forbes Candies',desc:'We are a manufacturer of original east coast style salt water taffy',booth:'1452',exports:true,contacts:[]},
+  {brand:'Ford Gum',desc:'',booth:'3009',exports:true,contacts:[]},
+  {brand:'Foreva Chocolate',desc:'',booth:'4405',exports:false,contacts:[]},
+  {brand:'Fortuin - Dockum BV',desc:'Not just a mint... a legacy! Wilhelmina Mints were developed in 1892',booth:'2574',exports:false,contacts:[]},
+  {brand:'Fortune Favors, LLC',desc:'At Fortune Favors, we believe in the extraordinary potential of the humble pecan',booth:'5065',exports:false,contacts:[]},
+  {brand:'FOUNDATION Outdoors',desc:'',booth:'3175',exports:false,contacts:[]},
+  {brand:'Frallier',desc:'',booth:'6116',exports:false,contacts:[]},
+  {brand:'Frankford Candy LLC',desc:'',booth:'3523',exports:false,contacts:[]},
+  {brand:'Frankie\'s Organic Foods',desc:'',booth:'4454',exports:false,contacts:[]},
+  {brand:'Free2b Foods',desc:'Free2b makes crave-worthy, allergy friendly chocolate treats',booth:'4557',exports:false,contacts:[]},
+  {brand:'Freezin with Aubrie',desc:'Aubrie started her own freeze-dried candy business at age 14',booth:'1681',exports:false,contacts:[]},
+  {brand:'French Cancan Popcorn',desc:'French Cancan Popcorn is all about bringing joy to everyday moments',booth:'2779',exports:false,contacts:[]},
+  {brand:'Fresh Nuts GmbH',desc:'Everything began in 1978 in Gaziantep, renowned for its exceptional nuts',booth:'4106',exports:false,contacts:[]},
+  {brand:'Frie Guys',desc:'Frie Guys is redefining what snackable fries can be',booth:'2575',exports:false,contacts:[]},
+  {brand:'Froot Thief',desc:'We are the Froot Thief, maker of mischief and real fruit snacks',booth:'4071',exports:false,contacts:[]},
+  {brand:'Fruit and Cookies',desc:'Fruit & Cookies LLC is a fast-growing snacking company behind Dido\'s',booth:'5352',exports:false,contacts:[]},
+  {brand:'FRUITBLOX | SNACKMODE',desc:'',booth:'1418',exports:false,contacts:[]},
+  {brand:'Fuchs Gruppe',desc:'From the first bite to the last, our flavors are not just for tasting',booth:'6318',exports:true,contacts:[]},
+  {brand:'Fujian Holeywood Foods Industrial Co. LTD',desc:'Established in 2000, Holeywood Foods is a professional manufacturer for Gummy',booth:'4105',exports:false,contacts:[]},
+  {brand:'FUJIAN KINGBRAND TRADING CO.,LTD',desc:'Established in 1996, key national leading enterprise',booth:'2376',exports:false,contacts:[]},
+  {brand:'FUJIAN PROVINCE MAIDEHAO FOOD INDUSTRY CO., LTD',desc:'Founded in 1999, professional candy and chocolate manufacturer',booth:'5132',exports:false,contacts:[]},
+  {brand:'Fullsun International Enterprise Limited',desc:'Professional packaging manufacturer with 18 years experience',booth:'7320',exports:false,contacts:[]},
+  {brand:'Fun Factory Candy',desc:'',booth:'5208',exports:false,contacts:[]},
+  {brand:'FUN SWEETS LLC',desc:'',booth:'1957',exports:false,contacts:[]},
+  {brand:'Fun Treats Inc. / Gramic',desc:'',booth:'4660',exports:true,contacts:[]},
+  {brand:'G&S Foods, Inc.',desc:'G&S Foods is a co-manufacturer of salty and enrobed snacks',booth:'3911',exports:false,contacts:[]},
+  {brand:'Galerie',desc:'Galerie is a leading designer and manufacturer of innovative confectionery gifts',booth:'2637',exports:false,contacts:[]},
+  {brand:'Galil Brands',desc:'',booth:'1911',exports:true,contacts:[]},
+  {brand:'Galloway Company',desc:'',booth:'6221',exports:false,contacts:[]},
+  {brand:'Ganong Bros., Limited',desc:'Established in 1873, Ganong is Canada\'s oldest chocolate and candy company',booth:'2713',exports:false,contacts:[]},
+  {brand:'Garrett Popcorn',desc:'It all started with an heirloom family recipe in 1949',booth:'2509',exports:false,contacts:[]},
+  {brand:'Gateway Food Products Company',desc:'Gateway Food Products Company is a family owned manufacturer',booth:'6321',exports:false,contacts:[]},
+  {brand:'GEA North America',desc:'GEA manufactures and markets vertical-form-fill-seal packaging equipment',booth:'7011',exports:false,contacts:[]},
+  {brand:'GELITA',desc:'Based in Eberbach, Germany, GELITA has been at the forefront of the industry for 150 years',booth:'6022',exports:false,contacts:[]},
+  {brand:'Gem Gem',desc:'Gem Gem chewy ginger candy blends honest, natural ingredients',booth:'4556',exports:false,contacts:[]},
+  {brand:'Gemini Food Corporation',desc:'',booth:'1435',exports:false,contacts:[]},
+  {brand:'General Mills',desc:'For over 150 years, General Mills has been committed to making food the world loves',booth:'4137',exports:false,contacts:[]},
+  {brand:'Genius Gourmet',desc:'',booth:'4259',exports:true,contacts:[]},
+  {brand:'Georgalos Hnos. S.A.I.C.A.',desc:'Georgalos is a historic Argentine food company with over 80 years of experience',booth:'3778',exports:false,contacts:[]},
+  {brand:'Georgia Nut Company',desc:'More than 75 years of flavor, consistency, and innovation',booth:'2804',exports:false,contacts:[]},
+  {brand:'German Sweets',desc:'German Sweets is the export association of the German confectionery industry',booth:'4108',exports:false,contacts:[]},
+  {brand:'Gerrit J. Verburg Co.',desc:'',booth:'2605',exports:false,contacts:[]},
+  {brand:'Gertrude Hawk Chocolates',desc:'Gertrude Hawk Chocolates is a 4th generation family-owned company',booth:'4275',exports:false,contacts:[]},
+  {brand:'Ghirardelli Chocolate Company',desc:'',booth:'3531',exports:true,contacts:[]},
+  {brand:'Giant Food System',desc:'',booth:'1474',exports:false,contacts:[]},
+  {brand:'Giant Snacks',desc:'30 years of making the finest quality snack nuts in the industry',booth:'4947',exports:true,contacts:[]},
+  {brand:'Give Kids the World Village',desc:'',booth:'2784',exports:false,contacts:[]},
+  {brand:'GKI Foods LLC',desc:'GKI Foods LLC is a private-label candy manufacturer',booth:'2729',exports:false,contacts:[]},
+  {brand:'GL International Corp.',desc:'GL International is the global leader as an importer and wholesaler',booth:'1476',exports:false,contacts:[]},
+  {brand:'Global Appetite',desc:'We are a full-service beverage & food sales agency',booth:'3075',exports:false,contacts:[]},
+  {brand:'Go a Little Nuts!',desc:'',booth:'2873',exports:false,contacts:[]},
+  {brand:'Goetze\'s Candy Company, Inc.',desc:'Goetze\'s Candy Co., Inc, a 6th Generation Family-Owned Business',booth:'1947',exports:true,contacts:[]},
+  {brand:'Gold Education Stage',desc:'',booth:'1177',exports:false,contacts:[]},
+  {brand:'Gold Fritz Snacks',desc:'',booth:'4912',exports:false,contacts:[]},
+  {brand:'Golden Batch',desc:'Golden Batch is a sweets and snack company focused on innovative products',booth:'5358',exports:false,contacts:[]},
+  {brand:'Golden BonBon',desc:'Family owned and operated manufacturer of Almond Nougat and Jujube Nougat',booth:'2409',exports:false,contacts:[]},
+  {brand:'Golden West Packaging Group',desc:'Golden West Packaging Group is a custom packaging manufacturer',booth:'6219',exports:false,contacts:[]},
+  {brand:'GoMacro, LLC',desc:'We\'re committed to making wholesome, delicious nutrition',booth:'3971',exports:true,contacts:[]},
+  {brand:'Good Eat\'n',desc:'Good Eat\'n is a flavor-first, better-for-you snack brand founded by NBA icon Chris Paul',booth:'5066',exports:false,contacts:[]},
+  {brand:'good2grow',desc:'We combine fun and nutrition to create better-for-you drinks and snacks',booth:'1325',exports:false,contacts:[]},
+  {brand:'Gourmet International',desc:'',booth:'3805',exports:false,contacts:[]},
+  {brand:'GOURMET KINGDOM®',desc:'GOURMET KINGDOM® is a family-owned business dedicated to top-notch snacks',booth:'3174',exports:false,contacts:[]},
+  {brand:'Gourmet Nut',desc:'Power Up is America\'s favorite trail mix',booth:'4656',exports:true,contacts:[]},
+  {brand:'Goya Foods',desc:'Goya Foods, Inc. is the largest Hispanic-owned food company in the United States',booth:'2505',exports:false,contacts:[]},
+  {brand:'GRAMAS',desc:'',booth:'3978',exports:false,contacts:[]},
+  {brand:'Grandpa Joe\'s',desc:'America\'s Fastest-Growing National Distributor of Candy, Snacks, and Soda',booth:'5205',exports:false,contacts:[]},
+  {brand:'Grandpapas Snack Company',desc:'Grandpapa\'s Snack Company delivers a craveable snack with a lighter, baked crunch',booth:'1480',exports:false,contacts:[]},
+  {brand:'GRANEX',desc:'A leading producer of sunflower seeds and halva in the Baltic States',booth:'4477',exports:false,contacts:[]},
+  {brand:'Great Lakes International Trading',desc:'Founded in 1983 in Traverse City, Michigan',booth:'7210',exports:true,contacts:[]},
+  {brand:'Great Lakes Potato Chip Co.',desc:'We love potato chips - small batch made from Michigan potatoes',booth:'3723',exports:false,contacts:[]},
+  {brand:'Green Farm Pistachio Inc.',desc:'Green Farm Pistachio Inc. is a Canada-based food company',booth:'4129',exports:false,contacts:[]},
+  {brand:'Green Island Packaging',desc:'',booth:'7306',exports:false,contacts:[]},
+  {brand:'Greenline Express Transportation',desc:'',booth:'6024',exports:false,contacts:[]},
+  {brand:'Greenridge Naturals',desc:'Greenridge Naturals, a Chicago-based family-owned natural meat company',booth:'3275',exports:true,contacts:[]},
+  {brand:'GreenWill Global LLC',desc:'GreenWill Global specializes in custom Tin packaging solutions',booth:'6130',exports:false,contacts:[]},
+  {brand:'Greyfood GmbH',desc:'Distributor of leading German food and beverage brands',booth:'3701',exports:false,contacts:[]},
+  {brand:'Griesson - De Beukelaer GmbH & Co. KG',desc:'',booth:'4013',exports:false,contacts:[]},
+  {brand:'Griff\'s Toffee',desc:'Griff\'s began as a family tradition - a recipe perfected with patience',booth:'4559',exports:true,contacts:[]},
+  {brand:'Gringas Rim Dips LLC',desc:'',booth:'3772',exports:false,contacts:[]},
+  {brand:'Grupo Marilan',desc:'',booth:'4311',exports:false,contacts:[]},
+  {brand:'Guandy',desc:'',booth:'1769',exports:false,contacts:[]},
+  {brand:'GUANGDONG LECHAO FOODSTUFF CO.,LTD',desc:'Candy manufacturer since 1991, mainly producing soft candy, gummy candy',booth:'4823',exports:false,contacts:[]},
+  {brand:'GUANGDONG LUBAI FOOD CO., LTD.',desc:'Founded in 1982, modern facility for hard candy, lollipops, gummy candy',booth:'2978',exports:false,contacts:[]},
+  {brand:'GUANGDONG RUIMAQI FOOD CO., LTD.',desc:'Professional manufacturer of popping candy and pressed candy',booth:'4829',exports:false,contacts:[]},
+  {brand:'GUANGDONG SHUNCHAO FOODSTUFF CO.,LTD.',desc:'Established in 1995, engaged in liquid candy field for more than 30 years',booth:'4932',exports:false,contacts:[]},
+  {brand:'Guangdong Super Yummy Food Technology Co., Ltd.',desc:'Established in 2000 in Guangdong Province',booth:'5413',exports:false,contacts:[]},
+  {brand:'Guangdong Youzhiweipin Biotechnology Co., Ltd.',desc:'Located in the first town of Chinese food',booth:'5228',exports:false,contacts:[]},
+  {brand:'Guinness Steak Cuts',desc:'Guinness Steak Cuts is a premium meat snack',booth:'5411',exports:false,contacts:[]},
+  {brand:'Guittard Chocolate Company',desc:'',booth:'3055',exports:true,contacts:[]},
+  {brand:'Gumi Yum Surprise',desc:'GUMI YUM SURPRISE - the world\'s first 3D injected molded gummy and toy surprise brand',booth:'1265',exports:false,contacts:[]},
+  {brand:'Gummy Guys',desc:'The Gummy Guys make bold, square-shaped pectin gummies with no artificial dyes',booth:'5364',exports:false,contacts:[]},
+  {brand:'Gummy Rush',desc:'',booth:'5408',exports:false,contacts:[]},
+  {brand:'Gurley\'s',desc:'Gurley\'s is America\'s #1 general-line candy brand in convenience',booth:'4039',exports:false,contacts:[]},
+  {brand:'Hahn\'s Bakery Midwest',desc:'For over 25 years, the Hahn Family has used only the finest ingredients',booth:'4511',exports:false,contacts:[]},
+  {brand:'HALITLAR FOOD CO.',desc:'HALITLAR FOOD CO. is a leading dynamic company in the FMCG sector',booth:'5067',exports:false,contacts:[]},
+  {brand:'Hamchorom Inc.',desc:'',booth:'4700',exports:false,contacts:[]},
+  {brand:'HANA FOOD',desc:'Hana Food, established in 2003, is a leading gourmet and specialty food distributor',booth:'1475',exports:false,contacts:[]},
+  {brand:'HANDY CANDY',desc:'',booth:'1352',exports:false,contacts:[]},
+  {brand:'HANGZHOU KAIRU TIN PACKAGING CO.,LTD',desc:'Committed to tin box packaging',booth:'5419',exports:false,contacts:[]},
+  {brand:'Hansa Industrie-Mixer GmbH & Co. KG',desc:'',booth:'6408',exports:false,contacts:[]},
+  {brand:'Hapinest',desc:'Hapinest Smoothie Crisps are crunchy, melt-in-your-mouth bites',booth:'2176',exports:false,contacts:[]},
+  {brand:'Happy Global',desc:'Happy Global is a high-growth beverage and candy brand',booth:'5008',exports:false,contacts:[]},
+  {brand:'Haribo of America, Inc.',desc:'',booth:'3447',exports:false,contacts:[]},
+  {brand:'Harken Sweets',desc:'Harken reimagines classic candy with date caramel magic',booth:'4177',exports:false,contacts:[]},
+  {brand:'Harmony Fresh Seafoods',desc:'',booth:'5159',exports:false,contacts:[]},
+  {brand:'Harry and David',desc:'More than 90 years ago, brothers Harry and David introduced incomparable pears',booth:'3613',exports:false,contacts:[]},
+  {brand:'Harvest Right',desc:'Harvest Right makes truly affordable, dependable freeze dryers',booth:'7329',exports:false,contacts:[]},
+  {brand:'Haupt Lakrits',desc:'',booth:'4478',exports:false,contacts:[]},
+  {brand:'Hayden Valley Foods',desc:'Hayden Valley Foods has been a family owned business for more than 55 years',booth:'2361',exports:true,contacts:[]},
+  {brand:'Hazelnut Growers of Oregon',desc:'HGO is dedicated to supporting customers through innovation',booth:'7002',exports:false,contacts:[]},
+  {brand:'HDI HOLDING DOLCIARIA ITALIANA SPA',desc:'The origins of HDI goes back to 1882 when the Feletti brand was introduced',booth:'3875',exports:false,contacts:[]},
+  {brand:'HealthSmart Foods, Inc.',desc:'HealthSmart Foods is a premier developer of innovative better-for-you snacks',booth:'4279',exports:true,contacts:[]},
+  {brand:'Healthy Crunch',desc:'',booth:'4480',exports:false,contacts:[]},
+  {brand:'Heat and Control, Inc.',desc:'Heat and Control® is a world-leading equipment manufacturer',booth:'6209',exports:false,contacts:[]},
+  {brand:'Heavenly Caramels',desc:'Heavenly Caramels is a family-owned confectionery company',booth:'3951',exports:true,contacts:[]},
+  {brand:'HEBEI XIAOXIXI FOOD SCIENCE AND TECHNOLOGY CO.,LTD.',desc:'We mainly produce craft candy, pouring candy, shaped lollipop',booth:'5029',exports:false,contacts:[]},
+  {brand:'Henry Lambertz, Inc.',desc:'For over 338 years the name Lambertz has been a synonym for Printen',booth:'4116',exports:false,contacts:[]},
+  {brand:'Herr Foods Inc',desc:'Since 1946, Herr\'s been making exceptionally delicious snacks',booth:'2005',exports:true,contacts:[]},
+  {brand:'Hickory Harvest Foods',desc:'Hickory Harvest is a trusted snack brand offering trail mix, nuts',booth:'4646',exports:false,contacts:[]},
+  {brand:'High Tek USA',desc:'High Tek USA manufactures high-performance automated weighing and packaging systems',booth:'6121',exports:false,contacts:[]},
+  {brand:'Highland Milling',desc:'Highland Milling LLC is a privately owned food and Agribusiness Company',booth:'7123',exports:false,contacts:[]},
+  {brand:'Hippeas',desc:'HIPPEAS is revolutionizing snacking with plant-based puffs from chickpeas',booth:'3727',exports:false,contacts:[]},
+  {brand:'Hisar Dagitim Gida Pazarlama Anonim Sirketi',desc:'',booth:'2072',exports:false,contacts:[]},
+  {brand:'Holland American Food Co.',desc:'',booth:'4650',exports:false,contacts:[]},
+  {brand:'HollandPark',desc:'Cuover International Foods Limited is a global confectionery and snacking company',booth:'1355',exports:false,contacts:[]},
+  {brand:'Honorable Foods',desc:'At Honorable Foods Inc., we provide manufacturing and wholesale distributorship',booth:'2678',exports:false,contacts:[]},
+  {brand:'Hormbles Chormbles',desc:'',booth:'4270',exports:false,contacts:[]},
+  {brand:'Hormel Foods Corporation',desc:'',booth:'4329',exports:false,contacts:[]},
+  {brand:'Hudson Pecan Company',desc:'Hudson Pecan Company began as a passion project over 150 years ago',booth:'2976',exports:true,contacts:[]},
+  {brand:'Huer',desc:'Huer® is arguably the most innovative gummy company',booth:'2579',exports:false,contacts:[]},
+  {brand:'Humble Snacks',desc:'',booth:'3881',exports:false,contacts:[]},
+  {brand:'ICA USA',desc:'ICA S.p.A. is an Italian company that designs and manufactures automatic packaging machines',booth:'7200',exports:false,contacts:[]},
+  {brand:'ICAM Chocolate USA',desc:'Agostoni-ICAM brings eight decades of Italian chocolate expertise',booth:'5415',exports:false,contacts:[]},
+  {brand:'ICON Meats',desc:'ICON Meats is a family & rancher-owned brand',booth:'2502',exports:false,contacts:[]},
+  {brand:'Iconic Candy',desc:'Iconic Candy is a family owned business that specializes in reviving beloved candy brands',booth:'3711',exports:false,contacts:[]},
+  {brand:'IEDC',desc:'',booth:'2800',exports:false,contacts:[]},
+  {brand:'IFC Solutions',desc:'IFC Solutions is a trusted manufacturer of natural and organic colors',booth:'6407',exports:false,contacts:[]},
+  {brand:'Ilham Sweets',desc:'Ilham Sweets began manufacturing in 2014',booth:'3478',exports:false,contacts:[]},
+  {brand:'IMA North America',desc:'IMA Group delivers stand-alone solutions for processing and packaging',booth:'7013',exports:false,contacts:[]},
+  {brand:'Impact Confections, Inc.',desc:'Impact Confections is a U.S. based manufacturer of WARHEADS® brand',booth:'2247',exports:true,contacts:[]},
+  {brand:'Imperial Design Technologies',desc:'Imperial Design Technologies is a USA-made manufacturer of chocolate production machinery',booth:'6212',exports:false,contacts:[]},
+  {brand:'Indeavor',desc:'Indeavor optimizes 24-hour shift work for manufacturers',booth:'6120',exports:true,contacts:[]},
+  {brand:'Independent Can Company',desc:'',booth:'3909',exports:false,contacts:[]},
+  {brand:'Indiana Import LLC',desc:'',booth:'4627',exports:false,contacts:[]},
+  {brand:'Industrial Packaging',desc:'Contract packaging partner for CPG confectionery and snack brands',booth:'3456',exports:false,contacts:[]},
+  {brand:'Inka Foods',desc:'',booth:'4370',exports:false,contacts:[]},
+  {brand:'Inno Foods Inc.',desc:'Innofoods is a leading global supplier of premium snacks and granola',booth:'3378',exports:false,contacts:[]},
+  {brand:'Innovative Packaging Solutions Inc.',desc:'',booth:'7106',exports:false,contacts:[]},
+  {brand:'International Freeze Dry',desc:'International Freeze Dry is a trusted supplier of freeze-dried ingredients',booth:'1872',exports:false,contacts:[]},
+  {brand:'IOWA SMOKEHOUSE',desc:'IOWA SMOKEHOUSE has grown to selling in all 50 states',booth:'4008',exports:true,contacts:[]},
+  {brand:'Irca Group USA',desc:'IRCA Group is a global leader in high-quality food ingredients',booth:'1333',exports:false,contacts:[]},
+  {brand:'IronMaxx Nutrition Gmbh & Co. KG',desc:'IronMaxx is Germany\'s No. 1 sports nutrition brand',booth:'3825',exports:false,contacts:[]},
+  {brand:'Island Snacks, Inc.',desc:'',booth:'4201',exports:false,contacts:[]},
+  {brand:'Ismail Industries Limited',desc:'',booth:'1260',exports:false,contacts:[]},
+  {brand:'Issei',desc:'At Issei, our mission is to reimagine candy with innovation',booth:'4010',exports:true,contacts:[]},
+  {brand:'Istanbul Exporters\' Association',desc:'',booth:'4209',exports:false,contacts:[]},
+  {brand:'ITALIANA CONFETTI SRL - MAXTRIS',desc:'',booth:'1775',exports:false,contacts:[]},
+  {brand:'ITP, LP',desc:'',booth:'4628',exports:false,contacts:[]},
+  {brand:'iVueit',desc:'iVueit helps retail and CPG brands quickly see what is happening in stores',booth:'7214',exports:false,contacts:[]},
+  {brand:'Ixora Food LLC',desc:'Ixora Food is a premier distributor of authentic Southeast Asian snacks',booth:'3832',exports:false,contacts:[]},
+  {brand:'J&K Beef Jerky',desc:'',booth:'4914',exports:false,contacts:[]},
+  {brand:'J.G. Niederegger GmbH & Co. KG',desc:'Niederegger is producer of finest marzipan and chocolate confectionery since 1806',booth:'4019',exports:false,contacts:[]},
+  {brand:'J.R. Short Snack Products',desc:'',booth:'6119',exports:false,contacts:[]},
+  {brand:'Jack\'s Candy',desc:'',booth:'4767',exports:false,contacts:[]},
+  {brand:'Jackson\'s',desc:'Founded by parents who wanted to create snacks their whole family could enjoy',booth:'4558',exports:true,contacts:[]},
+  {brand:'Jacoby',desc:'T.C. Jacoby & Co. is a third-generation family-owned dairy product trading company',booth:'6416',exports:false,contacts:[]},
+  {brand:'Jail Breaker Brands Potato Chips',desc:'',booth:'4633',exports:false,contacts:[]},
+  {brand:'Jans Enterprises Corp',desc:'',booth:'4212',exports:false,contacts:[]},
+  {brand:'Jayone(Excelife Inc)',desc:'Jayone Foods is a U.S.-based food manufacturer specializing in Korean and Asian food',booth:'1477',exports:false,contacts:[]},
+  {brand:'Jazam Alimentos',desc:'',booth:'4303',exports:false,contacts:[]},
+  {brand:'Jel Sert Company',desc:'Founded in 1926, The Jel Sert Company is a fourth-generation family-owned manufacturer',booth:'3105',exports:true,contacts:[]},
+  {brand:'Jiangmen Chuangkeqi Food Technology Co.,Ltd.',desc:'A smart manufacturing enterprise dedicated to innovative health food',booth:'5209',exports:false,contacts:[]},
+  {brand:'JINJIANG JINXIYUAN FOOD CO.,LTD',desc:'Professional factory in confectionery field since 2010',booth:'1677',exports:false,contacts:[]},
+  {brand:'JINJIANG YOUXIN IMPORT AND EXPORT TRADE CO.,LTD.',desc:'International confectionery trading company specializing in chocolates and gummies',booth:'2076',exports:false,contacts:[]},
+  {brand:'Jody\'s Popcorn',desc:'',booth:'2000',exports:true,contacts:[]},
+  {brand:'John Wm. Macy\'s CheeseSticks',desc:'',booth:'3736',exports:false,contacts:[]},
+  {brand:'Johnvince Foods',desc:'',booth:'1461',exports:false,contacts:[]},
+  {brand:'JOJO\'s Chocolate',desc:'Dark chocolate snacks that satisfied sugar cravings with more protein',booth:'4058',exports:false,contacts:[]},
+  {brand:'Jonny Almond Nut Co.',desc:'',booth:'2224',exports:false,contacts:[]},
+  {brand:'Jora\'s Date and Chocolate',desc:'Jora\'s is a specialized manufacturer of premium Belgian chocolate-covered dates',booth:'1773',exports:false,contacts:[]},
+  {brand:'Jovy Candy',desc:'',booth:'4521',exports:false,contacts:[]},
+  {brand:'JOYRIDE',desc:'JOYRIDE is on a mission to change the way the world eats and experiences candy',booth:'4046',exports:true,contacts:[]},
+  {brand:'JTM Foods LLC',desc:'',booth:'3353',exports:false,contacts:[]},
+  {brand:'Julio\'s Seasoning & Corn Chips',desc:'Julio\'s was established in 1985 by Julio T. Garcia',booth:'3611',exports:false,contacts:[]},
+  {brand:'JUNKLESS Foods',desc:'',booth:'4170',exports:false,contacts:[]},
+  {brand:'Just Born',desc:'Just Born Quality Confections is a third-generation family-owned candy manufacturer',booth:'2647',exports:false,contacts:[]},
+  {brand:'Just Ingredients',desc:'Our products are designed to support real life',booth:'1578',exports:false,contacts:[]},
+  {brand:'Just Sweet LLC',desc:'Just Sweet is a confectionery company dedicated to turning everyday moments into joyful experiences',booth:'1616',exports:false,contacts:[]},
+  {brand:'Just The Fun Part',desc:'Just The Fun Part Mini Waffle Cones are bite sized snacks',booth:'4809',exports:false,contacts:[]},
+  {brand:'Justin\'s',desc:'',booth:'4178',exports:false,contacts:[]},
+  {brand:'Karma Candy/Sweet Maple Candies',desc:'',booth:'1562',exports:false,contacts:[]},
+  {brand:'Kate\'s Real Food',desc:'Kate\'s Real Food is a company that specializes in creating organic snacks',booth:'4577',exports:false,contacts:[]},
+  {brand:'Kathy Kaye Foods',desc:'',booth:'3722',exports:true,contacts:[]},
+  {brand:'Katjes',desc:'Vegan Gummies. Yes Yes Yes!',booth:'3847',exports:false,contacts:[]},
+  {brand:'KATO MITO',desc:'Kato Mito is a Swedish style candy brand',booth:'1979',exports:false,contacts:[]},
+  {brand:'Kayco—Craize',desc:'',booth:'4572',exports:true,contacts:[]},
+  {brand:'Keenan Farms, Inc',desc:'Keenan Farms offers a wide range of delicious pistachio flavors',booth:'4355',exports:true,contacts:[]},
+  {brand:'Kellanova',desc:'',booth:'3157',exports:false,contacts:[]},
+  {brand:'Kenny\'s Candy & Confections',desc:'Whether you\'re looking for bulk products or a custom item',booth:'2659',exports:true,contacts:[]},
+  {brand:'Kenzen - Barnett Sweets',desc:'Kenzen Ventures Limited is proud to be the exclusive global distributor for Barnett Confectioners',booth:'1876',exports:false,contacts:[]},
+  {brand:'Keogh\'s Irish Potato Chips',desc:'Keogh\'s are a leading farming, fresh produce and snack food business',booth:'4356',exports:false,contacts:[]},
+  {brand:'Kervan USA LLC',desc:'',booth:'1963',exports:false,contacts:[]},
+  {brand:'KGR Distribution Corp',desc:'',booth:'2617',exports:false,contacts:[]},
+  {brand:'Khloud',desc:'Khloud is building an approachable platform of protein-powered snacks',booth:'4078',exports:false,contacts:[]},
+  {brand:'KICKBALLZ - REGAL PALATE',desc:'#1 Tasting Caffeinated Gumball',booth:'1878',exports:false,contacts:[]},
+  {brand:'Kidsmania Inc.',desc:'Kidsmania is a global leader in the novelty confectionery industry',booth:'2204',exports:false,contacts:[]},
+  {brand:'Kim\'s Choice Food Inc.',desc:'',booth:'1574',exports:false,contacts:[]},
+  {brand:'Kimble\'s Candy',desc:'Kimble\'s Candy was created in 2009 to provide the community with a homemade treat',booth:'2111',exports:false,contacts:[]},
+  {brand:'Kimmie Candy/Good Day Chocolate',desc:'Kimmie Candy is a premium confectionery manufacturer',booth:'1638',exports:true,contacts:[]},
+  {brand:'King Henry\'s, Inc.',desc:'',booth:'2172',exports:true,contacts:[]},
+  {brand:'King Nut Companies',desc:'',booth:'2223',exports:false,contacts:[]},
+  {brand:'Kirdag LTD / Perfect Delights',desc:'',booth:'5229',exports:false,contacts:[]},
+  {brand:'Kitchen & Love',desc:'Kitchen & Love brings global flavors with a focus on convenience',booth:'4574',exports:false,contacts:[]},
+  {brand:'Knotty Pretzels',desc:'',booth:'3732',exports:false,contacts:[]},
+  {brand:'KoKo\'s Confectionery & Novelty',desc:'',booth:'2305',exports:false,contacts:[]},
+  {brand:'Kontos Foods, Inc.',desc:'Kontos Foods is a privately-held bakery and distribution company',booth:'3377',exports:false,contacts:[]},
+  {brand:'Kpm Desserts',desc:'Kpm Desserts specializes in Premium Cookies - Alfajores',booth:'2275',exports:false,contacts:[]},
+  {brand:'Kracie, Ltd',desc:'Kracie is the original creator of DIY candy kits and Popin\'Cookin\'',booth:'5230',exports:false,contacts:[]},
+  {brand:'KrackCorn, LLC',desc:'KrackCorn® Popcorn is the only oven-baked popcorn on the market',booth:'2700',exports:true,contacts:[]},
+  {brand:'Kraft Heinz Ingredients',desc:'Great meals start with the right ingredients',booth:'6304',exports:false,contacts:[]},
+  {brand:'KREENUTS',desc:'We invented KREENUTS® when a love of outdoor activities met a passion for almonds',booth:'1776',exports:false,contacts:[]},
+  {brand:'Krienke Foods International Inc.',desc:'SQF-certified snack manufacturer specializing in private label',booth:'3635',exports:true,contacts:[]},
+  {brand:'Kruger North America, Inc.',desc:'',booth:'4005',exports:false,contacts:[]},
+  {brand:'KuchenMeister GmbH',desc:'',booth:'4112',exports:false,contacts:[]},
+  {brand:'L\'Orenta Nuts',desc:'L\'Orenta Nuts is an SQF-certified snack manufacturer and co-packing partner',booth:'3470',exports:true,contacts:[]},
+  {brand:'La Molienda',desc:'Dulces Regionales La Molienda has extensive experience in traditional Mexican products',booth:'4727',exports:false,contacts:[]},
+  {brand:'La Nogalera Group',desc:'La Nogalera is a leading Pecan company',booth:'7119',exports:false,contacts:[]},
+  {brand:'Labixiaoxin (Fujian) Foods Industrial Co., Ltd',desc:'Established in 2000, professional leisure foods manufacturer',booth:'1411',exports:false,contacts:[]},
+  {brand:'LAGO USA Inc.',desc:'Over 55 Years in the Italian Confectionary Industry',booth:'3309',exports:false,contacts:[]},
+  {brand:'Land O\'Lakes Inc',desc:'Land O\'Lakes creates innovative, high-performance dairy-based ingredients',booth:'6615',exports:false,contacts:[]},
+  {brand:'Larry & Terri\'s Sweet Treats',desc:'',booth:'2276',exports:false,contacts:[]},
+  {brand:'Las Sevillanas USA',desc:'',booth:'4859',exports:false,contacts:[]},
+  {brand:'Latini Hohberger Dhimantec',desc:'Latini Hohberger Dhimantec Inc. is a U.S.-based manufacturer of confectionery equipment',booth:'6330',exports:false,contacts:[]},
+  {brand:'Laurel Foods',desc:'',booth:'1472',exports:true,contacts:[]},
+  {brand:'Leaf Brands/Astro Pop, LLC',desc:'',booth:'2100',exports:true,contacts:[]},
+  {brand:'Lebby Snacks',desc:'Lebby Snacks was founded in 2016 to bring Mediterranean roasted chickpeas to modern snacking',booth:'3777',exports:false,contacts:[]},
+  {brand:'Left Hand Agency',desc:'Left Hand Agency is a media buying agency for CPG and retail brands',booth:'7014',exports:false,contacts:[]},
+  {brand:'Legacy Bakehouse',desc:'',booth:'4609',exports:false,contacts:[]},
+  {brand:'Legendary Foods',desc:'Legendary Foods is redefining what high-protein nutrition looks and tastes like',booth:'2001',exports:true,contacts:[]},
+  {brand:'Lerro Candy Co',desc:'',booth:'2711',exports:true,contacts:[]},
+  {brand:'LesserEvil',desc:'At LesserEvil, we don\'t just make snacks; we craft tiny, crunchy reminders',booth:'2472',exports:false,contacts:[]},
+  {brand:'Lianyungang Kuotai Foodstuff Co., Ltd.',desc:'Founded in 1995, famous confectionery manufacturer and exporter',booth:'2271',exports:false,contacts:[]},
+  {brand:'Liberty Trade',desc:'Liberty Trade Corp is a U.S.-based candy distributor and private label partner',booth:'2773',exports:false,contacts:[]},
+  {brand:'Life Plus Style Gourmet LLC',desc:'',booth:'3954',exports:true,contacts:[]},
+  {brand:'Lifeway Foods',desc:'Lifeway Foods is America\'s leading supplier of kefir',booth:'4604',exports:false,contacts:[]},
+  {brand:'Like Air',desc:'At our core, we are a family-run business passionate about healthy snacking',booth:'4265',exports:true,contacts:[]},
+  {brand:'Lily\'s Chilies',desc:'Lily\'s Chilies offers bold, spicy-sweet gummy candies',booth:'2174',exports:false,contacts:[]},
+  {brand:'Lindt & Sprungli USA',desc:'Lindt USA has been Enchanting the World with Chocolate since 1989',booth:'3147',exports:false,contacts:[]},
+  {brand:'Link Snacks',desc:'',booth:'3125',exports:true,contacts:[]},
+  {brand:'Lipari Foods',desc:'',booth:'3265',exports:false,contacts:[]},
+  {brand:'Loacker USA, Inc.',desc:'Since 1925, Loacker\'s goodness has been a rebellious choice',booth:'2321',exports:false,contacts:[]},
+  {brand:'Lodos Chemical Solutions',desc:'',booth:'6320',exports:false,contacts:[]},
+  {brand:'Loha Foods LLC',desc:'',booth:'1576',exports:false,contacts:[]},
+  {brand:'Long Weekend',desc:'',booth:'3770',exports:false,contacts:[]},
+  {brand:'LorAnn Oils',desc:'LorAnn provides premium flavoring options and specialty ingredients',booth:'6307',exports:false,contacts:[]},
+  {brand:'Lorenz Snacks GmbH & Co KG',desc:'130 Years of Passion for Snacks, family-owned business',booth:'4009',exports:false,contacts:[]},
+  {brand:'Lotte International America Corp.',desc:'Lotte International America Corp is the USA branch of Lotte International',booth:'5308',exports:false,contacts:[]},
+  {brand:'LOVE CORN',desc:'LOVE CORN is a delicious crunchy corn snack',booth:'4569',exports:false,contacts:[]},
+  {brand:'Low and Slow Snacks',desc:'Low & Slow Snacks is the first-ever authentically smoked snack brand',booth:'2370',exports:false,contacts:[]},
+  {brand:'Luker Chocolate',desc:'We are a B4B family-owned chocolate manufacturer with over 120 years of expertise',booth:'3162',exports:false,contacts:[]},
+  {brand:'Lumberjack\'s Arctic Treats',desc:'Freeze Dried Products',booth:'2078',exports:false,contacts:[]},
+  {brand:'LUPY LUPS !',desc:'',booth:'3165',exports:false,contacts:[]},
+  {brand:'Machu Picchu Foods',desc:'Machu Picchu Foods specializes in supplying tailor-made products for the chocolate industry',booth:'2667',exports:false,contacts:[]},
+  {brand:'Mackie International Inc.',desc:'',booth:'4057',exports:false,contacts:[]},
+  {brand:'MadeGood',desc:'',booth:'4252',exports:false,contacts:[]},
+  {brand:'Madelaine Chocolate Company',desc:'',booth:'3446',exports:true,contacts:[]},
+  {brand:'Maeve Chocolate',desc:'Maeve is a bold little chocolate company born in Seattle',booth:'2879',exports:false,contacts:[]},
+  {brand:'Maghreb Industries',desc:'',booth:'4505',exports:false,contacts:[]},
+  {brand:'Magnolia Bakery',desc:'',booth:'4776',exports:false,contacts:[]},
+  {brand:'Main Event',desc:'Main Event Protein Bars, developed in partnership with the UFC',booth:'4321',exports:false,contacts:[]},
+  {brand:'MAKPROGRES Ltd - Vincinni',desc:'Makprogres is a Corporate operating in different sectors including Food industry',booth:'2377',exports:false,contacts:[]},
+  {brand:'Mama V\'s Candy Co',desc:'Mama V\'s Candy is known for bold, high-quality sour candies',booth:'3774',exports:false,contacts:[]},
+  {brand:'Mamata Enterprises, Inc.',desc:'For more than three decades, Mamata has been shaping the future of flexible packaging',booth:'6419',exports:false,contacts:[]},
+  {brand:'Mantrose-Haeuser Co., Inc.',desc:'For over a century, Mantrose-Haeuser Co. has been at the forefront of edible coatings',booth:'6213',exports:false,contacts:[]},
+  {brand:'Manzela',desc:'',booth:'4966',exports:false,contacts:[]},
+  {brand:'Mapeks Gida',desc:'',booth:'4165',exports:false,contacts:[]},
+  {brand:'Marich Confectionery Company',desc:'Indulge in the joy of MARICH Pancrafted Chocolates®',booth:'5016',exports:true,contacts:[]},
+  {brand:'Marine Biologics',desc:'',booth:'7212',exports:false,contacts:[]},
+  {brand:'Market Square Food Company- Happy Snacks',desc:'At Market Square Food Company, we\'ve been making better-for-you cookies since 1982',booth:'4606',exports:true,contacts:[]},
+  {brand:'Marroquin Organic International',desc:'Marroquin Organic International stands out as pioneer in the organic market',booth:'7213',exports:false,contacts:[]},
+  {brand:'Mars Snacking',desc:'',booth:'2737',exports:false,contacts:[]},
+  {brand:'Mars Wrigley LAN',desc:'',booth:'2828',exports:false,contacts:[]},
+  {brand:'Martin\'s Family Fruit Farm',desc:'We are a family-owned and operated apple business',booth:'4109',exports:false,contacts:[]},
+  {brand:'Mascot Inc.',desc:'Mascot, Inc. is a third-generation family business dedicated to specialty snacks',booth:'2261',exports:true,contacts:[]},
+  {brand:'MASTER MARTINI USA',desc:'Master Martini is a global producer of high quality refined vegetable fats',booth:'3078',exports:false,contacts:[]},
+  {brand:'Mate Snacks',desc:'',booth:'4378',exports:false,contacts:[]},
+  {brand:'Maud Borup, Inc.',desc:'Maud Borup first gave tastebuds something to talk about more than 100 years ago',booth:'4465',exports:false,contacts:[]},
+  {brand:'Mauna Loa Macadamia Nut / Hawaiian Host',desc:'Rooted in Hawaiʻi, Mauna Loa and Hawaiian Host are iconic island brands',booth:'3047',exports:true,contacts:[]},
+  {brand:'MaxiNutrition',desc:'MaxiNutrition is a leading nutrition brand in Europe',booth:'4376',exports:false,contacts:[]},
+  {brand:'Maza INC',desc:'',booth:'1427',exports:false,contacts:[]},
+  {brand:'MC - Manufacturing Confectioner',desc:'',booth:'6309',exports:false,contacts:[]},
+  {brand:'McJak Candy Co., LLC',desc:'',booth:'3305',exports:true,contacts:[]},
+  {brand:'McKee Foods Corporation',desc:'McKee Foods is the family-owned bakery behind Little Debbie®',booth:'2963',exports:false,contacts:[]},
+  {brand:'McSteven\'s, Inc.',desc:'',booth:'3846',exports:true,contacts:[]},
+  {brand:'Mederer of North America, Inc.',desc:'Founded in 1975 by Herbert Mederer (inventor of Trolli brand candy)',booth:'1919',exports:false,contacts:[]},
+  {brand:'Mega Foods LLC',desc:'We are a proudly Mexican company, dedicated to the production of sauces',booth:'5221',exports:false,contacts:[]},
+  {brand:'Mega PG',desc:'',booth:'1361',exports:false,contacts:[]},
+  {brand:'Megatoys/P.C. Woo Inc.',desc:'Founded in 1989, Megatoys is an established manufacturer of seasonal gifts',booth:'1539',exports:false,contacts:[]},
+  {brand:'Meiji America, Inc.',desc:'',booth:'2753',exports:false,contacts:[]},
+  {brand:'Melin and Maddie',desc:'',booth:'4474',exports:false,contacts:[]},
+  {brand:'Melona Ice Cream',desc:'',booth:'1255',exports:false,contacts:[]},
+  {brand:'Melville Candy',desc:'At Melville Candy Company, our roots run deep as a third-generation family business',booth:'2312',exports:true,contacts:[]},
+  {brand:'Met Speed Label',desc:'We manufacture labels and label printers',booth:'7111',exports:false,contacts:[]},
+  {brand:'MEXICAN SNACKS INC.',desc:'MSI is a manufacturing facility founded over 20 years ago in Harlingen Texas',booth:'4878',exports:false,contacts:[]},
+  {brand:'Mexico Distributor',desc:'México Distributor brings the richness of Mexican sweets to the United States',booth:'5317',exports:false,contacts:[]},
+  {brand:'Mexsnax',desc:'Mexsnax is a Dallas-based snack manufacturing and distribution company',booth:'3171',exports:false,contacts:[]},
+  {brand:'Mezcla',desc:'',booth:'4176',exports:false,contacts:[]},
+  {brand:'Mi Nina Tortilla Chips',desc:'',booth:'4367',exports:false,contacts:[]},
+  {brand:'Midway Displays, Inc.',desc:'For more than 40 years, Midway Displays has been a trusted manufacturer',booth:'3462',exports:false,contacts:[]},
+  {brand:'Mieszko',desc:'Mieszko S.A. is a Polish confectionery producer with a long tradition',booth:'1432',exports:false,contacts:[]},
+  {brand:'Mighty Spark Food Co.',desc:'',booth:'3972',exports:false,contacts:[]},
+  {brand:'Mikey V\'s Foods',desc:'',booth:'3474',exports:false,contacts:[]},
+  {brand:'Milliways',desc:'MOST GUM IS MADE FROM CHEWY PLASTIC. MILLIWAYS IS PLASTIC FREE!',booth:'5556',exports:false,contacts:[]},
+  {brand:'Milne Fruit Products, INC',desc:'Since 1956, Milne has been a trusted Pacific Northwest supplier of premium fruit juice',booth:'6207',exports:false,contacts:[]},
+  {brand:'Minipak SAS',desc:'',booth:'6402',exports:false,contacts:[]},
+  {brand:'Miss Hannah\'s Gourmet Popcorn Co.',desc:'Delivering delight through unforgettable popcorn',booth:'1259',exports:false,contacts:[]},
+  {brand:'MITIN TRADING',desc:'MITIN product line consists of importing from Taiwan, Japan, South Korea',booth:'2277',exports:false,contacts:[]},
+  {brand:'Mitsubishi Chemical Corporation',desc:'Mitsubishi Chemical produces RYOTO™ SUGAR ESTER',booth:'6218',exports:false,contacts:[]},
+  {brand:'Mockups 4 You, LLC',desc:'We provide Packaging Mockups & Prototypes',booth:'6208',exports:false,contacts:[]},
+  {brand:'Monarca Food Solutions Holdings',desc:'Monarca Food Solutions is the leading vertically integrated manufacturer of Pellet-Based Food Ingredients',booth:'4647',exports:false,contacts:[]},
+  {brand:'MONARK',desc:'Monark is a leading snack and confectionery company',booth:'4164',exports:false,contacts:[]},
+  {brand:'Mondelez International, Inc',desc:'Mondelēz International empowers people to snack right in over 150 countries',booth:'1929',exports:true,contacts:[]},
+  {brand:'Moose Tracks',desc:'We\'re the creative force behind beloved Moose Tracks',booth:'2674',exports:false,contacts:[]},
+  {brand:'Morinaga America, Inc.',desc:'',booth:'5005',exports:false,contacts:[]},
+  {brand:'Morris National',desc:'Morris National is a confectionery manufacturer in Southern California',booth:'3505',exports:false,contacts:[]},
+  {brand:'Mount Franklin Foods, LLC',desc:'Mount Franklin Foods is a leading North American manufacturer of confections',booth:'3405',exports:true,contacts:[]},
+  {brand:'Moyy Packaging & Displays',desc:'Moyy is a design studio and corrugated manufacturer',booth:'6115',exports:false,contacts:[]},
+  {brand:'Mr. Martin',desc:'Mr. Martin specializes in roasting and packaging of sunflower seeds',booth:'4580',exports:false,contacts:[]},
+  {brand:'Mrs Bectors Food Specialties LTD',desc:'',booth:'3200',exports:false,contacts:[]},
+  {brand:'MTN OPS',desc:'',booth:'4371',exports:false,contacts:[]},
+  {brand:'Muddy Bites',desc:'',booth:'4672',exports:false,contacts:[]},
+  {brand:'MULTIPOND America, Inc.',desc:'MULTIPOND specializes in providing high-speed, high-accuracy weighing systems',booth:'6409',exports:false,contacts:[]},
+  {brand:'Munch King Snacks',desc:'',booth:'4712',exports:true,contacts:[]},
+  {brand:'Munch Mallows',desc:'The ultimate treat for candy lovers craving a unique snacking experience',booth:'2723',exports:false,contacts:[]},
+  {brand:'Murnane Packaging',desc:'',booth:'6102',exports:false,contacts:[]},
+  {brand:'My Favorite Company, Inc.',desc:'',booth:'2947',exports:false,contacts:[]},
+  {brand:'N-Tech DSD Invoicing Solutions',desc:'Experience the future of Direct Store Delivery with the N-Tech DSD App',booth:'6611',exports:false,contacts:[]},
+  {brand:'Nancy\'s Candy Company',desc:'',booth:'4453',exports:true,contacts:[]},
+  {brand:'Nantucket Crisps',desc:'',booth:'1256',exports:false,contacts:[]},
+  {brand:'Nassau Candy',desc:'Nassau Candy is a wholesale manufacturer, importer, and distributor',booth:'1547',exports:true,contacts:[]},
+  {brand:'National Harvest',desc:'Premium Dried Fruits & Nuts — Direct from Source',booth:'2075',exports:false,contacts:[]},
+  {brand:'Natra',desc:'We are Worldwide Preferred Independent European Chocolatiers for retailers',booth:'4630',exports:false,contacts:[]},
+  {brand:'Natural Green Packaging',desc:'Natural Green Packaging is a custom packaging manufacturer',booth:'6305',exports:false,contacts:[]},
+  {brand:'Naturally Homegrown Foods Ltd.',desc:'The challenger of the snack aisle as an independent kettle-style producer',booth:'4546',exports:false,contacts:[]},
+  {brand:'NE-MO\'S BAKERY',desc:'Since 1975, Ne-Mo\'s Bakery has been providing delicious baked goods',booth:'5059',exports:false,contacts:[]},
+  {brand:'Nebula Snacks',desc:'Nebula Snacks crafts non-glycemic chocolate bites',booth:'4381',exports:false,contacts:[]},
+  {brand:'New Primal',desc:'We make tasty protein snacks using clean ingredients',booth:'4274',exports:false,contacts:[]},
+  {brand:'New Twist Food',desc:'New Twist Food creates unique snack products',booth:'5063',exports:false,contacts:[]},
+  {brand:'Nibl by Aji Foods',desc:'',booth:'5237',exports:false,contacts:[]},
+  {brand:'NIQ',desc:'',booth:'6504',exports:false,contacts:[]},
+  {brand:'Nisshin OilliO America',desc:'Nisshin OilliO America is the North American arm of The Nisshin OilliO Group',booth:'6417',exports:false,contacts:[]},
+  {brand:'No Man\'s Land Foods',desc:'Out here in Oklahoma, we make jerky a little differently',booth:'2763',exports:false,contacts:[]},
+  {brand:'Nomad Snacks',desc:'Nomad leads a flavor revolution, turning popcorn into a platform for global taste discovery',booth:'1535',exports:false,contacts:[]},
+  {brand:'Noms Chewing Gum',desc:'',booth:'5568',exports:false,contacts:[]},
+  {brand:'Nonni\'s Bakery',desc:'AT NONNI\'S® BAKERY, LOVE AND FAMILY ARE AT THE HEART OF EVERY RECIPE',booth:'1354',exports:false,contacts:[]},
+  {brand:'Norjal Distribuidora y Comercializadora',desc:'NORJAL is a Mexico-based distribution and marketing company',booth:'5315',exports:false,contacts:[]},
+  {brand:'Novacart',desc:'Novacart is a global leader in bakeable paper packaging',booth:'6421',exports:false,contacts:[]},
+  {brand:'Novolex',desc:'Novolex is a leading manufacturer of food, beverage, and specialty packaging',booth:'7415',exports:false,contacts:[]},
+  {brand:'NUDE MINTS & Evil Snacks',desc:'',booth:'1558',exports:false,contacts:[]},
+  {brand:'Nunu Candies',desc:'NUNU is a sugar-free compressed candy brand',booth:'4059',exports:false,contacts:[]},
+  {brand:'Nuova Industria Biscotti Crich Spa',desc:'Crich is a solid company specialized in biscuits and shortbread',booth:'2073',exports:false,contacts:[]},
+  {brand:'Nutra Food Ingredients',desc:'We are a wholesale distributor of ingredients established in 2004',booth:'6107',exports:false,contacts:[]},
+  {brand:'Nutra-Agri Ingredients LLC',desc:'At Nutra-Agri, we specialize in Reduced Sugar Sweetening Solutions',booth:'6414',exports:false,contacts:[]},
+  {brand:'NuTrail',desc:'We won\'t sugar coat it: our granola is nuts',booth:'3878',exports:false,contacts:[]},
+  {brand:'Nutriart',desc:'A proud family-owned company dedicated to help you find the right fit for chocolate',booth:'4123',exports:false,contacts:[]},
+  {brand:'Nutrigaard LLC',desc:'Nutrigaard LLC showcases chocolate and sugar-shell polishing agents',booth:'6108',exports:false,contacts:[]},
+  {brand:'Nutrissimo',desc:'',booth:'4871',exports:false,contacts:[]},
+  {brand:'Nuts Factory',desc:'',booth:'2278',exports:false,contacts:[]},
+  {brand:'Nuts.com/Kopper\'s Chocolate',desc:'',booth:'2705',exports:false,contacts:[]},
+  {brand:'Nutty Naturals',desc:'Nutty Naturals family brands is passionate about delivering high-quality healthy snacks',booth:'1572',exports:true,contacts:[]},
+  {brand:'Oberto Snacks, Inc.',desc:'',booth:'4837',exports:true,contacts:[]},
+  {brand:'OCIA International: Quality Organic Certification',desc:'As providers and consumers of certified organic production',booth:'6316',exports:false,contacts:[]},
+  {brand:'Octonuts',desc:'',booth:'4555',exports:false,contacts:[]},
+  {brand:'ODW Logistics',desc:'ODW Logistics is a third-party provider (3PL) headquartered in Columbus, Ohio',booth:'6016',exports:false,contacts:[]},
+  {brand:'OFW Law',desc:'',booth:'7008',exports:false,contacts:[]},
+  {brand:'Oh Snap! Pickling Co.',desc:'OH SNAP! is pickling made perfect',booth:'4452',exports:true,contacts:[]},
+  {brand:'Oh!asis',desc:'Oh!asis was founded in 2024 incorporating Anastasia and Coconut Island',booth:'2061',exports:true,contacts:[]},
+  {brand:'Old Dutch Foods',desc:'Old Dutch Foods is a family-owned, Minnesota-based snack manufacturer since 1934',booth:'3822',exports:false,contacts:[]},
+  {brand:'Old Trapper Smoked',desc:'',booth:'5035',exports:false,contacts:[]},
+  {brand:'Old Wisconsin Sausage',desc:'Carl Buddig is a House of Brands, ranging from prepared meats to lunchmeat',booth:'4437',exports:false,contacts:[]},
+  {brand:'Oliver Inc',desc:'With more than 250 years of experience, Oliver is a one-stop packaging solution',booth:'1573',exports:false,contacts:[]},
+  {brand:'Olivier\'s Candies',desc:'',booth:'1668',exports:false,contacts:[]},
+  {brand:'OLYRA',desc:'',booth:'4457',exports:false,contacts:[]},
+  {brand:'OMW! Foods',desc:'OMW! is a brand created for those always on the go',booth:'1264',exports:false,contacts:[]},
+  {brand:'Once Again Nut Butter Collective, Inc.',desc:'Since 1976, Once Again Nut Butter has been paving the way',booth:'4479',exports:false,contacts:[]},
+  {brand:'OPP Omaha Protein Popcorn',desc:'Omaha Protein Popcorn is a rapidly growing functional snack brand',booth:'1251',exports:false,contacts:[]},
+  {brand:'Original Gourmet Food Co.',desc:'Specializing in gourmet lollipops with innovative displays',booth:'3117',exports:true,contacts:[]},
+  {brand:'Original Natural Sweets',desc:'',booth:'4330',exports:false,contacts:[]},
+  {brand:'Orion F&B US, Inc',desc:'',booth:'4959',exports:false,contacts:[]},
+  {brand:'OSEM USA, Inc.',desc:'',booth:'1614',exports:false,contacts:[]},
+  {brand:'Oterra',desc:'Oterra is the largest provider of natural colors worldwide',booth:'7207',exports:false,contacts:[]},
+  {brand:'Otis Spunkmeyer',desc:'Otis Spunkmeyer has been delivering fresh-baked cookie excitement for nearly 50 years',booth:'4761',exports:false,contacts:[]},
+  {brand:'Otto Nuts/Waforia Cookies',desc:'Milhans Foods presents Waforia Cookies and Otto Nuts',booth:'3079',exports:false,contacts:[]},
+  {brand:'Our Home',desc:'Our Home is where everything comes together - Pop Secret, Popchips, Good Health',booth:'4031',exports:true,contacts:[]},
+  {brand:'Outlaw Snax',desc:'True to our name, Outlaw Snax is here to challenge the status quo',booth:'2163',exports:true,contacts:[]},
+  {brand:'OVERSEAS FOOD TRADING',desc:'We pride ourselves on offering a complete set of services from sourcing and development',booth:'4117',exports:false,contacts:[]},
+  {brand:'Oyatsu Baby Star Ramen Snack',desc:'',booth:'2679',exports:false,contacts:[]},
+  {brand:'Pack Plus Converting',desc:'',booth:'2771',exports:false,contacts:[]},
+  {brand:'PACXEL',desc:'Pacxel specializes in high-quality innovative flexible packaging solutions',booth:'6114',exports:false,contacts:[]},
+  {brand:'PAGASA Group',desc:'',booth:'3460',exports:false,contacts:[]},
+  {brand:'Pakel Chocolate Food Ind. & Trading LLC.',desc:'Established in 2003, Pakel Chocolate Food provides packaging and wrapping services',booth:'4953',exports:false,contacts:[]},
+  {brand:'Palmer Candy Company',desc:'Established in 1878, Palmer Candy is the oldest continuously held family owned candy company',booth:'3647',exports:false,contacts:[]},
+  {brand:'Panoramic, Inc.',desc:'Specializing in products for food processors supplying bakery, deli, produce',booth:'6112',exports:false,contacts:[]},
+  {brand:'PANSARDO',desc:'Deliziosi LLC is an importing company in the US, Florida',booth:'4967',exports:false,contacts:[]},
+  {brand:'Papco Foods Inc.',desc:'',booth:'4127',exports:false,contacts:[]},
+  {brand:'Paradise Fruits North America Inc.',desc:'For over 140 years, the Jahncke Group has been shaping the future of fruit processing',booth:'4550',exports:false,contacts:[]},
+  {brand:'Parga Products',desc:'',booth:'2181',exports:false,contacts:[]},
+  {brand:'Partners, A Tasteful Choice Company',desc:'PARTNERS is a second-generation family owned bakery based in the Pacific Northwest',booth:'4353',exports:true,contacts:[]},
+  {brand:'Party Pump Co.',desc:'Party Pump Co. is a snack brand built for people who want to live a healthy life',booth:'5564',exports:false,contacts:[]},
+  {brand:'PATATAS FRITAS RUBIO',desc:'',booth:'2876',exports:false,contacts:[]},
+  {brand:'Pear\'s Snacks & Wild Dutchman Seeds',desc:'Pears Snacks creates bold, flavorful snack nuts with a fun personality',booth:'2673',exports:false,contacts:[]},
+  {brand:'Pearson Ranch Healthy Meat Snacks',desc:'Fifth-generation family ranch raises bison, elk, and cattle',booth:'3068',exports:true,contacts:[]},
+  {brand:'Pecan Deluxe Candy Company',desc:'Pecan Deluxe is a family-owned global leader in value-added inclusions',booth:'6506',exports:false,contacts:[]},
+  {brand:'Pecan Nation',desc:'Pecan Nation has been growing, harvesting, and cooking pecans for over 5 generations',booth:'5131',exports:false,contacts:[]},
+  {brand:'Peccin',desc:'',booth:'4406',exports:false,contacts:[]},
+  {brand:'Peppertux Pistachio Spreads & Snacks',desc:'',booth:'4676',exports:false,contacts:[]},
+  {brand:'PepsiCo',desc:'PepsiCo is home to some of the world\'s most iconic snacks',booth:'2805',exports:false,contacts:[]},
+  {brand:'Perfetti Van Melle USA, Inc.',desc:'Perfetti Van Melle USA is part of one of the world\'s largest confectionery manufacturers',booth:'1847',exports:false,contacts:[]},
+  {brand:'PEZ Candy, Inc.',desc:'',booth:'3547',exports:true,contacts:[]},
+  {brand:'PhoLicious Foods',desc:'AT PHOLICIOUS, QUALITY IS OUR STANDARD!',booth:'5062',exports:true,contacts:[]},
+  {brand:'Phytolon',desc:'Phytolon is a biotechnology company and a leader in fermentation-based natural food colors',booth:'7313',exports:false,contacts:[]},
+  {brand:'Piedmont Candy Co.',desc:'At Piedmont Candy Company, our purpose is simple: to spark sweet, nostalgic smiles',booth:'2205',exports:false,contacts:[]},
+  {brand:'Pierre Biscuiterie',desc:'It all started in the French countryside of Normandy',booth:'4554',exports:false,contacts:[]},
+  {brand:'Pietrobon e Cia LTDA',desc:'',booth:'4309',exports:false,contacts:[]},
+  {brand:'PIM Brands, Inc.',desc:'',booth:'1605',exports:true,contacts:[]},
+  {brand:'Pirouline',desc:'Crispy. Creamy. Iconic. Pirouline\'s signature Crème-Filled Rolled Wafers',booth:'4012',exports:true,contacts:[]},
+  {brand:'Pirucream',desc:'Pirucream is a confectionery snack combining crunchiness of thin rolled wafer with rich fillings',booth:'4208',exports:false,contacts:[]},
+  {brand:'PISSA',desc:'PISSA has achieved the position of World Leader in Confectionery Dextrose',booth:'3755',exports:false,contacts:[]},
+  {brand:'PJL Network',desc:'',booth:'7222',exports:false,contacts:[]},
+  {brand:'pladis North America',desc:'Formed in 2016, pladis is the proud steward of over 300 years baking and confectionery experience',booth:'1861',exports:true,contacts:[]},
+  {brand:'Plan IT Packaging Systems Inc.',desc:'Technical Expertise backed by 30+ Years in the Packaging Industry',booth:'7100',exports:false,contacts:[]},
+  {brand:'Plantain Republic S.A. / DuranCocoa / Dulcenac',desc:'We are a proudly Ecuadorian company specializing in premium plantain snacks',booth:'3965',exports:false,contacts:[]},
+  {brand:'PMCA',desc:'PMCA is an international association for confectionery and snack professionals',booth:'7026',exports:false,contacts:[]},
+  {brand:'Pocas International Corp.',desc:'',booth:'4446',exports:true,contacts:[]},
+  {brand:'Polymerall Flexible Packaging',desc:'Polymerall Flexible Packaging is a trusted partner for snack and confectionery brands',booth:'6105',exports:false,contacts:[]},
+  {brand:'Pop Daddy Snacks',desc:'Founded by Mark & Erin Sarafa on a passion for popcorn',booth:'1479',exports:false,contacts:[]},
+  {brand:'Pop\'s Corner',desc:'',booth:'5360',exports:false,contacts:[]},
+  {brand:'Pop-Smile Asian Popcorn',desc:'We represent Asia Cuisine Culture by bringing Asia Flavored Popcorn to the world',booth:'4473',exports:false,contacts:[]},
+  {brand:'Popcorn Remix',desc:'Popcorn Remix has redefined the popcorn experience with over 50 bold flavors',booth:'5340',exports:true,contacts:[]},
+  {brand:'Popfully',desc:'At Popfully, we believe that life is too short for ordinary snacks',booth:'4326',exports:true,contacts:[]},
+  {brand:'Popsalot Gourmet Popcorn',desc:'Popsalot was founded in Los Angeles to elevate the humble kernel',booth:'4450',exports:true,contacts:[]},
+  {brand:'Poptime Snack Brands',desc:'',booth:'3708',exports:true,contacts:[]},
+  {brand:'Pork King Good',desc:'Pork King Good is a multi-award-winning, woman-owned CPG brand reinventing pork rinds',booth:'4817',exports:false,contacts:[]},
+  {brand:'Port City Pretzels',desc:'A specialty snack producer recognized for its flavorful seasoned hard pretzels',booth:'3001',exports:false,contacts:[]},
+  {brand:'POSHI',desc:'',booth:'3955',exports:false,contacts:[]},
+  {brand:'Power Central LLC',desc:'',booth:'7309',exports:false,contacts:[]},
+  {brand:'PPC Flexible Packaging',desc:'',booth:'7412',exports:false,contacts:[]},
+  {brand:'Preferred Popcorn, LLC.',desc:'Founded in 1997 by Nebraska farmers, Preferred Popcorn supplies premium popcorn to 70+ countries',booth:'3726',exports:true,contacts:[]},
+  {brand:'Preferred Snacks',desc:'Preferred Snacks specializes in crafting innovative sweet and savory popcorn products',booth:'3728',exports:false,contacts:[]},
+  {brand:'Primal Eats',desc:'Primal Eats Meat Sticks are crafted for clean, high-quality protein',booth:'2378',exports:false,contacts:[]},
+  {brand:'Prince of Peace',desc:'',booth:'2862',exports:true,contacts:[]},
+  {brand:'Print247.us',desc:'Print247.us is a Houston-based custom packaging and printing company',booth:'7115',exports:false,contacts:[]},
+  {brand:'ProAmpac',desc:'ProAmpac is a leading global flexible packaging manufacturer',booth:'6312',exports:false,contacts:[]},
+  {brand:'Productos Alteno',desc:'Hard Candy Lollipops and Gummy Candies, based in Mexico',booth:'1679',exports:false,contacts:[]},
+  {brand:'Productos Cristina',desc:'',booth:'4876',exports:false,contacts:[]},
+  {brand:'Productos Taxi, S.L.',desc:'We produce and pack snacks & vegetal food products',booth:'2479',exports:false,contacts:[]},
+  {brand:'Promise Confections / Edward Marc Brands',desc:'Promise Confections is an award-winning manufacturer of chocolate and confectionery',booth:'3135',exports:true,contacts:[]},
+  {brand:'Promising Goods',desc:'',booth:'2600',exports:false,contacts:[]},
+  {brand:'Proper Wild, Inc.',desc:'',booth:'2677',exports:false,contacts:[]},
+  {brand:'Protein Candy',desc:'',booth:'4175',exports:false,contacts:[]},
+  {brand:'PRSM Biotechnologies',desc:'',booth:'6513',exports:false,contacts:[]},
+  {brand:'Pucker Powder by Creative Concepts',desc:'',booth:'3905',exports:true,contacts:[]},
+  {brand:'Puratos',desc:'Puratos is a global leader in innovative ingredients for bakery, patisserie, and chocolate',booth:'4772',exports:false,contacts:[]},
+  {brand:'Pure Snacks Ltd',desc:'Pure Snacks Ltd is a UK-based snack company bringing innovative functional snacks',booth:'5570',exports:false,contacts:[]},
+  {brand:'PURIS',desc:'PURIS is a vertically integrated, U.S.-based manufacturer of plant-based ingredients',booth:'6005',exports:false,contacts:[]},
+  {brand:'Purity Flexpack Limited',desc:'Purity Flexpack Limited is a PLC, manufacturing flexible packaging worldwide',booth:'6508',exports:false,contacts:[]},
+  {brand:'PURNAMAGIC Endless Inspiration',desc:'PurnaMagic is a premium savory snack manufacturer',booth:'5354',exports:false,contacts:[]},
+  {brand:'QAD',desc:'QAD | Redzone is redefining manufacturing and supply chains',booth:'7414',exports:false,contacts:[]},
+  {brand:'Qingdao Youshare Food Co., Ltd',desc:'',booth:'4768',exports:false,contacts:[]},
+  {brand:'Quaker Hill Farms, Inc.',desc:'',booth:'1546',exports:true,contacts:[]},
+  {brand:'Quinn Snacks',desc:'Founded in 2010 by Kristy Lewis, Quinn challenges food industry norms',booth:'3979',exports:false,contacts:[]},
+  {brand:'R. M. Palmer Company LLC',desc:'R.M. Palmer Company has been crafting seasonal chocolate novelties since 1948',booth:'2235',exports:true,contacts:[]},
+  {brand:'R2E-PACK',desc:'',booth:'5026',exports:false,contacts:[]},
+  {brand:'Racks Inc.',desc:'',booth:'7022',exports:false,contacts:[]},
+  {brand:'Ragolds USA, Inc.',desc:'',booth:'2517',exports:false,contacts:[]},
+  {brand:'Ralph Moyle, Inc.',desc:'We are a family-owned carrier with over 57 years of experience',booth:'7021',exports:false,contacts:[]},
+  {brand:'Rap Snacks',desc:'Rap Snacks is The Official Snack Brand of Hip Hop!',booth:'5147',exports:false,contacts:[]},
+  {brand:'Razzmatazz Candies TM',desc:'Based in the United States, our high-quality line of sweets',booth:'2228',exports:false,contacts:[]},
+  {brand:'Ready',desc:'Ready® is a premium protein snack and beverage company',booth:'5410',exports:false,contacts:[]},
+  {brand:'Redstone Foods, Inc.',desc:'Redstone Foods is a 3rd generation specialty candy wholesaler',booth:'4539',exports:true,contacts:[]},
+  {brand:'Redzone',desc:'Redzone is a connected workforce platform for manufacturers',booth:'7315',exports:false,contacts:[]},
+  {brand:'Refresh Gum',desc:'Confectionery made the right way with only natural ingredients',booth:'3877',exports:false,contacts:[]},
+  {brand:'Reichel Foods, Inc.',desc:'Reichel Foods is a leading fresh snack manufacturer',booth:'5001',exports:false,contacts:[]},
+  {brand:'Rev Gum',desc:'REV GUM is a sugar-free, performance-focused chewing gum brand',booth:'1417',exports:false,contacts:[]},
+  {brand:'REVEL Bars & BEAR Fruit Snacks',desc:'',booth:'1556',exports:false,contacts:[]},
+  {brand:'Ribbonwire Ranch',desc:'Ribbonwire Ranch is a family-owned operation on historic Texas Panhandle land',booth:'4927',exports:false,contacts:[]},
+  {brand:'Riclan S.A.',desc:'Founded in 1944 in Rio Claro, Riclan is a Brazilian-owned Company',booth:'1973',exports:false,contacts:[]},
+  {brand:'Righteous Felon Craft Jerky',desc:'RIGHTEOUS FELON CRAFT JERKY has led the American meat snack revolution',booth:'3859',exports:false,contacts:[]},
+  {brand:'Rimaray inc',desc:'RIMARY Inc. is a U.S.-based consumer goods company',booth:'4704',exports:false,contacts:[]},
+  {brand:'Rip Van',desc:'',booth:'3854',exports:false,contacts:[]},
+  {brand:'Rito Mints',desc:'Founded in 1957 in Trois-Rivières, Rito has evolved from a leader in mints',booth:'1439',exports:false,contacts:[]},
+  {brand:'Ritter Sport USA, Inc.',desc:'',booth:'4335',exports:false,contacts:[]},
+  {brand:'RKL eSolutions',desc:'Founded in 2001, RKL eSolutions provides business software and IT/Networking solutions',booth:'6216',exports:false,contacts:[]},
+  {brand:'Rob\'s Brands LLC D/B/A Vegan Rob\'s',desc:'Captain Bootyhead crafts boldly flavorful snacks with integrity',booth:'4581',exports:false,contacts:[]},
+  {brand:'Rolling Pin Baking Company LLC',desc:'',booth:'4464',exports:true,contacts:[]},
+  {brand:'Romero Mexican Wedding Cookies',desc:'Romero Mexican Cookies is a proudly Latina-owned, second-generation bakery',booth:'5348',exports:false,contacts:[]},
+  {brand:'Root Smarts Healthy Snacks',desc:'HC Group is a rapidly growing manufacturer of healthy snacks',booth:'1257',exports:false,contacts:[]},
+  {brand:'Rootree Inc.',desc:'Rootree is a flexible packaging manufacturer specializing in sustainable solutions',booth:'7025',exports:false,contacts:[]},
+  {brand:'Roses Brands',desc:'Roses Brands® was created for today\'s confectionery consumers',booth:'2120',exports:true,contacts:[]},
+  {brand:'Rotten',desc:'',booth:'4253',exports:false,contacts:[]},
+  {brand:'Route 11 Potato Chips',desc:'',booth:'4273',exports:false,contacts:[]},
+  {brand:'ROVEMA North America, Inc.',desc:'Rovema North America serves as the North American sales and service hub',booth:'6117',exports:false,contacts:[]},
+  {brand:'Royal Import and Export',desc:'Royal Import & Export is one of India\'s leading manufacturers of butter cookies',booth:'4673',exports:false,contacts:[]},
+  {brand:'Royal Ridge Fruits',desc:'',booth:'7224',exports:false,contacts:[]},
+  {brand:'Rudolph Foods Company, Inc.',desc:'',booth:'3412',exports:true,contacts:[]},
+  {brand:'Rusken Packaging',desc:'Rusken Packaging is a dynamic, modern, integrated corrugated packaging company',booth:'7006',exports:false,contacts:[]},
+  {brand:'Russell Stover Chocolates',desc:'',booth:'2815',exports:true,contacts:[]},
+  {brand:'Safari',desc:'Wholesale Distribution of Mexican Candy Nationwide',booth:'4964',exports:false,contacts:[]},
+  {brand:'Salt of the Earth Bakery',desc:'We are a Brooklyn born, family owned and operated baked goods company',booth:'4156',exports:false,contacts:[]},
+  {brand:'Sam\'s F&B',desc:'Sam\'s F&B specializes in distributing Asian inspired snacks and beverages',booth:'1575',exports:false,contacts:[]},
+  {brand:'San Diablo Artisan Churros',desc:'San Diablo Artisan Churros is revolutionizing how people enjoy the churro',booth:'2272',exports:false,contacts:[]},
+  {brand:'Santa Cruz Fun Foods',desc:'Fun foods that taste like summer! ICEE, Dippin\' Dots, Cotton Candy',booth:'2578',exports:false,contacts:[]},
+  {brand:'Saray Bisküvi',desc:'',booth:'4207',exports:false,contacts:[]},
+  {brand:'Sarvan Sekerleme -Candy',desc:'Sarvan Candy was formed in 2010 on a foundation of experience',booth:'4702',exports:false,contacts:[]},
+  {brand:'Savor Seasonings, LLC',desc:'Savor Seasonings creates bold, crave-worthy flavor solutions',booth:'6509',exports:false,contacts:[]},
+  {brand:'Savory Fine Foods',desc:'',booth:'2079',exports:false,contacts:[]},
+  {brand:'SB Craft Jerky, Inc.',desc:'',booth:'5161',exports:false,contacts:[]},
+  {brand:'SB4U LLC / Sales Mantis',desc:'Founded in 1949, Gardiners of Scotland is a third-generation family-owned confectionery maker',booth:'5155',exports:false,contacts:[]},
+  {brand:'Schuster Products LLC',desc:'Face Twisters is a sour candy brand under Schuster Products',booth:'3738',exports:false,contacts:[]},
+  {brand:'Sconza Chocolates',desc:'',booth:'2857',exports:true,contacts:[]},
+  {brand:'Scoot Frozen Lemonade',desc:'Scoot Frozen Lemonade is a cool, refreshing lemonade slushie in a convenient pouch',booth:'4805',exports:false,contacts:[]},
+  {brand:'Scripture Candy, Inc.',desc:'',booth:'2801',exports:true,contacts:[]},
+  {brand:'Sealstrip Corporation',desc:'Sealstrip provides resealable and easy open packaging solutions',booth:'7312',exports:false,contacts:[]},
+  {brand:'Seasonal Supplies PTY Ltd.',desc:'',booth:'1969',exports:false,contacts:[]},
+  {brand:'Second Nature Brands',desc:'Second Nature Brands is a leading creator of snacks and treats',booth:'1877',exports:true,contacts:[]},
+  {brand:'See\'s Candies, Inc.',desc:'',booth:'3059',exports:true,contacts:[]},
+  {brand:'Seeberger GmbH',desc:'People love good snacks - dried fruits, nuts, and nut & fruit mixes',booth:'4015',exports:false,contacts:[]},
+  {brand:'Seitenbacher America, LLC',desc:'Seitenbacher, a German family-owned brand of organic and natural foods since 1980',booth:'3376',exports:false,contacts:[]},
+  {brand:'Seneca Snack Company',desc:'Seneca Apple Chips are made with apples grown in the Yakima Valley',booth:'2473',exports:false,contacts:[]},
+  {brand:'Sensient Food Colors',desc:'',booth:'7223',exports:false,contacts:[]},
+  {brand:'Setter Paperstix',desc:'SETTER PAPERSTIX manufactures high-quality 100% biodegradeable paper sticks',booth:'7308',exports:false,contacts:[]},
+  {brand:'Setton Pistachio/Setton Farms',desc:'Setton Farms is America\'s premier grower and processor of California pistachios',booth:'4233',exports:true,contacts:[]},
+  {brand:'Shameless Snacks',desc:'',booth:'3872',exports:false,contacts:[]},
+  {brand:'Shantou Ewin Foods Co., LTD',desc:'Professional candy & sweet supplier & exporter in China',booth:'1328',exports:false,contacts:[]},
+  {brand:'Shantou Little Angel Food Co.,Ltd',desc:'Manufacturer of a wide range of Confectionery Candy and Novelty Candy Toys',booth:'5414',exports:false,contacts:[]},
+  {brand:'SHANTOU SWEET CAREER FOODS CO.,LTD.',desc:'Professional confectionery supplier, specializing in confectionery',booth:'5130',exports:false,contacts:[]},
+  {brand:'SHANXI JINLI CANDY CO.,LTD.',desc:'Founded in 1984, leading company in Shanxi Province for hard candy',booth:'4922',exports:false,contacts:[]},
+  {brand:'ShaSha',desc:'',booth:'1258',exports:false,contacts:[]},
+  {brand:'SHENZHEN HAOXIANG TRADE CO., LTD',desc:'Specialized in manufacturing candy and candy packaging',booth:'4930',exports:false,contacts:[]},
+  {brand:'Showcase - Home of the Hottest Trends',desc:'Showcase: With 30 years in business and 150 permanent stores',booth:'4624',exports:false,contacts:[]},
+  {brand:'Sierra Packaging & Converting, LLC',desc:'',booth:'6205',exports:false,contacts:[]},
+  {brand:'Siesta Drinkware & Souvenirs',desc:'We specialize in Top Quality Products; cups and souvenirs',booth:'6007',exports:false,contacts:[]},
+  {brand:'Siete Foods',desc:'',booth:'3864',exports:false,contacts:[]},
+  {brand:'Silesia Flavors, Inc.',desc:'Silesia Flavors is family owned, global company with more than 110 years of flavor experience',booth:'6405',exports:false,contacts:[]},
+  {brand:'Silky Gem Christal Candy',desc:'Silky Gem crystal candies are inspired by Vietnamese Lunar new year traditions',booth:'4963',exports:false,contacts:[]},
+  {brand:'SilverPak LLC',desc:'',booth:'7109',exports:false,contacts:[]},
+  {brand:'Simas',desc:'Simas stands out as one of the most traditional candy industry in Brazil, celebrating 80th anniversary',booth:'4412',exports:false,contacts:[]},
+  {brand:'Simply Good Foods Company',desc:'We\'re raising the bar on what food can be',booth:'4923',exports:true,contacts:[]},
+  {brand:'SIMPLY GUM',desc:'The unusually simple brand making unusually simple products',booth:'4256',exports:true,contacts:[]},
+  {brand:'Simply Snacks LLC',desc:'',booth:'2856',exports:false,contacts:[]},
+  {brand:'SimplyFood | Acumatica Cloud ERP',desc:'Discover SimplyFood, a leading cloud-based ERP solution',booth:'6018',exports:false,contacts:[]},
+  {brand:'simplyFUEL',desc:'simplyFUEL Protein Balls are the perfect whole food protein snack',booth:'3968',exports:false,contacts:[]},
+  {brand:'Sinobake Group Limited',desc:'',booth:'6420',exports:false,contacts:[]},
+  {brand:'Sir Walter Candy Co.',desc:'',booth:'4965',exports:false,contacts:[]},
+  {brand:'SkinnyDipped',desc:'',booth:'4074',exports:false,contacts:[]},
+  {brand:'Skjodt-Barrett Foods Inc.',desc:'Skjodt-Barrett Foods is a North American leader in custom food ingredients',booth:'7113',exports:false,contacts:[]},
+  {brand:'Skyco Distro',desc:'',booth:'4909',exports:false,contacts:[]},
+  {brand:'Smarties Candy Company',desc:'Smartie Candy Company is a dynamic family-owned business established in 1949',booth:'2631',exports:true,contacts:[]},
+  {brand:'SmartSweets',desc:'SmartSweets is the first candy you can feel good about with up to 92% less sugar',booth:'4358',exports:false,contacts:[]},
+  {brand:'SmartWorks Consumer Products',desc:'Zimply Foods brings delicious sweets and confectionery to everyone',booth:'4529',exports:false,contacts:[]},
+  {brand:'Smash Kitchen',desc:'Food you can trust. Co-founded by Glen Powell',booth:'2279',exports:false,contacts:[]},
+  {brand:'Smokey Dukes',desc:'Smokey Dukes is a family-owned snack company redefining the pretzel category',booth:'5356',exports:false,contacts:[]},
+  {brand:'Smood Sweets (Candy Dates)',desc:'Candy Dates reimagine confection with whole dates coated in a crunchy candy shell',booth:'1346',exports:false,contacts:[]},
+  {brand:'Snack Creations',desc:'Snack Creations is a global leader in healthy snack innovation',booth:'7108',exports:false,contacts:[]},
+  {brand:'Snack Food & Wholesale Bakery / Candy Industry',desc:'Since 1944, Candy Industry has been covering the global confectionery industry',booth:'3600',exports:false,contacts:[]},
+  {brand:'Snackish',desc:'Eat chips every day',booth:'4278',exports:false,contacts:[]},
+  {brand:'Snak King LLC',desc:'',booth:'5022',exports:true,contacts:[]},
+  {brand:'Snapper Creek Jerky Company',desc:'We make 100% plant-based jerky made from seitan',booth:'5336',exports:false,contacts:[]},
+  {brand:'Snaxsational Brands, LLC',desc:'Chiquita® Snacks - Plantain Chips',booth:'3865',exports:true,contacts:[]},
+  {brand:'Sobisk Foods LLC',desc:'Sobisk Foods LLC is a leading manufacturer of Cookies, Crackers, Breakfast biscuits',booth:'1505',exports:false,contacts:[]},
+  {brand:'SOCKERBIT SWEDISH CANDY',desc:'Sockerbit, Swedish for sugar cube, was founded in 2010',booth:'4573',exports:false,contacts:[]},
+  {brand:'SOHOSNACKS',desc:'At SOHOSNACKS, we never cut corners',booth:'4113',exports:false,contacts:[]},
+  {brand:'soKusa',desc:'',booth:'1577',exports:false,contacts:[]},
+  {brand:'SOLEIL FOODS LLC',desc:'',booth:'3768',exports:false,contacts:[]},
+  {brand:'Solely',desc:'Solely makes irresistible fruit snacks from real organic fruit',booth:'4159',exports:false,contacts:[]},
+  {brand:'Solen Cikolata Gida San ve Tic AS',desc:'Established in 1989 in Turkey, Solen is a one-stop shop in confectionery',booth:'4937',exports:false,contacts:[]},
+  {brand:'Sollich North America',desc:'Sollich North America represents key European suppliers of food machinery',booth:'6302',exports:false,contacts:[]},
+  {brand:'Sonderen Packaging',desc:'We are a family-owned manufacturer of custom paperboard packaging',booth:'7024',exports:false,contacts:[]},
+  {brand:'Sonric\'s',desc:'',booth:'4873',exports:false,contacts:[]},
+  {brand:'SORAY CHOCOLATE & CANDY',desc:'Founded in 1978, SORAY Confectionery is a leading Turkish manufacturer',booth:'4213',exports:false,contacts:[]},
+  {brand:'Sour Tooth LLC',desc:'',booth:'5129',exports:false,contacts:[]},
+  {brand:'South Forty Snacks',desc:'At South Forty, we\'re reimagining what a bar can be',booth:'4075',exports:false,contacts:[]},
+  {brand:'Southwest Specialty Food Inc.',desc:'Southwest Specialty Food was established in 1986',booth:'3279',exports:false,contacts:[]},
+  {brand:'Space Walkers',desc:'Whether you are into adventurous flavors or timeless favorites',booth:'4663',exports:true,contacts:[]},
+  {brand:'Spangler Candy Company',desc:'',booth:'1835',exports:true,contacts:[]},
+  {brand:'Specialties of Mexico',desc:'',booth:'4962',exports:false,contacts:[]},
+  {brand:'Spectra Confectionery',desc:'',booth:'6217',exports:false,contacts:[]},
+  {brand:'SPI West Port Inc.',desc:'About SPI West Port Based in South San Francisco, marking its 30th anniversary',booth:'3476',exports:false,contacts:[]},
+  {brand:'Spicy Candy Bar',desc:'Spicy Candy Bar brings the heat to classic candy',booth:'2477',exports:false,contacts:[]},
+  {brand:'Spin Pop Novelty',desc:'Spin Pop is a Trade Marked interactive lollipop that combines candy and play',booth:'1473',exports:false,contacts:[]},
+  {brand:'Splendid Chocolates Ltd.',desc:'',booth:'2504',exports:false,contacts:[]},
+  {brand:'Spring & Mulberry Date-Sweetened Chocolate',desc:'Exploring sweet beyond sugar',booth:'5350',exports:false,contacts:[]},
+  {brand:'Spry',desc:'Spry Gum and Mints are sweetened with 100% xylitol',booth:'2373',exports:false,contacts:[]},
+  {brand:'Square',desc:'Square helps businesses turn transactions into connections',booth:'5416',exports:false,contacts:[]},
+  {brand:'Squire Boone Village',desc:'Manufacturer of 19 delicious flavors of Rock Crystal Candy since 1983',booth:'3331',exports:true,contacts:[]},
+  {brand:'St. Louis Food Ingredients',desc:'SLFI has been a trusted ingredient supplier to Sweets & Snacks companies for over 30 years',booth:'7009',exports:false,contacts:[]},
+  {brand:'Star Snacks Company LLC.',desc:'One of the largest direct importers and traders of nuts and dried fruits',booth:'5105',exports:true,contacts:[]},
+  {brand:'State Fair Mini Donuts',desc:'Hot & Fresh Mini Donuts - perfectly pre-fried in a conveyor oven',booth:'1500',exports:true,contacts:[]},
+  {brand:'Stellar Snacks, LLC',desc:'',booth:'3836',exports:true,contacts:[]},
+  {brand:'Stichler Products, Inc.',desc:'STICHLER PRODUCTS produces MEGA CANDY BUTTONS and various candy novelties',booth:'1548',exports:true,contacts:[]},
+  {brand:'Stone Creek Foods',desc:'Stone Creek is a packaged food company focusing on quality snack products',booth:'2776',exports:false,contacts:[]},
+  {brand:'Stonehedge Farms/Barcelona Nut',desc:'',booth:'4004',exports:true,contacts:[]},
+  {brand:'StoneRidge Wholesale',desc:'',booth:'1423',exports:true,contacts:[]},
+  {brand:'Storck',desc:'',booth:'2423',exports:false,contacts:[]},
+  {brand:'Stribbons, Inc.',desc:'Stribbons is a premier global manufacturer of custom packaging solutions',booth:'2411',exports:false,contacts:[]},
+  {brand:'Stryve Foods',desc:'',booth:'4622',exports:false,contacts:[]},
+  {brand:'Stuckey\'s',desc:'Classic Roadside Americana! Original roadside travel snack company since 1937',booth:'1636',exports:false,contacts:[]},
+  {brand:'SuckerPunch Pickles',desc:'SuckerPunch is redefining on-the-go snacking with all natural pickles',booth:'4101',exports:false,contacts:[]},
+  {brand:'Sugar Bliss',desc:'Sugar Bliss is a retail bakery and baked goods company',booth:'4507',exports:true,contacts:[]},
+  {brand:'Sugar Dreams Candy Co Inc.',desc:'Sugar Dreams Candy Co Inc. is a confectionery manufacturer specializing in baked good toppings',booth:'7124',exports:false,contacts:[]},
+  {brand:'Sugarox Candy Studio, LLC',desc:'Sugarox Candy Studio, makers of Tamalitoz by Sugarox',booth:'1526',exports:true,contacts:[]},
+  {brand:'SUMMIT C&T LLC',desc:'',booth:'1579',exports:false,contacts:[]},
+  {brand:'Sun Print Solutions',desc:'Printing, packaging, and Direct Mail - all in-house',booth:'7023',exports:false,contacts:[]},
+  {brand:'Sun Tropics, Inc.',desc:'Sun Tropics is a first generation Filipino-American family company',booth:'4470',exports:false,contacts:[]},
+  {brand:'Sunny Fruit',desc:'Our mission is to support the active lifestyle with healthy products',booth:'4064',exports:false,contacts:[]},
+  {brand:'Sunrich Products',desc:'Sunrich Products is a fully integrated supplier of sunflower ingredients',booth:'5014',exports:true,contacts:[]},
+  {brand:'SunRidge Farms/Falcon Trading',desc:'SunRidge Farms formed as part of the early healthy foods movements of the 1970s',booth:'4547',exports:true,contacts:[]},
+  {brand:'Sunway Nuts USA/ AnyYums',desc:'AnyYums was established in 2024 by Sunway Nuts USA',booth:'5167',exports:false,contacts:[]},
+  {brand:'Super Sours',desc:'Super Sours is a bold and innovative candy brand',booth:'2877',exports:false,contacts:[]},
+  {brand:'Superior Nut & Candy Co., Inc.',desc:'',booth:'4739',exports:false,contacts:[]},
+  {brand:'Superior Nut Company',desc:'Superior Nut Company is a third generation family-owned snack manufacturer since 1929',booth:'2501',exports:true,contacts:[]},
+  {brand:'Surreal Entertainment LLC',desc:'Surreal Entertainment offers fully licensed cotton and bagged candies',booth:'1353',exports:false,contacts:[]},
+  {brand:'Sutherland Packaging',desc:'Sutherland Packaging is a leading manufacturer of high-impact corrugated retail displays',booth:'7405',exports:false,contacts:[]},
+  {brand:'Sweeds Candy Distribution',desc:'',booth:'5127',exports:false,contacts:[]},
+  {brand:'Sweet Candy Company',desc:'',booth:'3347',exports:false,contacts:[]},
+  {brand:'Sweet Craft',desc:'Manufacturers of fine Italian-style individual portion desserts',booth:'4476',exports:false,contacts:[]},
+  {brand:'Sweet Haven Candy Co',desc:'Sweet Haven are individually wrapped chewy fruit candies',booth:'4104',exports:false,contacts:[]},
+  {brand:'Sweet Jubilee',desc:'We offer handmade chocolate products and unique cluster brittles',booth:'1554',exports:false,contacts:[]},
+  {brand:'Sweet N Fun Ltd.',desc:'',booth:'3154',exports:false,contacts:[]},
+  {brand:'Sweet on Vermont Artisan Confections',desc:'Specialty food shops - expand your profits with Sweet on Vermont',booth:'3874',exports:false,contacts:[]},
+  {brand:'Sweet Robo',desc:'',booth:'1239',exports:false,contacts:[]},
+  {brand:'Sweet Stash',desc:'Sweet Stash is a modern candy brand reinventing gummies with better ingredients',booth:'5560',exports:false,contacts:[]},
+  {brand:'Sweet Xile',desc:'We are a confectionery brand specializing in chamoy-coated gummy candies',booth:'2977',exports:false,contacts:[]},
+  {brand:'Sweets And Treats Candy',desc:'Sweets and Treats Candy is a wholesale confectionery distributor',booth:'2380',exports:false,contacts:[]},
+  {brand:'Taffy Shop',desc:'Taffy Shop is a U.S.-based manufacturer of small-batch saltwater taffy',booth:'1350',exports:false,contacts:[]},
+  {brand:'Taffy Town',desc:'Taffy Town is a family-owned candy company known for crafting premium salt water taffy',booth:'1905',exports:true,contacts:[]},
+  {brand:'Taiwan Mayumi Co., Ltd. (Brand: Kenji)',desc:'Since 1996, our brand has been built on love, care, and a commitment to family',booth:'4678',exports:false,contacts:[]},
+  {brand:'TAKARI',desc:'Importer and Distributor of Non-GMO Coconut products and more',booth:'1772',exports:false,contacts:[]},
+  {brand:'Takasago International Corp (USA)',desc:'',booth:'7218',exports:false,contacts:[]},
+  {brand:'TANAKOO',desc:'As a new snacking and confectionary company, we strive to offer products that make sweet moments',booth:'1510',exports:false,contacts:[]},
+  {brand:'Tannas Botannas',desc:'Tannas Botannas is a Hispanic-inspired candy and snack brand',booth:'1977',exports:false,contacts:[]},
+  {brand:'Tante Frida',desc:'Tante Frida is a premium brand known for its commitment to excellence in chocolate',booth:'1456',exports:false,contacts:[]},
+  {brand:'Taokaenoi USA, Inc.',desc:'Taokaenoi USA brings innovative Asian seaweed snacks to the U.S. market',booth:'4561',exports:false,contacts:[]},
+  {brand:'TARCZYNSKI INC',desc:'',booth:'3477',exports:false,contacts:[]},
+  {brand:'Taste of Nature Foods Inc.',desc:'At Taste of Nature, every snack is certified organic and non-GMO',booth:'4076',exports:false,contacts:[]},
+  {brand:'Taste of Nature, Inc.',desc:'For over 30 years, home of the legendary Cookie Dough Bites®',booth:'3737',exports:true,contacts:[]},
+  {brand:'Tastelli',desc:'',booth:'4608',exports:false,contacts:[]},
+  {brand:'TASTYCHOCO FOODSTUFF CO., LTD. GUANGDONG',desc:'Built in 2000, specialized in manufacturing chocolate products',booth:'3775',exports:false,contacts:[]},
+  {brand:'Taylor Prime Labels & Packaging',desc:'Taylor Corporation is a diversified North American provider of print and packaging',booth:'7408',exports:false,contacts:[]},
+  {brand:'Taylors Candy, Inc.',desc:'At Taylors Candy, we have spent over three decades perfecting candy-making',booth:'2969',exports:true,contacts:[]},
+  {brand:'TCHO Chocolate, B Corp',desc:'TCHO is mouth-watering chocolate that is 100% organic and fair-trade',booth:'4077',exports:true,contacts:[]},
+  {brand:'Tecnica Mexicana De Alimentacion / Prisma Luxus',desc:'',booth:'3759',exports:false,contacts:[]},
+  {brand:'Teddy\'s Tallow Chips',desc:'We are a family company producing potato chips cooked in non-GMO 100% pure beef tallow',booth:'1253',exports:false,contacts:[]},
+  {brand:'Terranean Pita Chips',desc:'We make pita chips featuring authentic pita bread and premium seasonings',booth:'4271',exports:false,contacts:[]},
+  {brand:'Texas Star Nut Food Co., Inc',desc:'',booth:'3733',exports:true,contacts:[]},
+  {brand:'TH Foods',desc:'TH Foods is a leading innovator in better-for-you snacks',booth:'2113',exports:true,contacts:[]},
+  {brand:'That Fudge Place',desc:'That Fudge Place is a Manufacturer and Distributor of Pre-Made Fudge',booth:'1459',exports:false,contacts:[]},
+  {brand:'That\'s it Nutrition LLC',desc:'',booth:'1557',exports:true,contacts:[]},
+  {brand:'The Belgian Chocolate Group NV',desc:'The Belgian Chocolate Group brings authentic Belgian chocolate to the global market',booth:'3270',exports:false,contacts:[]},
+  {brand:'The Best You Ever Ate',desc:'We are a passionate bakery brand dedicated to bold, exciting pastries',booth:'2972',exports:false,contacts:[]},
+  {brand:'The Brand Passport, Inc.',desc:'',booth:'3005',exports:false,contacts:[]},
+  {brand:'The Brownie Baker',desc:'IW Brownies, Muffins, Danish, Cinnamon Roll, Cookies, and Cakes',booth:'3374',exports:false,contacts:[]},
+  {brand:'The Farmer Companies',desc:'The Farmers Companies brings beloved brands into new food categories',booth:'4652',exports:false,contacts:[]},
+  {brand:'The Foreign Candy Company, Inc.',desc:'Since 1978, The Foreign Candy Company has been a leading marketer of global confections',booth:'1827',exports:false,contacts:[]},
+  {brand:'The Freeze Dried Candy Store',desc:'',booth:'1375',exports:true,contacts:[]},
+  {brand:'The General\'s Hot Sauce',desc:'',booth:'2777',exports:false,contacts:[]},
+  {brand:'The Gifting Company',desc:'',booth:'4052',exports:false,contacts:[]},
+  {brand:'The Good Crisp Company',desc:'The Good Crisp Company makes 6 flavors of Stacked Chips',booth:'3855',exports:true,contacts:[]},
+  {brand:'The Graceful Cookie',desc:'As a Premium Cookie Manufacturer, we craft artisan cookies for retail shelves',booth:'5163',exports:false,contacts:[]},
+  {brand:'The Hershey Company',desc:'The Hershey Company is an industry leading snacks company',booth:'2347',exports:false,contacts:[]},
+  {brand:'The J.M. Smucker Co',desc:'Smucker Away from Home is a division of The J.M. Smucker Company',booth:'3461',exports:false,contacts:[]},
+  {brand:'The Magnum Ice Cream Company',desc:'The Magnum Ice Cream Company is redefining the ice cream category',booth:'2077',exports:false,contacts:[]},
+  {brand:'The Nut Garden',desc:'The Nut Garden is a Utah based snack food company specializing in nuts and gummies',booth:'5417',exports:false,contacts:[]},
+  {brand:'The Nutty Bavarian',desc:'',booth:'4332',exports:true,contacts:[]},
+  {brand:'The Only Bean',desc:'The Only Bean transforms the edamame bean into innovative high-protein pantry staples',booth:'4065',exports:true,contacts:[]},
+  {brand:'The Other Side Foods',desc:'The Other Side Foods makes simply snackable freeze-dried fruit snacks',booth:'5550',exports:false,contacts:[]},
+  {brand:'The Pretzel Group, Inc.',desc:'Founded in 2024, The Pretzel Group is an emerging manufacturer in Salty Snacks',booth:'4621',exports:true,contacts:[]},
+  {brand:'The PUR Company',desc:'PUR is a market leader in better-for-you chewing gum and mints',booth:'2068',exports:false,contacts:[]},
+  {brand:'The Ricky Joy Company',desc:'The Ricky Joy Company, is a Georgia-based company specializing in fun beverages',booth:'4908',exports:false,contacts:[]},
+  {brand:'The Silver Crane Company Ltd.',desc:'With over 47 years of expertise in tin manufacturing',booth:'3605',exports:false,contacts:[]},
+  {brand:'The Snackatere',desc:'At The Snackatere, our snacks are created by a team with 50+ years of experience',booth:'3776',exports:true,contacts:[]},
+  {brand:'The South Bend Chocolate Co.',desc:'',booth:'3704',exports:true,contacts:[]},
+  {brand:'The Wisconsin Cheese Company - Wisconsin\'s Best',desc:'Delivers premium Wisconsin cheese and meat snacks',booth:'2757',exports:false,contacts:[]},
+  {brand:'Think Jerky',desc:'',booth:'3953',exports:true,contacts:[]},
+  {brand:'Thor\'s Chocolate',desc:'Thor\'s Chocolate is an artisan bean-to-bar chocolate company based in Idaho Falls',booth:'5338',exports:false,contacts:[]},
+  {brand:'Three Square Food Bank',desc:'',booth:'2684',exports:false,contacts:[]},
+  {brand:'Thrive Brands',desc:'Thrive Brands is dedicated to turning sweet treats into unforgettable experiences',booth:'3764',exports:true,contacts:[]},
+  {brand:'Tillamook Country Smoker',desc:'',booth:'1523',exports:true,contacts:[]},
+  {brand:'Tiltay Popping Candy',desc:'',booth:'4205',exports:false,contacts:[]},
+  {brand:'Tipton Corp.',desc:'Tipton demonstrates multi-spin coating equipment ECX',booth:'6431',exports:false,contacts:[]},
+  {brand:'TIVOLI Sweets America Inc.',desc:'TIVOLI Sweets America Inc. is the US entity of TIVOLI Holdings, a well known cookie manufacturer',booth:'3158',exports:false,contacts:[]},
+  {brand:'TJ CANDY',desc:'TJ Candy is a California-based importer and distributor specializing in Mexican confectionery',booth:'4968',exports:false,contacts:[]},
+  {brand:'TNA North America',desc:'TNA is a complete solutions partner for food manufacturers',booth:'6113',exports:false,contacts:[]},
+  {brand:'Toad-Ally Snax',desc:'Toad-Ally Snax is a trusted snack & confectionery brand since 1983',booth:'2611',exports:true,contacts:[]},
+  {brand:'Tom & Ollie Food Corp.',desc:'',booth:'1515',exports:false,contacts:[]},
+  {brand:'Tomric Systems, Inc.',desc:'',booth:'6103',exports:false,contacts:[]},
+  {brand:'Tony\'s Chocolonely',desc:'Tony\'s Chocolonely makes incredibly tasty chocolate on a mission to end exploitation',booth:'3072',exports:false,contacts:[]},
+  {brand:'Too Good Gourmet',desc:'Cookie Manufacturer with more than 28 years of experience, largest Women-Owned Cookie Company',booth:'3850',exports:true,contacts:[]},
+  {brand:'TooTarts',desc:'Tootarts has been making fun candy for 30 years',booth:'2475',exports:true,contacts:[]},
+  {brand:'TOOTSI IMPEX USA',desc:'Tootsi Impex Inc. is a leading North American manufacturer and distributor of snacks',booth:'4247',exports:false,contacts:[]},
+  {brand:'Tootsie Roll Industries, Inc.',desc:'',booth:'2535',exports:true,contacts:[]},
+  {brand:'Top Fox Snacks',desc:'Time to Snack Like A Fox! We make snacks from real, recognizable foods',booth:'1524',exports:false,contacts:[]},
+  {brand:'Top Health Ingredients',desc:'Top Health Ingredients is a leading supplier of premium plant-based, non-GMO ingredients',booth:'6319',exports:false,contacts:[]},
+  {brand:'Top-Shelf Fixtures, LLC',desc:'Top-Shelf Fixtures is a private California-based manufacturer of merchandising fixtures',booth:'1458',exports:false,contacts:[]},
+  {brand:'TOREN GIDA SANAYI VE TICARET A.S.',desc:'Toren Gida started in 2003, producing high quality wafers and chocolates',booth:'4711',exports:false,contacts:[]},
+  {brand:'Tosi',desc:'Whole ingredients for the whole family',booth:'4469',exports:false,contacts:[]},
+  {brand:'Tradin Organic',desc:'Tradin Organic is a leader in organic, plant-based ingredients',booth:'6314',exports:false,contacts:[]},
+  {brand:'Traina Foods',desc:'From its family ranch in California\'s San Joaquin Valley, Traina® Foods grows and sun-dries premium fruit',booth:'5164',exports:true,contacts:[]},
+  {brand:'Treat Kitchen',desc:'Treat Kitchen are a UK based confectionery and food gifting brand',booth:'5542',exports:false,contacts:[]},
+  {brand:'TrendyTreats',desc:'',booth:'5301',exports:true,contacts:[]},
+  {brand:'Triko Foods Co., Ltd.',desc:'',booth:'5111',exports:false,contacts:[]},
+  {brand:'Trophy Nut Co.',desc:'',booth:'3404',exports:true,contacts:[]},
+  {brand:'Tru Fru LLC',desc:'',booth:'3037',exports:true,contacts:[]},
+  {brand:'Tru-Vision Plastics, Inc.',desc:'',booth:'7311',exports:false,contacts:[]},
+  {brand:'True Dates / Pandy / Swedish Candy',desc:'Pändy is the worlds #1 sugar-free Swedish Candy brand',booth:'3612',exports:false,contacts:[]},
+  {brand:'Truly Good Foods',desc:'',booth:'4025',exports:false,contacts:[]},
+  {brand:'Turkey Hill Sugarbush',desc:'Turkey Hill Sugarbush is a maple producer with nearly 50 years of experience',booth:'4133',exports:false,contacts:[]},
+  {brand:'Tutor Intelligence',desc:'',booth:'7031',exports:false,contacts:[]},
+  {brand:'TWIGZ Pretzels',desc:'',booth:'2872',exports:false,contacts:[]},
+  {brand:'Uglies Kettle Chips',desc:'Uglies® Kettle Chips are crafted from Upcycled potatoes',booth:'4158',exports:true,contacts:[]},
+  {brand:'Uncle Ray\'s, LLC',desc:'Uncle Ray\'s is a national potato chip and snack food brand',booth:'3071',exports:true,contacts:[]},
+  {brand:'Undercover Snacks',desc:'',booth:'4364',exports:true,contacts:[]},
+  {brand:'Unfortunate Brands',desc:'Unfortunate Cookies are a delicious new twist on traditional fortune cookies',booth:'5558',exports:false,contacts:[]},
+  {brand:'UNIQUE SNACKS',desc:'',booth:'3710',exports:true,contacts:[]},
+  {brand:'UNiTE Food',desc:'UNiTE Food is the world\'s first globally inspired protein bar brand',booth:'4552',exports:false,contacts:[]},
+  {brand:'United Sugar Producers & Refiners',desc:'USPR is a leading supplier of high-quality sugar products',booth:'6214',exports:false,contacts:[]},
+  {brand:'Universal Yums',desc:'',booth:'1634',exports:false,contacts:[]},
+  {brand:'UNREAL',desc:'',booth:'4447',exports:false,contacts:[]},
+  {brand:'Utah PaperBox',desc:'Packaging Excellence since founding',booth:'7110',exports:false,contacts:[]},
+  {brand:'Utz Quality Foods',desc:'',booth:'2219',exports:true,contacts:[]},
+  {brand:'Valley Pop',desc:'We aren\'t BIG Food. We are BIG TASTE!',booth:'2968',exports:false,contacts:[]},
+  {brand:'Valued Naturals',desc:'',booth:'2069',exports:false,contacts:[]},
+  {brand:'Van der Meer Chocolates',desc:'Van der Meer Chocolates is a family-owned chocolatier with over 40 years',booth:'2576',exports:true,contacts:[]},
+  {brand:'Van Holten\'s',desc:'We\'re Van Holten\'s, the makers of the original Pickle-In-A-Pouch',booth:'2121',exports:true,contacts:[]},
+  {brand:'Vandal Gummy Bears by WhIsBe',desc:'Founded by contemporary artist WhIsBe, Vandal Gummy Bears',booth:'1412',exports:false,contacts:[]},
+  {brand:'Vanelli Chcolate',desc:'We produce all about confectionery',booth:'5123',exports:false,contacts:[]},
+  {brand:'VC999 Packaging Systems',desc:'',booth:'6418',exports:false,contacts:[]},
+  {brand:'Veggie Vice',desc:'',booth:'5362',exports:false,contacts:[]},
+  {brand:'Velondi Brands Inc.',desc:'Gupperz challenges conventional notions of what gummy candy could be',booth:'3410',exports:false,contacts:[]},
+  {brand:'Venus Biscuits',desc:'',booth:'3361',exports:false,contacts:[]},
+  {brand:'Venus Brands, Inc.',desc:'Delicious, healthful crackers, flatbreads, and salty snacks since 1931',booth:'3958',exports:false,contacts:[]},
+  {brand:'Veritiv',desc:'Veritiv partners with confectionery and snack manufacturers to keep products moving',booth:'7324',exports:false,contacts:[]},
+  {brand:'VerMints Inc.',desc:'',booth:'2510',exports:true,contacts:[]},
+  {brand:'Vermont Nut Free Chocolates',desc:'Vermont Nut Free Chocolates produces high-quality, nut-free chocolates',booth:'4481',exports:true,contacts:[]},
+  {brand:'Vermont Smoke & Cure',desc:'We are a proud, rural smokehouse in Hinesburg, Vermont',booth:'4347',exports:false,contacts:[]},
+  {brand:'Verse Chocolate',desc:'Introducing Verse, chocolate sung to a different tune',booth:'3110',exports:false,contacts:[]},
+  {brand:'Vicenzi USA, Inc.',desc:'Matilde Vicenzi is an iconic, global brand of AUTHENTIC Italian fine pastries',booth:'3751',exports:false,contacts:[]},
+  {brand:'Victor Packing',desc:'',booth:'3102',exports:true,contacts:[]},
+  {brand:'Vidal Candies USA, Inc.',desc:'Vidal Candies constant entrepreneurial mindset has led to continuous improvement',booth:'1815',exports:false,contacts:[]},
+  {brand:'Vigos Chocolate',desc:'Vigos chocolate establishment in Gaziantep in Turkey with 30 years experience',booth:'5309',exports:false,contacts:[]},
+  {brand:'Violet Crumble',desc:'About Robern Menz: 150 years of Tradition, 4th Generation Family Confectionery Company',booth:'3063',exports:false,contacts:[]},
+  {brand:'Virginia Diner - FERIDIES',desc:'Premium Virginia Peanuts and Snack Mixes',booth:'3779',exports:true,contacts:[]},
+  {brand:'Vision Group Retail',desc:'Vision Group is the world\'s Leading AI-driven End-to-end Solution Platform',booth:'7010',exports:false,contacts:[]},
+  {brand:'Von Hanson\'s Snacks',desc:'Minnesota based snack company best known for seasoned pretzels',booth:'5151',exports:false,contacts:[]},
+  {brand:'VPETUSA.COM',desc:'',booth:'6021',exports:false,contacts:[]},
+  {brand:'Wabash Valley Farms',desc:'',booth:'4728',exports:true,contacts:[]},
+  {brand:'Wally and Whiz US',desc:'At Wally and Whiz, we have reinvented the traditional gummy',booth:'5305',exports:false,contacts:[]},
+  {brand:'Walong Marketing, Inc.',desc:'Established in 2000, Walong Marketing Inc is the #1 Asian food distributor in the U.S.',booth:'4679',exports:false,contacts:[]},
+  {brand:'Wang Globalnet',desc:'Wang Globalnet is a subsidiary of Samjin Globalnet, established in Korea in 1970',booth:'1581',exports:false,contacts:[]},
+  {brand:'Want-Want North America',desc:'',booth:'3929',exports:false,contacts:[]},
+  {brand:'Wavers by Doughbrik\'s',desc:'',booth:'1359',exports:false,contacts:[]},
+  {brand:'We Are Nuts',desc:'',booth:'2471',exports:false,contacts:[]},
+  {brand:'Weaver Popcorn Manufacturing',desc:'Weaver Popcorn Manufacturing is a global leader in popping corn production',booth:'4720',exports:false,contacts:[]},
+  {brand:'Weber Display & Packaging',desc:'Weber Display & Packaging is a full-service, family-owned manufacturer of corrugated displays',booth:'6609',exports:false,contacts:[]},
+  {brand:'Wen & Winnie Trading LLC',desc:'Asian Food & Beverage Brands Importer and Distributor',booth:'5028',exports:false,contacts:[]},
+  {brand:'Wenzel\'s Farm',desc:'Tucked away in the heart of dairy land, Wenzel\'s Farm is an award-winning premium provider',booth:'4204',exports:false,contacts:[]},
+  {brand:'Werner Gourmet Meat Snacks',desc:'Founded by the Werners in 1994, Werner Gourmet Meat Snacks started making beef jerky',booth:'3705',exports:true,contacts:[]},
+  {brand:'Whitley\'s Peanut Factory',desc:'For 40 years, Whitley\'s Peanut Factory has been producing gourmet Virginia peanuts',booth:'4380',exports:false,contacts:[]},
+  {brand:'Wicked Crisps',desc:'Wicked Crisps is a Greensboro-based snack food manufacturer since 1982',booth:'3359',exports:true,contacts:[]},
+  {brand:'Wicked Cutz LLC',desc:'',booth:'1433',exports:false,contacts:[]},
+  {brand:'Wicklein',desc:'With roots dating back to 1615, Wicklein has stood for traditional baking craftsmanship',booth:'4007',exports:false,contacts:[]},
+  {brand:'Wild Fox Foods',desc:'At Wild Fox Foods, we believe snacks should be delicious and made with quality ingredients',booth:'5109',exports:false,contacts:[]},
+  {brand:'Wilde Brands',desc:'WILDE was born from Southern roots and a craving for healthier snacks',booth:'4563',exports:false,contacts:[]},
+  {brand:'Wine Chips, Inc.',desc:'Wine Chips is a luxury potato chip designed by Master Sommeliers',booth:'5000',exports:false,contacts:[]},
+  {brand:'Winnuts Ltd Co',desc:'',booth:'4865',exports:false,contacts:[]},
+  {brand:'Wise Foods & Deep River Snacks',desc:'',booth:'2569',exports:false,contacts:[]},
+  {brand:'Witor\'s America',desc:'With over 60 years of experience, Witor\'s is a leading Italian chocolate company',booth:'1405',exports:false,contacts:[]},
+  {brand:'Wolf-Packing Machine Company',desc:'Veteran-owned packaging automation company',booth:'7400',exports:false,contacts:[]},
+  {brand:'Wolfgang Confectioners',desc:'For more than a century, Wolfgang Confectioners has built its reputation on genuine partnerships',booth:'3639',exports:false,contacts:[]},
+  {brand:'Wonderful Pistachios',desc:'Wonderful Pistachios & Almonds is the world\'s largest vertically integrated pistachio grower',booth:'3935',exports:true,contacts:[]},
+  {brand:'Woodstock Farms Custom Snacks',desc:'Manufacturer specializing in bulk and private label packaged snacks',booth:'4578',exports:false,contacts:[]},
+  {brand:'Woody Candy Company',desc:'Woody Candy Company is proud to be Oklahoma\'s oldest candy manufacturer since 1927',booth:'1454',exports:false,contacts:[]},
+  {brand:'World\'s Finest Chocolate, Inc.',desc:'World\'s Finest Chocolate is a purpose-driven confectionery company since 1949',booth:'2810',exports:true,contacts:[]},
+  {brand:'WRH Industries, Ltd.',desc:'',booth:'6501',exports:false,contacts:[]},
+  {brand:'Wright Packaging',desc:'Wright Packaging is a full-service folding carton manufacturer',booth:'7215',exports:false,contacts:[]},
+  {brand:'Wuhan Holly Foods Company Limited',desc:'Founded in 2014, Wuhan Holly Foods Company Limited',booth:'5226',exports:false,contacts:[]},
+  {brand:'Wyandot Snacks',desc:'Wyandot Snacks is a leading full-service snack food manufacturer',booth:'2211',exports:false,contacts:[]},
+  {brand:'Xaca Cantina',desc:'XACA is where heritage meets innovation, drawing on the culinary legacy of Oaxaca',booth:'5324',exports:false,contacts:[]},
+  {brand:'XIAMEN FENGLONGYUAN TRADING CO.,LTD',desc:'Professional supplier and exporter of confectionery',booth:'4827',exports:false,contacts:[]},
+  {brand:'XIAMEN OUYUE INDUSTRY & TRADING CO., LTD',desc:'KANDYTOY FOUNDED IN 2014, specialized in liquid candy, hard candy',booth:'4302',exports:false,contacts:[]},
+  {brand:'XIAMEN YING WAN FOODSTUFF CO., LTD.',desc:'Set up since 1996, manufacture of attractive candy toys and pressed candy',booth:'4831',exports:false,contacts:[]},
+  {brand:'Xochitl, Inc.',desc:'',booth:'3454',exports:true,contacts:[]},
+  {brand:'XOLERTIC INC',desc:'At XOLERTIC, we help candy and chocolate manufacturers with end-of-line operations',booth:'7229',exports:false,contacts:[]},
+  {brand:'XOX Gebaeck GmbH',desc:'XOX Gebäck is a family-owned business and the third-largest snack producer in Germany',booth:'4114',exports:false,contacts:[]},
+  {brand:'Yaxin Flexible Packaging',desc:'Yaxin Flexible Packaging specializes in pouches for leading food companies worldwide',booth:'6109',exports:false,contacts:[]},
+  {brand:'Yes, Please!',desc:'At Yes, Please!, we celebrate family traditions by crafting nostalgic snacks',booth:'1425',exports:false,contacts:[]},
+  {brand:'You Love Fruit',desc:'Our Organic fruit snacks are made better with tree-ripened fruits',booth:'4458',exports:false,contacts:[]},
+  {brand:'YOW! Brands',desc:'Yow! Brands is an innovative Australian/USA confectionery company',booth:'3128',exports:true,contacts:[]},
+  {brand:'YumEarth, Inc.',desc:'',booth:'1436',exports:false,contacts:[]},
+  {brand:'Zachary Confections, Inc.',desc:'',booth:'2747',exports:true,contacts:[]},
+  {brand:'Zack\'s Mighty',desc:'We built a better chip using Organic, Non-GMO ingredients cooked in 100% Avocado Oil',booth:'4171',exports:false,contacts:[]},
+  {brand:'Zaloom Corporation',desc:'Zaloom Corporation is a leading importer of premium snack mix components',booth:'2125',exports:true,contacts:[]},
+  {brand:'Zappo',desc:'Zappo chews bring bold sour hits inspired by the Australian Boxing Kangaroo',booth:'1563',exports:false,contacts:[]},
+  {brand:'ZDA S.A.',desc:'ZD Alimentos S.A. is a Brazilian food industry specialized in confectionery',booth:'4410',exports:false,contacts:[]},
+  {brand:'Zesty Snackz',desc:'Founded by Brenten, creator of Zesty Snackz and the YouTube channel Finatic',booth:'5330',exports:false,contacts:[]},
+  {brand:'Zhong Bang Fu Tong International Trade',desc:'PRIMUM FINE FOOD CO., LTD IS A LEADING INTEGRATED MANUFACTURER',booth:'5225',exports:false,contacts:[]},
+  {brand:'ZHONG SHI JIA FOOD TECHNOLOGY (JIANGSU) CO., LTD.',desc:'An industrial and trade enterprise of candy research and development',booth:'4833',exports:false,contacts:[]},
+  {brand:'Zolli Candy - America\'s Healthy Candy',desc:'Zolli Candy delivers delicious, fun, zero-sugar candy for all ages',booth:'4157',exports:true,contacts:[]},
+  {brand:'Zumba Pica',desc:'In Zumbapica we are dedicated to satisfy cravings with chili and tamarind candy',booth:'4958',exports:false,contacts:[]}
+];
+
+// ─── EXHIBITOR CARD (simpler — no contacts list in header) ───────────────────
+function renderExhibitorCard(item) {
+  const id = 'exh_' + item.booth.replace(/[^a-zA-Z0-9]/g,'_') + '_' + item.brand.replace(/\W/g,'');
+  const s = getCardState(id);
+  const exportBadge = item.exports ? '<span class="export-badge">Exports</span>' : '';
+
+  return `
+  <div class="card" id="card_${id}">
+    <div class="card-header" onclick="toggleCard('${id}')">
+      <div class="booth-badge">#${item.booth}</div>
+      <div class="card-info">
+        <div class="card-brand">${item.brand}</div>
+        ${item.desc ? `<div class="card-meta">${item.desc.slice(0,60)}${item.desc.length>60?'…':''}</div>` : ''}
+      </div>
+      <div class="card-right">
+        ${exportBadge}
+        <button class="star-btn ${s.starred ? 'starred' : ''}" onclick="toggleStar(event,'${id}')" title="Star">★</button>
+        <span class="chevron">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="status-row">
+        <button class="status-pill ${s.statuses.includes('visited')?'selected':''}" data-s="visited" onclick="setStatus('${id}','visited',this)">✓ Visited</button>
+        <button class="status-pill ${s.statuses.includes('followup')?'selected':''}" data-s="followup" onclick="setStatus('${id}','followup',this)">🔥 Follow Up</button>
+        <button class="status-pill ${s.statuses.includes('skip')?'selected':''}" data-s="skip" onclick="setStatus('${id}','skip',this)">✕ Skip</button>
+      </div>
+      ${item.desc ? `<div class="card-desc" style="margin-bottom:10px">${item.desc}</div>` : ''}
+      <div class="ae-row">
+        <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0">AE</span>
+        <input type="text" id="ae_${id}" class="ae-input" placeholder="Account Executive name…" value="${s.ae||''}" oninput="autoSaveAE('${id}')">
+        <span class="saved-flash" id="ae_flash_${id}" style="flex-shrink:0">✓</span>
+      </div>
+      <div class="notes-label">Notes</div>
+      <textarea id="notes_${id}" placeholder="Tap to add meeting notes…" oninput="autoSaveNote('${id}')">${s.notes||''}</textarea>
+      <div>
+        <button class="save-note-btn" onclick="saveNote('${id}')">Save Notes</button>
+        <span class="saved-flash" id="flash_${id}">Saved ✓</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const state = JSON.parse(localStorage.getItem('sseState2026') || '{}');
+let starFilterOn = false;
+
+function saveState() {
+  localStorage.setItem('sseState2026', JSON.stringify(state));
+}
+
+function getCardState(id) {
+  if (!state[id]) state[id] = { statuses: [], notes: '', starred: false, ae: '' };
+  // migrate old single-status string to array
+  if (typeof state[id].status === 'string') {
+    state[id].statuses = state[id].status ? [state[id].status] : [];
+    delete state[id].status;
+  }
+  if (!state[id].statuses) state[id].statuses = [];
+  if (!state[id].ae) state[id].ae = '';
+  return state[id];
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function initials(name) {
+  return name.split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+}
+
+function engPips(eng) {
+  if (!eng || eng === '-') return '';
+  const n = Math.min(parseInt(eng)||0, 10);
+  let html = '<div class="engagement-pip">';
+  for (let i = 0; i < 5; i++) {
+    const lit = i < Math.ceil(n/2);
+    const hot = n >= 8 && lit;
+    html += `<div class="pip${lit?' lit':''}${hot?' hot':''}"></div>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderContacts(contacts) {
+  if (!contacts || !contacts.length) return '<div style="color:var(--muted);font-size:0.78rem;padding:4px 0;">No contacts listed</div>';
+  return contacts.map(c => `
+    <div class="contact-row ${c.key ? 'key-contact' : ''}">
+      <div class="contact-avatar">${initials(c.name)}</div>
+      <div>
+        <div class="contact-name">${c.name}</div>
+        <div class="contact-title">${c.title}</div>
+      </div>
+      ${c.eng ? engPips(c.eng) : ''}
+    </div>
+  `).join('');
+}
+
+function renderCard(item, idPrefix) {
+  const id = idPrefix + '_' + item.booth + '_' + item.brand.replace(/\W/g,'');
+  const s = getCardState(id);
+  const ownerHtml = item.owner ? `<span class="owner-chip">${item.owner}</span>` : '';
+
+  return `
+  <div class="card" id="card_${id}">
+    <div class="card-header" onclick="toggleCard('${id}')">
+      <div class="booth-badge">#${item.booth}</div>
+      <div class="card-info">
+        <div class="card-brand">${item.brand}</div>
+        <div class="card-meta">${item.contacts.length ? item.contacts[0].name + (item.contacts.length > 1 ? ` +${item.contacts.length-1}` : '') : 'No contacts'}</div>
+      </div>
+      <div class="card-right">
+        ${ownerHtml}
+        <button class="star-btn ${s.starred ? 'starred' : ''}" onclick="toggleStar(event,'${id}')" title="Star">★</button>
+        <span class="chevron">▾</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="status-row">
+        <button class="status-pill ${s.statuses.includes('visited')?'selected':''}" data-s="visited" onclick="setStatus('${id}','visited',this)">✓ Visited</button>
+        <button class="status-pill ${s.statuses.includes('followup')?'selected':''}" data-s="followup" onclick="setStatus('${id}','followup',this)">🔥 Follow Up</button>
+        <button class="status-pill ${s.statuses.includes('skip')?'selected':''}" data-s="skip" onclick="setStatus('${id}','skip',this)">✕ Skip</button>
+      </div>
+      <div class="ae-row">
+        <span style="color:var(--muted);font-size:0.72rem;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0">AE</span>
+        <input type="text" id="ae_${id}" class="ae-input" placeholder="Account Executive name…" value="${s.ae||''}" oninput="autoSaveAE('${id}')">
+        <span class="saved-flash" id="ae_flash_${id}" style="flex-shrink:0">✓</span>
+      </div>
+      <div class="contacts-section">
+        <div class="contacts-label">Contacts</div>
+        ${renderContacts(item.contacts)}
+      </div>
+      <div class="notes-label">Notes</div>
+      <textarea id="notes_${id}" placeholder="Tap to add meeting notes…" oninput="autoSaveNote('${id}')">${s.notes||''}</textarea>
+      <div>
+        <button class="save-note-btn" onclick="saveNote('${id}')">Save Notes</button>
+        <span class="saved-flash" id="flash_${id}">Saved ✓</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── ACTIONS ─────────────────────────────────────────────────────────────────
+function toggleCard(id) {
+  const card = document.getElementById('card_' + id);
+  card.classList.toggle('open');
+}
+
+function toggleStar(e, id) {
+  e.stopPropagation();
+  const s = getCardState(id);
+  s.starred = !s.starred;
+  saveState();
+  const btn = e.currentTarget;
+  btn.classList.toggle('starred', s.starred);
+  if (starFilterOn) renderAll();
+}
+
+function setStatus(id, status, btn) {
+  const s = getCardState(id);
+  const idx = s.statuses.indexOf(status);
+  if (idx >= 0) {
+    s.statuses.splice(idx, 1);
+    btn.classList.remove('selected');
+  } else {
+    s.statuses.push(status);
+    btn.classList.add('selected');
+  }
+  saveState();
+  updateSummary();
+}
+
+function saveAE(id) {
+  const input = document.getElementById('ae_' + id);
+  if (!input) return;
+  const s = getCardState(id);
+  s.ae = input.value;
+  saveState();
+  const flash = document.getElementById('ae_flash_' + id);
+  if (flash) { flash.classList.add('show'); setTimeout(() => flash.classList.remove('show'), 1200); }
+}
+
+let saveTimers = {};
+function autoSaveNote(id) {
+  clearTimeout(saveTimers[id]);
+  saveTimers[id] = setTimeout(() => saveNote(id, true), 1500);
+}
+
+let aeTimers = {};
+function autoSaveAE(id) {
+  clearTimeout(aeTimers[id]);
+  aeTimers[id] = setTimeout(() => saveAE(id), 800);
+}
+
+function saveNote(id, silent) {
+  const ta = document.getElementById('notes_' + id);
+  if (!ta) return;
+  const s = getCardState(id);
+  s.notes = ta.value;
+  saveState();
+  updateSummary();
+  if (!silent) {
+    const flash = document.getElementById('flash_' + id);
+    if (flash) {
+      flash.classList.add('show');
+      setTimeout(() => flash.classList.remove('show'), 1500);
+    }
+  }
+}
+
+function toggleStarFilter() {
+  starFilterOn = !starFilterOn;
+  document.getElementById('starFilter').classList.toggle('active', starFilterOn);
+  renderAll();
+}
+
+// ─── SEARCH ──────────────────────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('input', renderAll);
+
+function matchesSearch(item, q) {
+  if (!q) return true;
+  const lower = q.toLowerCase();
+  if (item.brand.toLowerCase().includes(lower)) return true;
+  if (item.booth.includes(lower)) return true;
+  if ((item.owner||'').toLowerCase().includes(lower)) return true;
+  if ((item.desc||'').toLowerCase().includes(lower)) return true;
+  return (item.contacts||[]).some(c => c.name.toLowerCase().includes(lower) || c.title.toLowerCase().includes(lower));
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function renderAll() {
+  const q = document.getElementById('searchInput').value.trim();
+
+  // Priority tab — shows all starred items from Outreach Accounts + All Exhibitors
+  const priPanel = document.getElementById('tab-priority');
+  const starredOutreach = allBooths.filter(i => {
+    const id = 'all_' + i.booth + '_' + i.brand.replace(/\W/g,'');
+    return getCardState(id).starred && matchesSearch(i, q);
+  });
+  const starredExhibitors = allExhibitors.filter(i => {
+    const id = 'exh_' + i.booth.replace(/[^a-zA-Z0-9]/g,'_') + '_' + i.brand.replace(/\W/g,'');
+    return getCardState(id).starred && matchesSearch(i, q);
+  });
+  const totalPri = starredOutreach.length + starredExhibitors.length;
+  if (totalPri === 0) {
+    priPanel.innerHTML = '<div class="empty">No starred accounts yet — star brands in Outreach Accounts or All Exhibitors to add them here.</div>';
+  } else {
+    priPanel.innerHTML =
+      (starredOutreach.length ? '<div class="section-label" style="padding-top:8px">Outreach Accounts (' + starredOutreach.length + ')</div>' + starredOutreach.map(i => renderCard(i,'all')).join('') : '') +
+      (starredExhibitors.length ? '<div class="section-label" style="padding-top:8px">All Exhibitors (' + starredExhibitors.length + ')</div>' + starredExhibitors.map(i => renderExhibitorCard(i)).join('') : '');
+  }
+
+  // All tab
+  const allPanel = document.getElementById('tab-all');
+  const allFiltered = allBooths.filter(i => {
+    if (starFilterOn && !getCardState('all_' + i.booth + '_' + i.brand.replace(/\W/g,'')).starred) return false;
+    return matchesSearch(i, q);
+  });
+  allPanel.innerHTML = allFiltered.length
+    ? '<div class="section-label" style="padding-top:8px">Outreach Accounts</div>' + allFiltered.map(i => renderCard(i,'all')).join('')
+    : '<div class="empty">No matches found</div>';
+
+  // All Exhibitors tab
+  const exhPanel = document.getElementById('tab-exhibitors');
+  const exhFiltered = allExhibitors.filter(i => {
+    if (starFilterOn && !getCardState('exh_' + i.booth.replace(/[^a-zA-Z0-9]/g,'_') + '_' + i.brand.replace(/\W/g,'')).starred) return false;
+    return matchesSearch(i, q);
+  });
+  exhPanel.innerHTML = exhFiltered.length
+    ? `<div class="section-label" style="padding-top:8px">All Exhibitors (${exhFiltered.length})</div>` + exhFiltered.map(i => renderExhibitorCard(i)).join('')
+    : '<div class="empty">No matches found</div>';
+
+  updateSummary();
+}
+
+function updateSummary() {
+  const allItems = [
+    ...priorityMeetings.map(i => ({id:'pri_'+i.booth+'_'+i.brand.replace(/\W/g,''), brand:i.brand})),
+    ...allBooths.map(i => ({id:'all_'+i.booth+'_'+i.brand.replace(/\W/g,''), brand:i.brand})),
+    ...allExhibitors.map(i => ({id:'exh_'+i.booth.replace(/[^a-zA-Z0-9]/g,'_')+'_'+i.brand.replace(/\W/g,''), brand:i.brand})),
+  ];
+  // dedupe by brand
+  const seen = new Set();
+  const unique = allItems.filter(i => { if(seen.has(i.brand)) return false; seen.add(i.brand); return true; });
+
+  const total = unique.length;
+  const visited = unique.filter(i => (getCardState(i.id).statuses||[]).includes('visited')).length;
+  const followup = unique.filter(i => (getCardState(i.id).statuses||[]).includes('followup')).length;
+  const withNotes = unique.filter(i => (getCardState(i.id).notes||'').trim().length > 0).length;
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-visited').textContent = visited;
+  document.getElementById('stat-followup').textContent = followup;
+  document.getElementById('stat-notes').textContent = withNotes;
+
+  const notesList = document.getElementById('notes-summary-list');
+  const noted = unique.filter(i => (getCardState(i.id).notes||'').trim().length > 0);
+  if (!noted.length) {
+    notesList.innerHTML = '<div class="no-notes">No notes yet — tap a card to add some!</div>';
+  } else {
+    notesList.innerHTML = noted.map(i => `
+      <div class="note-summary-row">
+        <div class="note-summary-brand">${i.brand}</div>
+        <div class="note-summary-text">${getCardState(i.id).notes.slice(0,120)}${getCardState(i.id).notes.length>120?'…':''}</div>
+      </div>
+    `).join('');
+  }
+}
+
+// ─── TABS ────────────────────────────────────────────────────────────────────
+function switchTab(tab, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+  if (tab === 'summary') updateSummary();
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderAll();
+</script>
+</body>
+</html>
